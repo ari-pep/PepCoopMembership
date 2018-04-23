@@ -7,7 +7,7 @@
       i18n:domain="c3smembership">
   <tal:block metal:fill-slot="middle">
     <h3 i18n:translate="verify-email-title">
-      C3S Membership Application: Email Verification
+      p≡p coop Membership Application: Email Verification
     </h3>
     <h4 style="color:red">${result_msg}</h4>
   </tal:block>
