@@ -68,11 +68,14 @@
             <span i18n:translate=''>Country</span>:&nbsp; ${request.session['appstruct']['person']['country']}<br />
             <span i18n:translate=''>Date of Birth</span>:&nbsp; ${request.session['appstruct']['person']['date_of_birth']}<br />
         </p>
-
+        <h4 class="c3s-subheading-4" i18n:translate=''>Membership Requirements</h4>
+        <p>
+            <span i18n:translate=''>Type of Membership</span>:&nbsp;${request.session['appstruct']['membership_info']['membership_type']} <br />
+        </p>
         <h4 class="c3s-subheading-4" i18n:translate=''>Shares</h4>
         <p>
             <span i18n:translate=''>Number of Shares</span>:&nbsp; ${request.session['appstruct']['shares']['num_shares']}<br />
-            <span i18n:translate=''>Cost of Shares (50 € each)</span>:&nbsp; ${int(request.session['appstruct']['shares']['num_shares']) * 50} €<br />
+            <span i18n:translate=''>Cost of Shares (10 € each)</span>:&nbsp; ${int(request.session['appstruct']['shares']['num_shares']) * 10} €<br />
         </p>
         <p i18n:translate="success-paragraph-change-details">
             In case there are errors or you want to change details:
