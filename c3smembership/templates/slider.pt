@@ -12,11 +12,11 @@ $(function() {
   $( "#slider-div-num_shares" ).slider({
     range: "max",
     min: 1,
-    max: 60,
+    max: 3001,
     value: ${cstruct},
     slide: function( event, ui ) {
       $( "#num_shares" ).val( ui.value );
-      $( "#num_shares-calculated" ).val( ui.value * 50 );
+      $( "#num_shares-calculated" ).val( ui.value * 10 );
     }
   });
   $( "#num_shares" ).val( $( "#slider-div-num_shares" ).slider( "value" ) );
