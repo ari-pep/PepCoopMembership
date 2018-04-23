@@ -21,7 +21,7 @@
     <div id="top">
       <div class="top align-center">
         <div><img src="${request.static_url('c3smembership:static/logo_horiz_w700.png')}"
-		  alt="Cultural Commons Collecting Society (C3S)"/></div>
+		  alt="p≡p coop"/></div>
       </div>
     </div>
     <div id="middle">
@@ -45,7 +45,7 @@
       &nbsp;<br />
       &nbsp;<br />
       &nbsp;<br />
-      &copy; Copyright 2013, C3S SCE.  <a href="https://www.c3s.cc/kontakt/">Kontakt &amp; Impressum</a>
+      &copy; Copyright 2018, p≡p coop SCE.  <a href="https://pep.coop/impressum/">Kontakt &amp; Impressum</a>
       <!-- <a target="_blank" style="text-decoration:none; color:black; font-size:66%"
 	 href="https://www.transifex.com/projects/p/C3smembership/resource/POT/"
 	 title="Want more langages? Help us translate on Transifex.com">
