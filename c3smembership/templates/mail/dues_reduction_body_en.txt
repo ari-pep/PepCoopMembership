@@ -5,12 +5,12 @@ You have applied for a reduction of your membership contributions.
 We therefore reduce your dues to € {dues_amount}.
 
 Please transfer the above-mentioned amount to the following account
-of the C3S SCE:
+of the p≡p coop SCE:
 
   Purpose: {invoice_number}, member no. {membership_number}
-  IBAN: DE79 8309 4495 0003 2643 78
-  BIC: GENODEF1ETK
-  Bank: Ethikbank
+  IBAN: DE79 XXXX 4495 XXXX 2643 78 FEHLT
+  BIC: GENODEF1ETK FEHLT
+  Bank: GLS Bank
 
 Please state the purpose on your transfer in order to enable the
 proper allocation of your payment.
@@ -24,6 +24,6 @@ You will find the reverse invoice of your first membership dues invoice here:
   {reversal_invoice_url}
 
 Many thanks for your support!
-Your C3S team
+Your p≡p coop team
 
 {footer}

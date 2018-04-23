@@ -3,11 +3,11 @@ Hello {salutation},
 Your transfer of {sum_shares}  Euro for {num_shares} share(s) just showed
 in our bank account.
 
-In case of any problems please don't hesitate to contact us (yes@c3s.cc).
+In case of any problems please don't hesitate to contact us (members-admin@pep.coop).
 
-Thanks a lot for your contribution to the C3S!
+Thanks a lot for your contribution to the p≡p coop!
 
 Best wishes,
-The C3S Team
+The p≡p coop Team
 
 {footer}

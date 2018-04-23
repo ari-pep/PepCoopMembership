@@ -3,11 +3,11 @@ Hallo {salutation},
 Deine Überweisung für {num_shares} Anteil(e) im Wert von {sum_shares} Euro
 ist auf unserem Konto eingegangen.
 
-Falls Probleme aufgetreten sind, melde Dich bitte bei uns (yes@c3s.cc).
+Falls Probleme aufgetreten sind, melde Dich bitte bei uns (mitgliederverwaltung@pep.coop).
 
-Danke für Deinen Beitrag zur C3S!
+Danke für Deinen Beitrag zur p≡p coop!
 
 Liebe Grüße
-Das C3S-Team
+Das p≡p coop Team
 
 {footer}

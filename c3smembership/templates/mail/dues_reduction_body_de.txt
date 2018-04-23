@@ -5,12 +5,12 @@ Du hast eine Reduzierung Deines Mitgliedsbeitrages beantragt.
 Wir geben Deinem Antrag statt und reduzieren Deinen Beitrag daher auf
 {dues_amount} €.
 
-Bitte überweise die genannte Summe auf folgendes Konto der C3S SCE:
+Bitte überweise die genannte Summe auf folgendes Konto der p≡p coop SCE:
 
   Verwendungszweck: {invoice_number}, Mitglied Nr. {membership_number}
-  IBAN: DE79 8309 4495 0003 2643 78
-  BIC: GENODEF1ETK
-  Bank: Ethikbank
+  IBAN: DE79 XXXX 4495 XXXX 2643 78 FEHLT
+  BIC: GENODEF1ETK FEHLT
+  Bank: GLS Bank
 
 Gebe bei der Überweisung des Mitgliedsbeitrags bitte unbedingt den
 oben genannten Verwendungszweck an, damit die Zahlung zweifelsfrei Dir
@@ -26,6 +26,6 @@ Die Storno-Rechnung zu Deiner ersten Beitragsrechnung findest Du hier:
 
 Vielen Dank für Deinen Support!
 
-Dein C3S Team
+Dein p≡p coop Team
 
 {footer}

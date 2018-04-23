@@ -1,29 +1,29 @@
 Hello {salutation},
 
-we appreciate that you want to join C3S as a member and thereby support
+we appreciate that you want to join p≡p coop as a member and thereby support
 us.
 
-You already downloaded your declaration to join C3S on {submission_date}.
+You already downloaded your declaration to join p≡p coop on {submission_date}.
 However, you still have to transfer {shares_value} Euro for
 the {shares_count} shares you purchased. Please transfer the aforementioned
-amount to this bank account of C3S SCE:
+amount to this bank account of p≡p coop SCE:
 
-IBAN: DE79 8309 4495 0003 2643 78
-BIC: GENODEF1ETK
-Bank: Ethikbank
+IBAN: DE79 XXXX 4495 XXXX 2643 78 FEHLT
+BIC: GENODEF1ETK FEHLT
+Bank: GLS Bank
 
 When transfering money for your shares to us, please use the following
 confirmation code as reference: {transfer_purpose}
 
 In case you don't want to become a member anymore, or you have more
-questions on joining C3S, please contact us at office@c3s.cc.
+questions on joining p≡p coop, please contact us at members-admin@pep.coop.
 
 When we have received the money we will send you a confirmation email.
 
-We are looking forward to welcome you at C3S!
+We are looking forward to welcome you at p≡p coop!
 
 All the best,
-The team of C3S
+The team of p≡p coop
 
 P.S.:
 Should you neither send in your declaration to join nor pay for your 
