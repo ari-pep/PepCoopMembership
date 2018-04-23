@@ -68,14 +68,7 @@
             <span i18n:translate=''>Country</span>:&nbsp; ${request.session['appstruct']['person']['country']}<br />
             <span i18n:translate=''>Date of Birth</span>:&nbsp; ${request.session['appstruct']['person']['date_of_birth']}<br />
         </p>
-        <h4 class="c3s-subheading-4" i18n:translate=''>Membership Requirements</h4>
-        <p>
-            <span i18n:translate=''>Type of Membership</span>:&nbsp;${request.session['appstruct']['membership_info']['membership_type']} <br />
-            <span i18n:translate=''>Member of other Collecting Society</span>:&nbsp; ${request.session['appstruct']['membership_info']['member_of_colsoc']}<br />
-            <div tal:condition="request.session['appstruct']['membership_info']['member_of_colsoc'] == u'yes'">
-                <span i18n:translate=''>Membership(s)</span>:&nbsp; ${request.session['appstruct']['membership_info']['name_of_colsoc']}<br />
-            </div>
-        </p>
+
         <h4 class="c3s-subheading-4" i18n:translate=''>Shares</h4>
         <p>
             <span i18n:translate=''>Number of Shares</span>:&nbsp; ${request.session['appstruct']['shares']['num_shares']}<br />
