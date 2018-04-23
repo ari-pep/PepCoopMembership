@@ -5,7 +5,7 @@
       xmlns:metal="http://xml.zope.org/namespaces/metal">
   <head>
     <title i18n:translate="membership-form-title">
-      Membership Application for Cultural Commons Collecting Society (C3S SCE)
+      Membership Application for p≡p coop SCE mit beschränkter Haftung (with limited liabilities) i.G.
     </title>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
     <meta name="keywords" content="Membership Application to join C3S SCE" />
@@ -29,7 +29,7 @@
         <div class="top align-center">
           <div><img src="${request.static_url('c3smembership:static/logo_horiz_w700.png')}"
 		    class="img-responsive"
-                    alt="Cultural Commons Collecting Society (C3S)"/></div>
+                    alt="p≡p coop"/></div>
         </div>
       </div>
       <div id="middle">
@@ -47,11 +47,11 @@
     </div>
     <div id="footer">
       <div class="footer">
-        &copy; Copyright 2014, C3S SCE.
-        <a tal:attributes="href python:'https://www.c3s.cc/kontakt/' if request.locale_name == 'de' else 'https://www.c3s.cc/en/contact-us/'"
+        &copy; Copyright 2018, p≡p coop SCE.
+        <a tal:attributes="href python:'https://pep.coop/kontakt//' if request.locale_name == 'de' else 'https://pep.coop/kontakt/'"
            i18n:translate="">Contact</a>
 	&amp;
-	<a tal:attributes="href python:'https://www.c3s.cc/impressum/' if request.locale_name == 'de' else 'https://www.c3s.cc/en/impressum/'"
+	<a tal:attributes="href python:'https://pep.coop/impressum/' if request.locale_name == 'de' else 'https://pep.coop/impressum/'"
            i18n:translate="">Imprint</a>
       </div>
     </div>
