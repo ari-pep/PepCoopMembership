@@ -452,7 +452,7 @@ def join_c3s(request):
             if coopMemberArgs['member_type'] == 'sustaining':
                 coopMemberArgs['fee'] = appstruct['fees']['member_custom_fee']
             else:
-                coopMemberArgs['fee'] = [ v for v,t,d in customization.membership_fees if t == appstruct['fees']['member_type'] ][0]
+                appstruct['fees']['fee'] = [ v for v,t,d in customization.membership_fees if t == appstruct['fees']['member_type'] ][0]
 
 
         member = C3sMember(**coopMemberArgs)
