@@ -447,12 +447,12 @@ def join_c3s(request):
                 appstruct['membership_info']['member_of_colsoc'] == u'yes'),
             coopMemberArgs['name_of_colsoc']=appstruct['membership_info']['name_of_colsoc']
 
-        if customization.membership_types and len(customization.membership_types) > 1:
-            coopMemberArgs['membership_type']=appstruct['membership_info']['membership_type']
-            if coopMemberArgs['membership_type'] == 'sustaining':
+        if customization.membership_fees and len(customization.membership_fees) > 1:
+            coopMemberArgs['member_type']=appstruct['fees']['member_type']
+            if coopMemberArgs['member_type'] == 'sustaining':
                 coopMemberArgs['fee'] = appstruct['fees']['member_custom_fee']
             else:
-                appstruct['fees']['fee'] = [ v for v,t,d in customization.membership_fees if t == appstruct['fees']['member_type'] ][0]
+                coopMemberArgs['fee'] = [ v for v,t,d in customization.membership_fees if t == appstruct['fees']['member_type'] ][0]
 
 
         member = C3sMember(**coopMemberArgs)

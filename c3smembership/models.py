@@ -334,6 +334,7 @@ class Shares(Base):
     """A free text comment for accounting purposes."""
 
 
+
 # table for relation between membership and shares
 members_shares = Table(
     'members_shares', Base.metadata,
@@ -669,7 +670,13 @@ class C3sMember(Base):
         DatabaseDecimal(12, 2), default=Decimal('0'))
     dues17_paid_date = Column(DateTime())  # paid when?
 
+    member_type = Column(Unicode(255))
+    """type of the member, like individual, commercial entity"""
+    fee = Column(DatabaseDecimal(12, 2), default=Decimal('NaN'))
+    """membership fee"""
+
     def __init__(self, **kwargs):
+        print(kwargs)
         self.firstname = kwargs.pop('firstname')
         self.lastname = kwargs.pop('lastname')
         self.email = kwargs.pop('email')
@@ -703,12 +710,14 @@ class C3sMember(Base):
         else:
             self.membership_type = kwargs.pop('membership_type')
 
-        if len(membership_fees)>1:
+        if len(customization.membership_fees)>1:
             self.fee = kwargs.pop('fee')
-            self.member_type = kwargs.pop('membership_type')
+            self.member_type = kwargs.pop('member_type')
 
         if len(kwargs)!=0:
             raise TypeError('__init__ did not consume all arguments')
+
+
 
     def _get_password(self):
         return self._password
