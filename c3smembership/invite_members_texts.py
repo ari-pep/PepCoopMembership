@@ -11,7 +11,7 @@ from c3smembership.mail_utils import (
 DEBUG = False
 
 
-def make_bcga17_invitation_email(member, url):
+def make_bcga18_invitation_email(member, url):
     """
     Create email subject and body for an invitation email for members.
 
@@ -23,18 +23,18 @@ def make_bcga17_invitation_email(member, url):
         print(u"the member.locale: {}".format(member.locale))
         print(u"the url: {}".format(url))
         print(u"the subject: {}".format(
-            get_template_text('bcga2017_invite_subject', member.locale)))
+            get_template_text('bcga2018_invite_subject', member.locale)))
         print(u"the salutation: {}".format(get_salutation(member)))
         print(u"the footer: {}".format(get_email_footer(member.locale)))
         print(u"the body: {}".format(
-            get_template_text('bcga2017_invite_body', member.locale).format(
+            get_template_text('bcga2018_invite_body', member.locale).format(
                 salutation=get_salutation(member),
                 invitation_url=url,
                 footer=get_email_footer(member.locale))))
     return (
-        get_template_text('bcga2017_invite_subject', member.locale).rstrip(
+        get_template_text('bcga2018_invite_subject', member.locale).rstrip(
             '\n'),  # remove newline (\n) from mail subject
-        get_template_text('bcga2017_invite_body', member.locale).format(
+        get_template_text('bcga2018_invite_body', member.locale).format(
             salutation=get_salutation(member),
             invitation_url=url,
             footer=get_email_footer(member.locale)

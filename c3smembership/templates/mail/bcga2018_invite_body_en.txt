@@ -1,0 +1,6 @@
+
+Hello {salutation},
+
+  {invitation_url}
+
+{footer}

@@ -8,6 +8,8 @@ Next Release
 
 - Show error message if applicant is younger than 18 years old.
 
+- Invitations for general assembly and bar camp 2018.
+
 
 
 1.20.4

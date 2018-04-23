@@ -160,15 +160,15 @@ class TestInvitation(unittest.TestCase):
         Test the invitation procedure for one single member at a time.
 
         Load this member from the DB,
-        assure the email_invite_flag_bcgv17 and token are not set,
+        assure the email_invite_flag_bcgv18 and token are not set,
         prepare cookies, invite this member,
-        assure the email_invite_flag_bcgv17 and token are now set,
+        assure the email_invite_flag_bcgv18 and token are now set,
         """
         from c3smembership.invite_members import invite_member_bcgv
 
         member1 = C3sMember.get_by_id(1)
-        self.assertEqual(member1.email_invite_flag_bcgv17, False)
-        self.assertTrue(member1.email_invite_token_bcgv17 is None)
+        self.assertEqual(member1.email_invite_flag_bcgv18, False)
+        self.assertTrue(member1.email_invite_token_bcgv18 is None)
 
         req = testing.DummyRequest()
         # have some cookies
@@ -184,8 +184,8 @@ class TestInvitation(unittest.TestCase):
         req.matchdict = {'m_id': member1.id}
         res = invite_member_bcgv(req)
 
-        self.assertEqual(member1.email_invite_flag_bcgv17, True)
-        self.assertTrue(member1.email_invite_token_bcgv17 is not None)
+        self.assertEqual(member1.email_invite_flag_bcgv18, True)
+        self.assertTrue(member1.email_invite_token_bcgv18 is not None)
 
         # now really send email
         self.config.registry.settings['testing.mail_to_console'] = 'false'
@@ -199,23 +199,23 @@ class TestInvitation(unittest.TestCase):
                         in mailer.outbox[1].subject)
         self.assertTrue(member1.firstname
                         in mailer.outbox[1].body)
-        self.assertTrue(member1.email_invite_token_bcgv17
+        self.assertTrue(member1.email_invite_token_bcgv18
                         in mailer.outbox[1].body)
 
         # now send invitation to english member
         member2 = C3sMember.get_by_id(2)
-        self.assertEqual(member2.email_invite_flag_bcgv17, False)
-        self.assertTrue(member2.email_invite_token_bcgv17 is None)
+        self.assertEqual(member2.email_invite_flag_bcgv18, False)
+        self.assertTrue(member2.email_invite_token_bcgv18 is None)
         req.matchdict = {'m_id': member2.id}
         res = invite_member_bcgv(req)
-        self.assertEqual(member2.email_invite_flag_bcgv17, True)
-        self.assertTrue(member2.email_invite_token_bcgv17 is not None)
+        self.assertEqual(member2.email_invite_flag_bcgv18, True)
+        self.assertTrue(member2.email_invite_token_bcgv18 is not None)
         self.assertEqual(len(mailer.outbox), 3)
         self.assertTrue(u'[C3S] Invitation to Barcamp and General Assembly'
                         in mailer.outbox[2].subject)
         self.assertTrue(member2.firstname
                         in mailer.outbox[2].body)
-        self.assertTrue(member2.email_invite_token_bcgv17
+        self.assertTrue(member2.email_invite_token_bcgv18
                         in mailer.outbox[2].body)
 
     def test_invitation_batch(self):
@@ -226,8 +226,8 @@ class TestInvitation(unittest.TestCase):
 
         members = C3sMember.get_all()
         for member in members:
-            self.assertEqual(member.email_invite_flag_bcgv17, False)
-            self.assertTrue(member.email_invite_token_bcgv17 is None)
+            self.assertEqual(member.email_invite_flag_bcgv18, False)
+            self.assertTrue(member.email_invite_token_bcgv18 is None)
             self.assertTrue(member.membership_accepted is True)
 
         req = testing.DummyRequest()
@@ -284,12 +284,12 @@ class TestInvitation(unittest.TestCase):
 
         for member in members:
             # has been invited
-            self.assertEqual(member.email_invite_flag_bcgv17, True)
+            self.assertEqual(member.email_invite_flag_bcgv18, True)
             # has a token
-            self.assertTrue(member.email_invite_token_bcgv17 is not None)
+            self.assertTrue(member.email_invite_token_bcgv18 is not None)
             # firstname and token are in email body
             self.assertTrue(
                 members[member.id - 1].firstname in mailer.outbox[member.id - 1].body)
             self.assertTrue(
-                members[member.id - 1].email_invite_token_bcgv17 in mailer.outbox[
+                members[member.id - 1].email_invite_token_bcgv18 in mailer.outbox[
                     member.id - 1].body)
