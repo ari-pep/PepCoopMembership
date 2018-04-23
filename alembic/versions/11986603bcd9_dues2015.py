@@ -19,36 +19,7 @@ from sqlalchemy.orm import Session
 import sqlalchemy.types as types
 
 from c3smembership.models import C3sMember
-
-
-
-class SqliteDecimal(types.TypeDecorator):
-    """
-    Type decorator for persisting Decimal (currency values)
-
-    TODO: Use standard SQLAlchemy Decimal
-    when a database is used which supports it.
-    """
-    impl = types.String
-
-    def load_dialect_impl(self, dialect):
-        return dialect.type_descriptor(types.VARCHAR(100))
-
-    def process_bind_param(self, value, dialect):
-        if value is not None:
-            return str(value)
-        else:
-            return None
-
-    def process_result_value(self, value, dialect):
-        if value is not None and value != '':
-            return Decimal(value)
-        else:
-            return None
-
-
-DatabaseDecimal = SqliteDecimal
-
+from SqliteDecimal import SqliteDecimal as DatabaseDecimal
 
 def upgrade():
     # schema migration
