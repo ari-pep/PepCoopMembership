@@ -33,6 +33,8 @@ def init_testing_db():
         # There is a side effect of test_initialization.py after which there are
         # still records in the database although it is setup from scratch.
         # Therefore, remove all members to have an empty table.
+
+        # pylint: disable=no-member
         members = C3sMember.get_all()
         for member in members:
             DBSession.delete(member)
@@ -148,6 +150,7 @@ class TestInvitation(unittest.TestCase):
         self.session = init_testing_db()
 
     def tearDown(self):
+        # pylint: disable=no-member
         DBSession.close()
         DBSession.remove()
         testing.tearDown()
@@ -238,6 +241,7 @@ class TestInvitation(unittest.TestCase):
         res = batch_invite(req)
 
         _messages = req.session.peek_flash('message_to_staff')
+        # pylint: disable=superfluous-parens
         print(_messages)
         self.assertTrue(
             'sent out 1 mails (to members with ids [1])' in _messages)
