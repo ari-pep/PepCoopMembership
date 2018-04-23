@@ -441,25 +441,26 @@ def join_c3s(request):
             date_of_submission=datetime.now(),
             num_shares=appstruct['shares']['num_shares'],
         )
-        
+
         if customization.enable_colsoc_association:
             coopMemberArgs['member_of_colsoc']=(
                 appstruct['membership_info']['member_of_colsoc'] == u'yes'),
             coopMemberArgs['name_of_colsoc']=appstruct['membership_info']['name_of_colsoc']
-            
+
         if customization.membership_types and len(customization.membership_types) > 1:
             coopMemberArgs['membership_type']=appstruct['membership_info']['membership_type']
-            
+            if coopMemberArgs['membership_type'] == 'sustaining':
+                coopMemberArgs['fee'] = appstruct['fees']['member_custom_fee']
+            else:
+                appstruct['fees']['fee'] = [ v for v,t,d in customization.membership_fees if t == appstruct['fees']['member_type'] ][0]
+
+
         member = C3sMember(**coopMemberArgs)
         dbsession = DBSession()
         try:
             dbsession.add(member)
             appstruct['email_confirm_code'] = randomstring
-            if appstruct['fees']['member_type'] == 'sustaining':
-                appstruct['fees']['fee'] = appstruct['fees']['member_custom_fee']
-            else:
-                appstruct['fees']['fee'] = [ v for v,t,d in customization.membership_fees if t == appstruct['fees']['member_type'] ][0]
-            
+
         except InvalidRequestError as ire:  # pragma: no cover
             print("InvalidRequestError! %s") % ire
         except IntegrityError as integrity_error:  # pragma: no cover
