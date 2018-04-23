@@ -1,23 +1,13 @@
 Hallo {salutation},
 
-am 02.04.2017 hat die 4. ordentliche Mitgliederversammlung der C3S SCE
-eine Verlängerung der vorläufige Beitragsordnung beschlossen, weil uns 
-sonst weiterhin die finanzielle Basis fehlt, um unser gemeinsames 
-Vorhaben fortsetzen zu können:
+Dein Mitgliedsbeitrag {invoice_quarter} beträgt {dues_amount} Euro.
 
-  https://archive.c3s.cc/aktuell/legal/C3S_SCE_membership_dues_de.pdf
-
-Der Mitgliedsbeitrag für ordentliche Mitglieder für 2017 beträgt demnach
-50 Euro für das ganze Jahr 2017.
-
-Dein Mitgliedsbeitrag {invoice_quarter} beträgt also {dues_amount} Euro.
-
-Bitte überweise den Betrag auf folgendes Konto der C3S SCE:
+Bitte überweise den Betrag auf folgendes Konto der p≡p coop SCE:
 
   Verwendungszweck: {invoice_number}, Mitglied Nr. {membership_number}
-  IBAN: DE79 8309 4495 0003 2643 78
-  BIC: GENODEF1ETK
-  Bank: Ethikbank
+  IBAN: DE79 XXXX 4495 XXXX 2643 78 FEHLT
+  BIC: GENODEF1ETK FEHLT
+  Bank: GLS Bank
 
 Gebe bei der Überweisung des Mitgliedsbeitrags bitte unbedingt den oben
 genannten Verwendungszweck an, damit die Zahlung zweifelsfrei Dir
@@ -29,6 +19,6 @@ Die Rechnung findest Du unter folgendem Link:
 
 Vielen Dank für Deinen Support!
 
-Dein C3S Team
+Dein p≡p coop Team
 
 {footer}
