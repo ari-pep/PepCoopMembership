@@ -59,14 +59,17 @@ class TestApiViews(unittest.TestCase):
                 name_of_colsoc=u"GEMA",
                 num_shares=u'23',
             )
+        # pylint: disable=no-member
         DBSession.add(member1)
         member1.email_invite_token_bcgv17 = u'MEMBERS_TOKEN'
+        # pylint: disable=no-member
         DBSession.flush()
 
         self.testapp = TestApp(app)
 
     def tearDown(self):
         testing.tearDown()
+        # pylint: disable=no-member
         DBSession.close()
         DBSession.remove()
 

@@ -55,6 +55,10 @@ from c3smembership.data.model.base import (
     DBSession,
 )
 
+
+# pylint: disable=no-member
+
+
 CRYPT = cryptacular.bcrypt.BCRYPTPasswordManager()
 
 
@@ -143,6 +147,7 @@ class Group(Base):
 
 
 # table for relation between staffers and groups
+# pylint: disable=invalid-name
 staff_groups = Table(
     'staff_groups', Base.metadata,
     Column(
@@ -335,6 +340,7 @@ class Shares(Base):
 
 
 # table for relation between membership and shares
+# pylint: disable=invalid-name
 members_shares = Table(
     'members_shares', Base.metadata,
     Column(
@@ -857,7 +863,7 @@ class C3sMember(Base):
         """
         check = DBSession.query(cls).filter(
             cls.email_confirm_code == email_confirm_code).first()
-        return (check is not None)
+        return check is not None
 
     @classmethod
     def get_by_id(cls, member_id):
@@ -986,6 +992,10 @@ class C3sMember(Base):
         Returns:
           a list of *n* member objects
         """
+
+        # In SqlAlchemy the True comparison must be done as "a == True" and not
+        # in the python default way "a is True". Therefore:
+        # pylint: disable=singleton-comparison
         return DBSession.query(cls).filter(
             and_(
                 cls.membership_accepted == True,
@@ -1334,6 +1344,10 @@ class C3sMember(Base):
 
     @classmethod
     def nonmember_listing_count(cls):
+        """
+        Gets the number of applicants which have not been accepted as members
+        yet.
+        """
         query = DBSession.query(cls).filter(
             or_(
                 cls.membership_accepted == 0,
@@ -1348,6 +1362,10 @@ class C3sMember(Base):
     # count for statistics
     @classmethod
     def afm_num_shares_unpaid(cls):
+        """
+        Gets the number of shares for which membership applicant has not yet
+        paid the price.
+        """
         rows = DBSession.query(cls).all()
         num_shares_unpaid = 0
         for row in rows:
@@ -1357,6 +1375,10 @@ class C3sMember(Base):
 
     @classmethod
     def afm_num_shares_paid(cls):
+        """
+        Gets the number of shares for which membership applicant has already
+        paid the price.
+        """
         rows = DBSession.query(cls).all()
         num_shares_paid = 0
         for row in rows:
@@ -1367,6 +1389,12 @@ class C3sMember(Base):
     # workflow: need approval by the board
     @classmethod
     def afms_ready_for_approval(cls):
+        """
+        Gets the list of membership applicants who can be granted membership by
+        the board of directors because they have fulfilled their duty of
+        sending in a signed membership application as well as paying the
+        share's price.
+        """
         return DBSession.query(cls).filter(
             and_(
                 (cls.membership_accepted == 0),
@@ -1634,6 +1662,10 @@ class C3sMember(Base):
             self.dues17_amount_reduced = Decimal('NaN')
 
     def get_url_safe_name(self):
+        """
+        Gets a url-safe version of the member's name in which all characters
+        except 0-9, a-z and A-Z are replaced by a dash.
+        """
         return re.sub(  # # replace characters
             '[^0-9a-zA-Z]',  # other than these
             '-',  # with a -
@@ -1854,7 +1886,7 @@ class Dues15Invoice(Base):
         """
         check = DBSession.query(cls).filter(
             cls.token == dues_token).first()
-        return (check is not None)
+        return check is not None
 
     @classmethod
     def get_monthly_stats(cls):
@@ -2054,7 +2086,7 @@ class Dues16Invoice(Base):
         """
         check = DBSession.query(cls).filter(
             cls.token == dues_token).first()
-        return (check is not None)
+        return check is not None
 
     @classmethod
     def get_monthly_stats(cls):
@@ -2254,7 +2286,7 @@ class Dues17Invoice(Base):
         """
         check = DBSession.query(cls).filter(
             cls.token == dues_token).first()
-        return (check is not None)
+        return check is not None
 
     @classmethod
     def get_monthly_stats(cls):
