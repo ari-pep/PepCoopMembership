@@ -14,7 +14,7 @@
     </tal:block>
     <tal:block metal:fill-slot="middle">
         <h1 i18n:translate="check-email-title">
-            C3S Membership Application: Check your email
+            p≡p coop Application: Check your email
         </h1>
     </tal:block>
     <tal:block metal:fill-slot="bottom">
@@ -56,7 +56,7 @@
             ${firstname} ${lastname}!
         </h3>
         <p i18n:translate="check-email-paragraph-check-email">
-            You will receive an email from noreply@c3s.cc with a link. Please
+            You will receive an email from members-admin@pep.coop with a link. Please
             check your email!
         </p>
         <p>
@@ -64,7 +64,7 @@
                 The email subject line will read:
             </span>
             <strong i18n:translate="check-email-paragraph-check-email-subject">
-                C3S: confirm your email address and load your PDF
+                p≡p coop: confirm your email
             </strong>.
         </p>
     </tal:block>
