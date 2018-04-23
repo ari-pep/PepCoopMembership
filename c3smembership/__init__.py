@@ -118,7 +118,8 @@ def main(global_config, **settings):
     config.add_route('toolbox', '/toolbox')
     config.add_route('stats', '/stats')
     config.add_route('staff', '/staff')
-    config.add_route('new_member', '/new_member')
+    # this is verboten for the time being
+    # config.add_route('new_member', '/new_member')
     config.add_route('detail', '/detail/{memberid}')
     config.add_route('edit', '/edit/{_id}')
 
