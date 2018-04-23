@@ -8,31 +8,77 @@
             type="text/javascript"></script>
       <script type="text/javascript">
         $().ready(function() {
-            $("#dues15_reduce_submit").click(function(event) {
-                reduction_amount = $("#dues15_form input[name='amount']").val();
+            $("#dues18_05_reduce_submit").click(function(event) {
+                reduction_amount = $("#dues18_05_form input[name='amount']").val();
                 answer = confirm("Are you sure you want to reduce the dues for ${member.firstname} ${member.lastname} to " + reduction_amount + "?");
                 if(answer) {
-                    $("#dues15_form input[name='confirmed']").val("yes");
+                    $("#dues18_05_form input[name='confirmed']").val("yes");
+                } else {
+                    event.preventDefault();
+                }
+            });
+            $("#dues18_06_reduce_submit").click(function(event) {
+                reduction_amount = $("#dues18_06_form input[name='amount']").val();
+                answer = confirm("Are you sure you want to reduce the dues for ${member.firstname} ${member.lastname} to " + reduction_amount + "?");
+                if(answer) {
+                    $("#dues18_06_form input[name='confirmed']").val("yes");
+                } else {
+                    event.preventDefault();
+                }
+            });
+            $("#dues18_07_reduce_submit").click(function(event) {
+                reduction_amount = $("#dues18_07_form input[name='amount']").val();
+                answer = confirm("Are you sure you want to reduce the dues for ${member.firstname} ${member.lastname} to " + reduction_amount + "?");
+                if(answer) {
+                    $("#dues18_07_form input[name='confirmed']").val("yes");
+                } else {
+                    event.preventDefault();
+                }
+            });
+            $("#dues18_08_reduce_submit").click(function(event) {
+                reduction_amount = $("#dues18_08_form input[name='amount']").val();
+                answer = confirm("Are you sure you want to reduce the dues for ${member.firstname} ${member.lastname} to " + reduction_amount + "?");
+                if(answer) {
+                    $("#dues18_08_form input[name='confirmed']").val("yes");
+                } else {
+                    event.preventDefault();
+                }
+            });
+            $("#dues18_09_reduce_submit").click(function(event) {
+                reduction_amount = $("#dues18_09_form input[name='amount']").val();
+                answer = confirm("Are you sure you want to reduce the dues for ${member.firstname} ${member.lastname} to " + reduction_amount + "?");
+                if(answer) {
+                    $("#dues18_09_form input[name='confirmed']").val("yes");
                 } else {
                     event.preventDefault();
                 }
             });
 
-            $("#dues16_reduce_submit").click(function(event) {
-                reduction_amount = $("#dues16_form input[name='amount']").val();
+            $("#dues18_10_reduce_submit").click(function(event) {
+                reduction_amount = $("#dues18_10_form input[name='amount']").val();
                 answer = confirm("Are you sure you want to reduce the dues for ${member.firstname} ${member.lastname} to " + reduction_amount + "?");
                 if(answer) {
-                    $("#dues16_form input[name='confirmed']").val("yes");
+                    $("#dues18_10_form input[name='confirmed']").val("yes");
                 } else {
                     event.preventDefault();
                 }
             });
 
-            $("#dues17_reduce_submit").click(function(event) {
-                reduction_amount = $("#dues17_form input[name='amount']").val();
+            $("#dues18_11_reduce_submit").click(function(event) {
+                reduction_amount = $("#dues18_11_form input[name='amount']").val();
                 answer = confirm("Are you sure you want to reduce the dues for ${member.firstname} ${member.lastname} to " + reduction_amount + "?");
                 if(answer) {
-                    $("#dues17_form input[name='confirmed']").val("yes");
+                    $("#dues18_11_form input[name='confirmed']").val("yes");
+                } else {
+                    event.preventDefault();
+                }
+            });
+
+            $("#dues18_12_reduce_submit").click(function(event) {
+                reduction_amount = $("#dues18_12_form input[name='amount']").val();
+                answer = confirm("Are you sure you want to reduce the dues for ${member.firstname} ${member.lastname} to " + reduction_amount + "?");
+                if(answer) {
+                    $("#dues18_12_form input[name='confirmed']").val("yes");
                 } else {
                     event.preventDefault();
                 }
@@ -154,7 +200,7 @@
             <td>${member.accountant_comment}</td>
         </tr>
     </table>
-     
+
 
       <a name="membership_info"></a>
       <h3>Membership Info</h3>
@@ -342,512 +388,10 @@
 
       <!--! membership dues -->
       <div tal:condition="member.membership_accepted">
-        <div tal:omit-tag="" tal:condition="not member.membership_date > date(2015,12,31) and (member.membership_loss_date is None or member.membership_loss_date >= date(2015,1,1))">
-        <a name="dues15"></a>
-        <h3 id="certificate">Membership Dues 2015</h3>
-        <table class="table table-striped">
-        <!--!
-          <tr>
-            <td>
-              Versand Mitgliedsbeitrags-Email (Rechnung/Aufforderung)<br/>
-              <small>
-                Ein Klick hier berechnet den Mitgliedsbeitrag,<br/>
-                setzt ein (neues) Token und versendet eine Email,<br/>
-                bei normalen Mitgliedern mit Link auf die Rechnung.<br/>
-                Der versandte Link enthält das Token, ohne welches KEIN pdf generiert wird.
-              </small>
 
-            </td>
-            <td>
-              <a tal:condition="not member.dues15_invoice"
-                 href="${request.route_url('send_dues15_invoice_email', member_id=member.id)}"
-                 title="dues invoice not sent yet"
-                 class="btn btn-warning">
-                Noch nicht berechnet und verschickt. <br/>
-                Jetzt berechnen &amp; versenden: Klick!</a>
-              <a tal:condition="member.dues15_invoice"
-                 href="${request.route_url('send_dues15_invoice_email', member_id=member.id)}"
-                 title="gesendet ${member.dues15_invoice_date.strftime('am %d.%m.%Y um %H:%M')}"
-                 class="btn btn-success">gesendet ${member.dues15_invoice_date.strftime('am %d.%m.%Y um %H:%M')}. Klicken zum wiederholten versenden.</a>
-            </td>
-          </tr>
-          <tr tal:condition="'investing' not in member.membership_type and member.dues15_invoice">
-            <td>PDF generieren (download)</td>
-            <td>
-              <a href="${request.route_url('make_dues15_invoice_no_pdf',
-                       email=member.email,
-                       code=member.dues15_token,
-                       i=str(member.dues15_invoice_no).zfill(4))}"
-                 title="Mitgliedschaftsbeitragsrechnung ansehen"
-                 class="btn btn-success">PDF generieren und laden</a>
-            </td>
-          </tr>
-          -->
-          <!--! reduction / exemption -->
-          <!--!
-          <tr tal:condition="'investing' not in member.membership_type and member.dues15_invoice">
-            <td>Ermäßigung/Erlass<br/>
-              <small>
-                Hier siehst Du den errechneten Mitgliedsbeitrag.<br/>
-                Du kannst im Falle eines Antrags auf Ermäßigung einen neuen Betrag festsetzen &ndash; auch 0 Euro.<br/>
-                Daraufhin wird die alte Rechnung storniert.
-                Das Mitglied erhält eine E-Mail.<br/>
-                Diese enthält Links auf die Storno-Rechnung
-                und eine neue geänderte Rechnung.
-              </small>
-            </td>
-            <td>
-              <table>
-                <tr>
-                  <td><small>müsste zahlen:</small></td>
-                  <td>${member.dues15_start}</td>
-                </tr>
-                <tr>
-                  <td><small>berechn. Beitrag: &nbsp;</small></td>
-                  <td>${member.dues15_amount} Euro</td>
-                </tr>
-                <tr>
-                  <td><small>ermäßigter Beitrag: &nbsp;</small></td>
-                  <td tal:condition="not member.dues15_reduced">
-                    kein Antrag gestellt</td>
-                  <td tal:condition="member.dues15_reduced">
-                    ${member.dues15_amount_reduced} Euro</td>
-                </tr>
-              </table>
-              <p>
-
-                <form tal:condition="not member.dues15_balanced"
-                      id="dues15_form"
-                      class="form-inline"
-                      action="${request.route_url('dues15_reduction', member_id=member.id)}"
-                      method="post">
-                    <label>ermäßigen auf:</label>
-                    <input type="hidden"
-                           name="confirmed"
-                           value="no" />
-                    <input type="text"
-                           class="form-control"
-                           title="foo"
-                           name="amount"
-                           value="" />
-                    <input id="dues15_reduce_submit"
-                           type="submit"
-                           name="submit"
-                           class="btn btn-primary"
-                           value="Reduce Dues" />
-                </form>
-              </p>
-              <p tal:define="messages request.session.pop_flash('dues15_message_to_staff')"
-                    tal:condition="messages"
-                    tal:attributes="class 'alert alert-danger'">
-                <span color="red"
-                      tal:repeat="message messages">
-                  ${message}
-                </span><br />
-              </p>
-              <p>
-                see also <a href="${request.route_url('dues15_listing')}"
-                            class="btn btn-primary">Dues15 Invoices Listing</a>
-              </p>
-            </td>
-          </tr>
-          -->
-          <!--! payments for dues -->
-          <!--! case one: not paid yet -->
-          <tr tal:condition="'investing' not in member.membership_type
-                             and member.dues15_invoice
-                             and not member.dues15_paid
-                             and not member.dues15_balanced">
-            <td>Zahlungseingang<br/>
-              <small>
-                Hier kann der Zahlungseingang mit Datum vermerkt werden.
-              </small>
-            </td>
-            <td>
-              <p>
-                <form class="form-inline"
-                      action="${request.route_url('dues15_notice', member_id=member.id)}"
-                      method="post">
-                  <label>Betrag eingegangen:</label>
-                     <input type="text"
-                           class="form-control"
-                           title="foo"
-                           name="amount"
-                           value="" />
-                     <br />
-                     Eingangsdatum (yyyy-mm-dd):
-                     <input name="payment_date"
-                            class="form-control"
-                            type="text"
-                            value="${today}" />
-                     <br />
-                     <input name="submit" type="submit"
-                            class="btn btn-primary"
-                            value="Zahlungseingang bestätigen." />
-                </form>
-              </p>
-              <p tal:define="messages request.session.pop_flash('dues15notice_message_to_staff')"
-                    tal:condition="messages"
-                    tal:attributes="class 'alert alert-danger'">
-                <span color="red"
-                      tal:repeat="message messages">
-                  ${message}
-                </span><br />
-              </p>
-            </td>
-          </tr>
-          <!-- case two: already paid OR dues exempted-->
-          <tr tal:condition="'investing' not in member.membership_type
-                             and member.dues15_invoice
-                             and member.dues15_paid
-                             or member.dues15_balanced">
-            <td>Zahlungseingang<br/>
-              <small>
-                Hier ist der Zahlungseingang mit Datum vermerkt.
-              </small>
-            </td>
-            <td>
-              <table class="table table-striped">
-                <tr>
-                  <td>Betrag eingegangen:</td><td>${member.dues15_amount_paid}</td>
-                </tr><tr>
-                  <td>Eingangsdatum:</td><td>${member.dues15_paid_date}</td>
-                </tr>
-              </table>
-            </td>
-          </tr>
-          <tr tal:condition="'investing' not in member.membership_type and member.dues15_invoice">
-            <td>Rechnungen<br/>
-              <small>
-                Hier siehst Du die erstellten Rechnungen für dieses Mitglied.<br/>
-                Falls vorhanden in der vorletzten Zeile (über SALDO) auch einen Zahlungseingang.
-              </small>
-            </td>
-            <td>
-              <table class="table table-striped" rules="rows">
-                <tr class="table-striped">
-                  <th>invoice no</th>
-                  <th>invoice string<br/>(download PDF)</th>
-                  <th>date</th>
-                  <th>amount</th>
-                  <th>was<br/>reversed?</th>
-                  <th>is<br/>reversal?</th>
-                  <th>default or<br/>altered?</th>
-                </tr>
-
-                <!--! loop over the list of invoices -->
-                <tr tal:define="global i_saldo python:0"
-                    tal:repeat="i invoices15"
-                    tal:attributes="id python: 'invoice_{0}'.format(i.id)">
-                  <!-- td>${i.id}</td -->
-                  <td><a title="${i.invoice_no}">${i.invoice_no}</a></td>
-                  <td>
-                    <!--! if this invoice is a normal invoice -->
-                    <a tal:condition="not i.is_reversal"
-                       href="${request.route_url('make_dues15_invoice_no_pdf',
-                             i=str(i.invoice_no).zfill(4),
-                             email=i.email,
-                             code=i.token)}"
-                       title="download ${i.invoice_no_string}.pdf">
-                      ${i.invoice_no_string}
-                    </a>
-                    <!--! if this invoice is a REVERSAL INVOICE -->
-                    <a  tal:condition="i.is_reversal"
-                        href="${request.route_url('make_dues15_reversal_invoice_pdf',
-                              no=str(i.invoice_no).zfill(4),
-                              email=i.email,
-                              code=i.token)}"
-                        title="download ${i.invoice_no_string}-S.pdf">
-                      ${i.invoice_no_string}
-                    </a>
-                  </td>
-                  <td>${i.invoice_date.strftime('%d.%m.%Y %H:%M')}</td>
-                  <td tal:define="global i_saldo python: D(i_saldo) + D(i.invoice_amount)">
-                    ${i.invoice_amount}</td>
-                  <td>${'reversed by %s' % i.succeeding_invoice_no if i.is_cancelled else ''}</td>
-                  <td>${'reverses %s' % i.preceding_invoice_no if i.is_reversal else ''}</td>
-                  <td>${'altered' if i.is_altered else ''}</td>
-                </tr>
-                <tr tal:condition="member.dues15_paid">
-                  <td>n/a</td>
-                  <td>Zahlungseingang</td>
-                  <td>${member.dues15_paid_date.strftime('%Y-%m-%d')}</td>
-                  <td tal:define="global i_saldo python: D(i_saldo) - D(member.dues15_amount_paid)">
-                    ${member.dues15_amount_paid}</td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td></td>
-                  <td>SALDO: </td>
-                  <td></td>
-                  <td>${i_saldo}</td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr>
-              </table>
-            </td>
-          </tr>
-        </table>
-        </div>
-
-
-        <div tal:omit-tag="" tal:condition="not member.membership_date > date(2016,12,31) and (member.membership_loss_date is None or member.membership_loss_date >= date(2016,1,1))">
-        <a name="dues16"></a>
-        <h3 id="certificate">Membership Dues 2016</h3>
-        <table class="table table-striped">
-        <!--!
-          <tr>
-            <td>
-              Versand Mitgliedsbeitrags-Email (Rechnung/Aufforderung)<br/>
-              <small>
-                Ein Klick hier berechnet den Mitgliedsbeitrag,<br/>
-                setzt ein (neues) Token und versendet eine Email,<br/>
-                bei normalen Mitgliedern mit Link auf die Rechnung.<br/>
-                Der versandte Link enthält das Token, ohne welches KEIN pdf generiert wird.
-              </small>
-
-            </td>
-            <td>
-              <a tal:condition="not member.dues16_invoice"
-                 href="${request.route_url('send_dues16_invoice_email', member_id=member.id)}"
-                 title="dues invoice not sent yet"
-                 class="btn btn-warning">
-                Noch nicht berechnet und verschickt. <br/>
-                Jetzt berechnen &amp; versenden: Klick!</a>
-              <a tal:condition="member.dues16_invoice"
-                 href="${request.route_url('send_dues16_invoice_email', member_id=member.id)}"
-                 title="gesendet ${member.dues16_invoice_date.strftime('am %d.%m.%Y um %H:%M')}"
-                 class="btn btn-success">gesendet ${member.dues16_invoice_date.strftime('am %d.%m.%Y um %H:%M')}. Klicken zum wiederholten versenden.</a>
-            </td>
-          </tr>
-          <tr tal:condition="'investing' not in member.membership_type and member.dues16_invoice">
-            <td>PDF generieren (download)</td>
-            <td>
-              <a href="${request.route_url('make_dues16_invoice_no_pdf',
-                       email=member.email,
-                       code=member.dues16_token,
-                       i=str(member.dues16_invoice_no).zfill(4))}"
-                 title="Mitgliedschaftsbeitragsrechnung ansehen"
-                 class="btn btn-success">PDF generieren und laden</a>
-            </td>
-          </tr>
-          -->
-          <!--! reduction / exemption -->
-          <!--!
-          <tr tal:condition="'investing' not in member.membership_type and member.dues16_invoice">
-            <td>Ermäßigung/Erlass<br/>
-              <small>
-                Hier siehst Du den errechneten Mitgliedsbeitrag.<br/>
-                Du kannst im Falle eines Antrags auf Ermäßigung einen neuen Betrag festsetzen &ndash; auch 0 Euro.<br/>
-                Daraufhin wird die alte Rechnung storniert.
-                Das Mitglied erhält eine E-Mail.<br/>
-                Diese enthält Links auf die Storno-Rechnung
-                und eine neue geänderte Rechnung.
-              </small>
-            </td>
-            <td>
-              <table>
-                <tr>
-                  <td><small>müsste zahlen:</small></td>
-                  <td>${member.dues16_start}</td>
-                </tr>
-                <tr>
-                  <td><small>berechn. Beitrag: &nbsp;</small></td>
-                  <td>${member.dues16_amount} Euro</td>
-                </tr>
-                <tr>
-                  <td><small>ermäßigter Beitrag: &nbsp;</small></td>
-                  <td tal:condition="not member.dues16_reduced">
-                    kein Antrag gestellt</td>
-                  <td tal:condition="member.dues16_reduced">
-                    ${member.dues16_amount_reduced} Euro</td>
-                </tr>
-              </table>
-              <p>
-                <form tal:condition="not member.dues16_balanced"
-                      id="dues16_form"
-                      class="form-inline"
-                      action="${request.route_url('dues16_reduction', member_id=member.id)}"
-                      method="post">
-                    <label>ermäßigen auf:</label>
-                    <input type="hidden"
-                           name="confirmed"
-                           value="no" />
-                    <input type="text"
-                           class="form-control"
-                           title="foo"
-                           name="amount"
-                           value="" />
-                    <input id="dues16_reduce_submit"
-                           type="submit"
-                           name="submit"
-                           class="btn btn-primary"
-                           value="Reduce Dues" />
-                </form>
-              </p>
-              <p tal:define="messages request.session.pop_flash('dues16_message_to_staff')"
-                    tal:condition="messages"
-                    tal:attributes="class 'alert alert-danger'">
-                <span color="red"
-                      tal:repeat="message messages">
-                  ${message}
-                </span><br />
-              </p>
-              <p>
-                see also <a href="${request.route_url('dues16_listing')}"
-                            class="btn btn-primary">Dues16 Invoices Listing</a>
-              </p>
-            </td>
-          </tr>
-          -->
-          <!--! payments for dues -->
-          <!--! case one: not paid yet -->
-          <tr tal:condition="'investing' not in member.membership_type
-                             and member.dues16_invoice
-                             and not member.dues16_paid
-                             and not member.dues16_balanced">
-            <td>Zahlungseingang<br/>
-              <small>
-                Hier kann der Zahlungseingang mit Datum vermerkt werden.
-              </small>
-            </td>
-            <td>
-              <p>
-                <form class="form-inline"
-                      action="${request.route_url('dues16_notice', member_id=member.id)}"
-                      method="post">
-                  <label>Betrag eingegangen:</label>
-                     <input type="text"
-                           class="form-control"
-                           title="foo"
-                           name="amount"
-                           value="" />
-                     <br />
-                     Eingangsdatum (yyyy-mm-dd):
-                     <input name="payment_date"
-                            class="form-control"
-                            type="text"
-                            value="${today}" />
-                     <br />
-                     <input name="submit" type="submit"
-                            class="btn btn-primary"
-                            value="Zahlungseingang bestätigen." />
-                </form>
-              </p>
-              <p tal:define="messages request.session.pop_flash('dues16notice_message_to_staff')"
-                    tal:condition="messages"
-                    tal:attributes="class 'alert alert-danger'">
-                <span color="red"
-                      tal:repeat="message messages">
-                  ${message}
-                </span><br />
-              </p>
-            </td>
-          </tr>
-          <!-- case two: already paid OR dues exempted-->
-          <tr tal:condition="'investing' not in member.membership_type
-                             and member.dues16_invoice
-                             and member.dues16_paid
-                             or member.dues16_balanced">
-            <td>Zahlungseingang<br/>
-              <small>
-                Hier ist der Zahlungseingang mit Datum vermerkt.
-              </small>
-            </td>
-            <td>
-              <table class="table table-striped">
-                <tr>
-                  <td>Betrag eingegangen:</td><td>${member.dues16_amount_paid}</td>
-                </tr><tr>
-                  <td>Eingangsdatum:</td><td>${member.dues16_paid_date}</td>
-                </tr>
-              </table>
-            </td>
-          </tr>
-          <tr tal:condition="'investing' not in member.membership_type and member.dues16_invoice">
-            <td>Rechnungen<br/>
-              <small>
-                Hier siehst Du die erstellten Rechnungen für dieses Mitglied.<br/>
-                Falls vorhanden in der vorletzten Zeile (über SALDO) auch einen Zahlungseingang.
-              </small>
-            </td>
-            <td>
-              <table class="table table-striped" rules="rows">
-                <tr class="table-striped">
-                  <th>invoice no</th>
-                  <th>invoice string<br/>(download PDF)</th>
-                  <th>date</th>
-                  <th>amount</th>
-                  <th>was<br/>reversed?</th>
-                  <th>is<br/>reversal?</th>
-                  <th>default or<br/>altered?</th>
-                </tr>
-
-                <!--! loop over the list of invoices -->
-                <tr tal:define="global i_saldo python:0"
-                    tal:repeat="i invoices16"
-                    tal:attributes="id python: 'invoice_{0}'.format(i.id)">
-                  <!-- td>${i.id}</td -->
-                  <td><a title="${i.invoice_no}">${i.invoice_no}</a></td>
-                  <td>
-                    <!--! if this invoice is a normal invoice -->
-                    <a tal:condition="not i.is_reversal"
-                       href="${request.route_url('make_dues16_invoice_no_pdf',
-                             i=str(i.invoice_no).zfill(4),
-                             email=i.email,
-                             code=i.token)}"
-                       title="download ${i.invoice_no_string}.pdf">
-                      ${i.invoice_no_string}
-                    </a>
-                    <!--! if this invoice is a REVERSAL INVOICE -->
-                    <a  tal:condition="i.is_reversal"
-                        href="${request.route_url('make_dues16_reversal_invoice_pdf',
-                              no=str(i.invoice_no).zfill(4),
-                              email=i.email,
-                              code=i.token)}"
-                        title="download ${i.invoice_no_string}-S.pdf">
-                      ${i.invoice_no_string}
-                    </a>
-                  </td>
-                  <td>${i.invoice_date.strftime('%d.%m.%Y %H:%M')}</td>
-                  <td tal:define="global i_saldo python: D(i_saldo) + D(i.invoice_amount)">
-                    ${i.invoice_amount}</td>
-                  <td>${'reversed by %s' % i.succeeding_invoice_no if i.is_cancelled else ''}</td>
-                  <td>${'reverses %s' % i.preceding_invoice_no if i.is_reversal else ''}</td>
-                  <td>${'altered' if i.is_altered else ''}</td>
-                </tr>
-                <tr tal:condition="member.dues16_paid">
-                  <td>n/a</td>
-                  <td>Zahlungseingang</td>
-                  <td>${member.dues16_paid_date.strftime('%Y-%m-%d')}</td>
-                  <td tal:define="global i_saldo python: D(i_saldo) - D(member.dues16_amount_paid)">
-                    ${member.dues16_amount_paid}</td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td></td>
-                  <td>SALDO: </td>
-                  <td></td>
-                  <td>${i_saldo}</td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr>
-              </table>
-            </td>
-          </tr>
-        </table>
-        </div>
-
-
-        <div tal:omit-tag="" tal:condition="not member.membership_date > date(2017,12,31) and (member.membership_loss_date is None or member.membership_loss_date >= date(2017,1,1))">
-        <a name="dues17"></a>
-        <h3 id="certificate">Membership Dues 2017</h3>
+        <div tal:omit-tag="" tal:condition="not member.membership_date > date(2018,05,31) and (member.membership_loss_date is None or member.membership_loss_date >= date(2018,5,1))">
+        <a name="dues18_05"></a>
+        <h3 id="certificate">Membership Dues 2018-05</h3>
         <table class="table table-striped">
           <tr>
             <td>
@@ -861,31 +405,31 @@
 
             </td>
             <td>
-              <a tal:condition="not member.dues17_invoice"
-                 href="${request.route_url('send_dues17_invoice_email', member_id=member.id)}"
+              <a tal:condition="not member.dues18_05_invoice"
+                 href="${request.route_url('send_dues18_05_invoice_email', member_id=member.id)}"
                  title="dues invoice not sent yet"
                  class="btn btn-warning">
                 Noch nicht berechnet und verschickt. <br/>
                 Jetzt berechnen &amp; versenden: Klick!</a>
-              <a tal:condition="member.dues17_invoice"
-                 href="${request.route_url('send_dues17_invoice_email', member_id=member.id)}"
-                 title="gesendet ${member.dues17_invoice_date.strftime('am %d.%m.%Y um %H:%M')}"
-                 class="btn btn-success">gesendet ${member.dues17_invoice_date.strftime('am %d.%m.%Y um %H:%M')}. Klicken zum wiederholten versenden.</a>
+              <a tal:condition="member.dues18_05_invoice"
+                 href="${request.route_url('send_dues18_05_invoice_email', member_id=member.id)}"
+                 title="gesendet ${member.dues18_05_invoice_date.strftime('am %d.%m.%Y um %H:%M')}"
+                 class="btn btn-success">gesendet ${member.dues18_05_invoice_date.strftime('am %d.%m.%Y um %H:%M')}. Klicken zum wiederholten versenden.</a>
             </td>
           </tr>
-          <tr tal:condition="'investing' not in member.membership_type and member.dues17_invoice">
+          <tr tal:condition="'investing' not in member.membership_type and member.dues18_05_invoice">
             <td>PDF generieren (download)</td>
             <td>
-              <a href="${request.route_url('make_dues17_invoice_no_pdf',
+              <a href="${request.route_url('make_dues18_05_invoice_no_pdf',
                        email=member.email,
-                       code=member.dues17_token,
-                       i=str(member.dues17_invoice_no).zfill(4))}"
+                       code=member.dues18_05_token,
+                       i=str(member.dues18_05_invoice_no).zfill(4))}"
                  title="Mitgliedschaftsbeitragsrechnung ansehen"
                  class="btn btn-success">PDF generieren und laden</a>
             </td>
           </tr>
           <!--! reduction / exemption -->
-          <tr tal:condition="'investing' not in member.membership_type and member.dues17_invoice">
+          <tr tal:condition="'investing' not in member.membership_type and member.dues18_05_invoice">
             <td>Ermäßigung/Erlass<br/>
               <small>
                 Hier siehst Du den errechneten Mitgliedsbeitrag.<br/>
@@ -900,26 +444,26 @@
               <table>
                 <tr>
                   <td><small>müsste zahlen:</small></td>
-                  <td>${member.dues17_start}</td>
+                  <td>${member.dues18_05_start}</td>
                 </tr>
                 <tr>
                   <td><small>berechn. Beitrag: &nbsp;</small></td>
-                  <td>${member.dues17_amount} Euro</td>
+                  <td>${member.dues18_05_amount} Euro</td>
                 </tr>
                 <tr>
                   <td><small>ermäßigter Beitrag: &nbsp;</small></td>
-                  <td tal:condition="not member.dues17_reduced">
+                  <td tal:condition="not member.dues18_05_reduced">
                     kein Antrag gestellt</td>
-                  <td tal:condition="member.dues17_reduced">
-                    ${member.dues17_amount_reduced} Euro</td>
+                  <td tal:condition="member.dues18_05_reduced">
+                    ${member.dues18_05_amount_reduced} Euro</td>
                 </tr>
               </table>
               <p>
 
-                <form tal:condition="not member.dues17_balanced"
-                      id="dues17_form"
+                <form tal:condition="not member.dues18_05_balanced"
+                      id="dues18_05_form"
                       class="form-inline"
-                      action="${request.route_url('dues17_reduction', member_id=member.id)}"
+                      action="${request.route_url('dues18_05_reduction', member_id=member.id)}"
                       method="post">
                     <label>ermäßigen auf:</label>
                     <input type="hidden"
@@ -930,14 +474,14 @@
                            title="foo"
                            name="amount"
                            value="" />
-                    <input id="dues17_reduce_submit"
+                    <input id="dues18_05_reduce_submit"
                            type="submit"
                            name="submit"
                            class="btn btn-primary"
                            value="Reduce Dues" />
                 </form>
               </p>
-              <p tal:define="messages request.session.pop_flash('dues17_message_to_staff')"
+              <p tal:define="messages request.session.pop_flash('dues18_05_message_to_staff')"
                     tal:condition="messages"
                     tal:attributes="class 'alert alert-danger'">
                 <span color="red"
@@ -946,17 +490,17 @@
                 </span><br />
               </p>
               <p>
-                see also <a href="${request.route_url('dues17_listing')}"
-                            class="btn btn-primary">Dues17 Invoices Listing</a>
+                see also <a href="${request.route_url('dues18_05_listing')}"
+                            class="btn btn-primary">Dues18_05 Invoices Listing</a>
               </p>
             </td>
           </tr>
           <!--! payments for dues -->
           <!--! case one: not paid yet -->
           <tr tal:condition="'investing' not in member.membership_type
-                             and member.dues17_invoice
-                             and not member.dues17_paid
-                             and not member.dues17_balanced">
+                             and member.dues18_05_invoice
+                             and not member.dues18_05_paid
+                             and not member.dues18_05_balanced">
             <td>Zahlungseingang<br/>
               <small>
                 Hier kann der Zahlungseingang mit Datum vermerkt werden.
@@ -965,7 +509,7 @@
             <td>
               <p>
                 <form class="form-inline"
-                      action="${request.route_url('dues17_notice', member_id=member.id)}"
+                      action="${request.route_url('dues18_05_notice', member_id=member.id)}"
                       method="post">
                   <label>Betrag eingegangen:</label>
                      <input type="text"
@@ -985,7 +529,7 @@
                             value="Zahlungseingang bestätigen." />
                 </form>
               </p>
-              <p tal:define="messages request.session.pop_flash('dues17notice_message_to_staff')"
+              <p tal:define="messages request.session.pop_flash('dues18_05notice_message_to_staff')"
                     tal:condition="messages"
                     tal:attributes="class 'alert alert-danger'">
                 <span color="red"
@@ -997,9 +541,9 @@
           </tr>
           <!-- case two: already paid OR dues exempted-->
           <tr tal:condition="'investing' not in member.membership_type
-                             and member.dues17_invoice
-                             and member.dues17_paid
-                             or member.dues17_balanced">
+                             and member.dues18_05_invoice
+                             and member.dues18_05_paid
+                             or member.dues18_05_balanced">
             <td>Zahlungseingang<br/>
               <small>
                 Hier ist der Zahlungseingang mit Datum vermerkt.
@@ -1008,14 +552,14 @@
             <td>
               <table class="table table-striped">
                 <tr>
-                  <td>Betrag eingegangen:</td><td>${member.dues17_amount_paid}</td>
+                  <td>Betrag eingegangen:</td><td>${member.dues18_05_amount_paid}</td>
                 </tr><tr>
-                  <td>Eingangsdatum:</td><td>${member.dues17_paid_date}</td>
+                  <td>Eingangsdatum:</td><td>${member.dues18_05_paid_date}</td>
                 </tr>
               </table>
             </td>
           </tr>
-          <tr tal:condition="'investing' not in member.membership_type and member.dues17_invoice">
+          <tr tal:condition="'investing' not in member.membership_type and member.dues18_05_invoice">
             <td>Rechnungen<br/>
               <small>
                 Hier siehst Du die erstellten Rechnungen für dieses Mitglied.<br/>
@@ -1036,14 +580,14 @@
 
                 <!--! loop over the list of invoices -->
                 <tr tal:define="global i_saldo python:0"
-                    tal:repeat="i invoices17"
+                    tal:repeat="i invoices18_05"
                     tal:attributes="id python: 'invoice_{0}'.format(i.id)">
                   <!-- td>${i.id}</td -->
                   <td><a title="${i.invoice_no}">${i.invoice_no}</a></td>
                   <td>
                     <!--! if this invoice is a normal invoice -->
                     <a tal:condition="not i.is_reversal"
-                       href="${request.route_url('make_dues17_invoice_no_pdf',
+                       href="${request.route_url('make_dues18_05_invoice_no_pdf',
                              i=str(i.invoice_no).zfill(4),
                              email=i.email,
                              code=i.token)}"
@@ -1052,7 +596,7 @@
                     </a>
                     <!--! if this invoice is a REVERSAL INVOICE -->
                     <a  tal:condition="i.is_reversal"
-                        href="${request.route_url('make_dues17_reversal_invoice_pdf',
+                        href="${request.route_url('make_dues18_05_reversal_invoice_pdf',
                               no=str(i.invoice_no).zfill(4),
                               email=i.email,
                               code=i.token)}"
@@ -1067,12 +611,12 @@
                   <td>${'reverses %s' % i.preceding_invoice_no if i.is_reversal else ''}</td>
                   <td>${'altered' if i.is_altered else ''}</td>
                 </tr>
-                <tr tal:condition="member.dues17_paid">
+                <tr tal:condition="member.dues18_05_paid">
                   <td>n/a</td>
                   <td>Zahlungseingang</td>
-                  <td>${member.dues17_paid_date.strftime('%Y-%m-%d')}</td>
-                  <td tal:define="global i_saldo python: D(i_saldo) - D(member.dues17_amount_paid)">
-                    ${member.dues17_amount_paid}</td>
+                  <td>${member.dues18_05_paid_date.strftime('%Y-%m-%d')}</td>
+                  <td tal:define="global i_saldo python: D(i_saldo) - D(member.dues18_05_amount_paid)">
+                    ${member.dues18_05_amount_paid}</td>
                   <td></td>
                   <td></td>
                   <td></td>
@@ -1093,6 +637,1736 @@
         </div>
 
 
+        <div tal:omit-tag="" tal:condition="not member.membership_date > date(2018,06,30) and (member.membership_loss_date is None or member.membership_loss_date >= date(2018,6,1))">
+        <a name="dues18_06"></a>
+        <h3 id="certificate">Membership Dues 2018_06</h3>
+        <table class="table table-striped">
+          <tr>
+            <td>
+              Versand Mitgliedsbeitrags-Email (Rechnung/Aufforderung)<br/>
+              <small>
+                Ein Klick hier berechnet den Mitgliedsbeitrag,<br/>
+                setzt ein (neues) Token und versendet eine Email,<br/>
+                bei normalen Mitgliedern mit Link auf die Rechnung.<br/>
+                Der versandte Link enthält das Token, ohne welches KEIN pdf generiert wird.
+              </small>
+
+            </td>
+            <td>
+              <a tal:condition="not member.dues18_06_invoice"
+                 href="${request.route_url('send_dues18_06_invoice_email', member_id=member.id)}"
+                 title="dues invoice not sent yet"
+                 class="btn btn-warning">
+                Noch nicht berechnet und verschickt. <br/>
+                Jetzt berechnen &amp; versenden: Klick!</a>
+              <a tal:condition="member.dues18_06_invoice"
+                 href="${request.route_url('send_dues18_06_invoice_email', member_id=member.id)}"
+                 title="gesendet ${member.dues18_06_invoice_date.strftime('am %d.%m.%Y um %H:%M')}"
+                 class="btn btn-success">gesendet ${member.dues18_06_invoice_date.strftime('am %d.%m.%Y um %H:%M')}. Klicken zum wiederholten versenden.</a>
+            </td>
+          </tr>
+          <tr tal:condition="'investing' not in member.membership_type and member.dues18_06_invoice">
+            <td>PDF generieren (download)</td>
+            <td>
+              <a href="${request.route_url('make_dues18_06_invoice_no_pdf',
+                       email=member.email,
+                       code=member.dues18_06_token,
+                       i=str(member.dues18_06_invoice_no).zfill(4))}"
+                 title="Mitgliedschaftsbeitragsrechnung ansehen"
+                 class="btn btn-success">PDF generieren und laden</a>
+            </td>
+          </tr>
+          <!--! reduction / exemption -->
+          <tr tal:condition="'investing' not in member.membership_type and member.dues18_06_invoice">
+            <td>Ermäßigung/Erlass<br/>
+              <small>
+                Hier siehst Du den errechneten Mitgliedsbeitrag.<br/>
+                Du kannst im Falle eines Antrags auf Ermäßigung einen neuen Betrag festsetzen -- auch 0 Euro.<br/>
+                Daraufhin wird die alte Rechnung storniert.
+                Das Mitglied erhält eine E-Mail.<br/>
+                Diese enthält Links auf die Storno-Rechnung
+                und eine neue geänderte Rechnung.
+              </small>
+            </td>
+            <td>
+              <table>
+                <tr>
+                  <td><small>müsste zahlen:</small></td>
+                  <td>${member.dues18_06_start}</td>
+                </tr>
+                <tr>
+                  <td><small>berechn. Beitrag: &nbsp;</small></td>
+                  <td>${member.dues18_06_amount} Euro</td>
+                </tr>
+                <tr>
+                  <td><small>ermäßigter Beitrag: &nbsp;</small></td>
+                  <td tal:condition="not member.dues18_06_reduced">
+                    kein Antrag gestellt</td>
+                  <td tal:condition="member.dues18_06_reduced">
+                    ${member.dues18_06_amount_reduced} Euro</td>
+                </tr>
+              </table>
+              <p>
+
+                <form tal:condition="not member.dues18_06_balanced"
+                      id="dues18_06_form"
+                      class="form-inline"
+                      action="${request.route_url('dues18_06_reduction', member_id=member.id)}"
+                      method="post">
+                    <label>ermäßigen auf:</label>
+                    <input type="hidden"
+                           name="confirmed"
+                           value="no" />
+                    <input type="text"
+                           class="form-control"
+                           title="foo"
+                           name="amount"
+                           value="" />
+                    <input id="dues18_06_reduce_submit"
+                           type="submit"
+                           name="submit"
+                           class="btn btn-primary"
+                           value="Reduce Dues" />
+                </form>
+              </p>
+              <p tal:define="messages request.session.pop_flash('dues18_06_message_to_staff')"
+                    tal:condition="messages"
+                    tal:attributes="class 'alert alert-danger'">
+                <span color="red"
+                      tal:repeat="message messages">
+                  ${message}
+                </span><br />
+              </p>
+              <p>
+                see also <a href="${request.route_url('dues18_06_listing')}"
+                            class="btn btn-primary">Dues18_06 Invoices Listing</a>
+              </p>
+            </td>
+          </tr>
+          <!--! payments for dues -->
+          <!--! case one: not paid yet -->
+          <tr tal:condition="'investing' not in member.membership_type
+                             and member.dues18_06_invoice
+                             and not member.dues18_06_paid
+                             and not member.dues18_06_balanced">
+            <td>Zahlungseingang<br/>
+              <small>
+                Hier kann der Zahlungseingang mit Datum vermerkt werden.
+              </small>
+            </td>
+            <td>
+              <p>
+                <form class="form-inline"
+                      action="${request.route_url('dues18_06_notice', member_id=member.id)}"
+                      method="post">
+                  <label>Betrag eingegangen:</label>
+                     <input type="text"
+                           class="form-control"
+                           title="foo"
+                           name="amount"
+                           value="" />
+                     <br />
+                     Eingangsdatum (yyyy-mm-dd):
+                     <input name="payment_date"
+                            class="form-control"
+                            type="text"
+                            value="${today}" />
+                     <br />
+                     <input name="submit" type="submit"
+                            class="btn btn-primary"
+                            value="Zahlungseingang bestätigen." />
+                </form>
+              </p>
+              <p tal:define="messages request.session.pop_flash('dues18_06notice_message_to_staff')"
+                    tal:condition="messages"
+                    tal:attributes="class 'alert alert-danger'">
+                <span color="red"
+                      tal:repeat="message messages">
+                  ${message}
+                </span><br />
+              </p>
+            </td>
+          </tr>
+          <!-- case two: already paid OR dues exempted-->
+          <tr tal:condition="'investing' not in member.membership_type
+                             and member.dues18_06_invoice
+                             and member.dues18_06_paid
+                             or member.dues18_06_balanced">
+            <td>Zahlungseingang<br/>
+              <small>
+                Hier ist der Zahlungseingang mit Datum vermerkt.
+              </small>
+            </td>
+            <td>
+              <table class="table table-striped">
+                <tr>
+                  <td>Betrag eingegangen:</td><td>${member.dues18_06_amount_paid}</td>
+                </tr><tr>
+                  <td>Eingangsdatum:</td><td>${member.dues18_06_paid_date}</td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr tal:condition="'investing' not in member.membership_type and member.dues18_06_invoice">
+            <td>Rechnungen<br/>
+              <small>
+                Hier siehst Du die erstellten Rechnungen für dieses Mitglied.<br/>
+                Falls vorhanden in der vorletzten Zeile (über SALDO) auch einen Zahlungseingang.
+              </small>
+            </td>
+            <td>
+              <table class="table table-striped" rules="rows">
+                <tr class="table-striped">
+                  <th>invoice no</th>
+                  <th>invoice string<br/>(download PDF)</th>
+                  <th>date</th>
+                  <th>amount</th>
+                  <th>was<br/>reversed?</th>
+                  <th>is<br/>reversal?</th>
+                  <th>default or<br/>altered?</th>
+                </tr>
+
+                <!--! loop over the list of invoices -->
+                <tr tal:define="global i_saldo python:0"
+                    tal:repeat="i invoices18_06"
+                    tal:attributes="id python: 'invoice_{0}'.format(i.id)">
+                  <!-- td>${i.id}</td -->
+                  <td><a title="${i.invoice_no}">${i.invoice_no}</a></td>
+                  <td>
+                    <!--! if this invoice is a normal invoice -->
+                    <a tal:condition="not i.is_reversal"
+                       href="${request.route_url('make_dues18_06_invoice_no_pdf',
+                             i=str(i.invoice_no).zfill(4),
+                             email=i.email,
+                             code=i.token)}"
+                       title="download ${i.invoice_no_string}.pdf">
+                      ${i.invoice_no_string}
+                    </a>
+                    <!--! if this invoice is a REVERSAL INVOICE -->
+                    <a  tal:condition="i.is_reversal"
+                        href="${request.route_url('make_dues18_06_reversal_invoice_pdf',
+                              no=str(i.invoice_no).zfill(4),
+                              email=i.email,
+                              code=i.token)}"
+                        title="download ${i.invoice_no_string}-S.pdf">
+                      ${i.invoice_no_string}
+                    </a>
+                  </td>
+                  <td>${i.invoice_date.strftime('%d.%m.%Y %H:%M')}</td>
+                  <td tal:define="global i_saldo python: D(i_saldo) + D(i.invoice_amount)">
+                    ${i.invoice_amount}</td>
+                  <td>${'reversed by %s' % i.succeeding_invoice_no if i.is_cancelled else ''}</td>
+                  <td>${'reverses %s' % i.preceding_invoice_no if i.is_reversal else ''}</td>
+                  <td>${'altered' if i.is_altered else ''}</td>
+                </tr>
+                <tr tal:condition="member.dues18_06_paid">
+                  <td>n/a</td>
+                  <td>Zahlungseingang</td>
+                  <td>${member.dues18_06_paid_date.strftime('%Y-%m-%d')}</td>
+                  <td tal:define="global i_saldo python: D(i_saldo) - D(member.dues18_06_amount_paid)">
+                    ${member.dues18_06_amount_paid}</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>SALDO: </td>
+                  <td></td>
+                  <td>${i_saldo}</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+        </div>
+
+
+        <div tal:omit-tag="" tal:condition="not member.membership_date > date(2018,07,31) and (member.membership_loss_date is None or member.membership_loss_date >= date(2018,7,1))">
+        <a name="dues18_07"></a>
+        <h3 id="certificate">Membership Dues 2018_07</h3>
+        <table class="table table-striped">
+          <tr>
+            <td>
+              Versand Mitgliedsbeitrags-Email (Rechnung/Aufforderung)<br/>
+              <small>
+                Ein Klick hier berechnet den Mitgliedsbeitrag,<br/>
+                setzt ein (neues) Token und versendet eine Email,<br/>
+                bei normalen Mitgliedern mit Link auf die Rechnung.<br/>
+                Der versandte Link enthält das Token, ohne welches KEIN pdf generiert wird.
+              </small>
+
+            </td>
+            <td>
+              <a tal:condition="not member.dues18_07_invoice"
+                 href="${request.route_url('send_dues18_07_invoice_email', member_id=member.id)}"
+                 title="dues invoice not sent yet"
+                 class="btn btn-warning">
+                Noch nicht berechnet und verschickt. <br/>
+                Jetzt berechnen &amp; versenden: Klick!</a>
+              <a tal:condition="member.dues18_07_invoice"
+                 href="${request.route_url('send_dues18_07_invoice_email', member_id=member.id)}"
+                 title="gesendet ${member.dues18_07_invoice_date.strftime('am %d.%m.%Y um %H:%M')}"
+                 class="btn btn-success">gesendet ${member.dues18_07_invoice_date.strftime('am %d.%m.%Y um %H:%M')}. Klicken zum wiederholten versenden.</a>
+            </td>
+          </tr>
+          <tr tal:condition="'investing' not in member.membership_type and member.dues18_07_invoice">
+            <td>PDF generieren (download)</td>
+            <td>
+              <a href="${request.route_url('make_dues18_07_invoice_no_pdf',
+                       email=member.email,
+                       code=member.dues18_07_token,
+                       i=str(member.dues18_07_invoice_no).zfill(4))}"
+                 title="Mitgliedschaftsbeitragsrechnung ansehen"
+                 class="btn btn-success">PDF generieren und laden</a>
+            </td>
+          </tr>
+          <!--! reduction / exemption -->
+          <tr tal:condition="'investing' not in member.membership_type and member.dues18_07_invoice">
+            <td>Ermäßigung/Erlass<br/>
+              <small>
+                Hier siehst Du den errechneten Mitgliedsbeitrag.<br/>
+                Du kannst im Falle eines Antrags auf Ermäßigung einen neuen Betrag festsetzen -- auch 0 Euro.<br/>
+                Daraufhin wird die alte Rechnung storniert.
+                Das Mitglied erhält eine E-Mail.<br/>
+                Diese enthält Links auf die Storno-Rechnung
+                und eine neue geänderte Rechnung.
+              </small>
+            </td>
+            <td>
+              <table>
+                <tr>
+                  <td><small>müsste zahlen:</small></td>
+                  <td>${member.dues18_07_start}</td>
+                </tr>
+                <tr>
+                  <td><small>berechn. Beitrag: &nbsp;</small></td>
+                  <td>${member.dues18_07_amount} Euro</td>
+                </tr>
+                <tr>
+                  <td><small>ermäßigter Beitrag: &nbsp;</small></td>
+                  <td tal:condition="not member.dues18_07_reduced">
+                    kein Antrag gestellt</td>
+                  <td tal:condition="member.dues18_07_reduced">
+                    ${member.dues18_07_amount_reduced} Euro</td>
+                </tr>
+              </table>
+              <p>
+
+                <form tal:condition="not member.dues18_07_balanced"
+                      id="dues18_07_form"
+                      class="form-inline"
+                      action="${request.route_url('dues18_07_reduction', member_id=member.id)}"
+                      method="post">
+                    <label>ermäßigen auf:</label>
+                    <input type="hidden"
+                           name="confirmed"
+                           value="no" />
+                    <input type="text"
+                           class="form-control"
+                           title="foo"
+                           name="amount"
+                           value="" />
+                    <input id="dues18_07_reduce_submit"
+                           type="submit"
+                           name="submit"
+                           class="btn btn-primary"
+                           value="Reduce Dues" />
+                </form>
+              </p>
+              <p tal:define="messages request.session.pop_flash('dues18_07_message_to_staff')"
+                    tal:condition="messages"
+                    tal:attributes="class 'alert alert-danger'">
+                <span color="red"
+                      tal:repeat="message messages">
+                  ${message}
+                </span><br />
+              </p>
+              <p>
+                see also <a href="${request.route_url('dues18_07_listing')}"
+                            class="btn btn-primary">Dues18_07 Invoices Listing</a>
+              </p>
+            </td>
+          </tr>
+          <!--! payments for dues -->
+          <!--! case one: not paid yet -->
+          <tr tal:condition="'investing' not in member.membership_type
+                             and member.dues18_07_invoice
+                             and not member.dues18_07_paid
+                             and not member.dues18_07_balanced">
+            <td>Zahlungseingang<br/>
+              <small>
+                Hier kann der Zahlungseingang mit Datum vermerkt werden.
+              </small>
+            </td>
+            <td>
+              <p>
+                <form class="form-inline"
+                      action="${request.route_url('dues18_07_notice', member_id=member.id)}"
+                      method="post">
+                  <label>Betrag eingegangen:</label>
+                     <input type="text"
+                           class="form-control"
+                           title="foo"
+                           name="amount"
+                           value="" />
+                     <br />
+                     Eingangsdatum (yyyy-mm-dd):
+                     <input name="payment_date"
+                            class="form-control"
+                            type="text"
+                            value="${today}" />
+                     <br />
+                     <input name="submit" type="submit"
+                            class="btn btn-primary"
+                            value="Zahlungseingang bestätigen." />
+                </form>
+              </p>
+              <p tal:define="messages request.session.pop_flash('dues18_07notice_message_to_staff')"
+                    tal:condition="messages"
+                    tal:attributes="class 'alert alert-danger'">
+                <span color="red"
+                      tal:repeat="message messages">
+                  ${message}
+                </span><br />
+              </p>
+            </td>
+          </tr>
+          <!-- case two: already paid OR dues exempted-->
+          <tr tal:condition="'investing' not in member.membership_type
+                             and member.dues18_07_invoice
+                             and member.dues18_07_paid
+                             or member.dues18_07_balanced">
+            <td>Zahlungseingang<br/>
+              <small>
+                Hier ist der Zahlungseingang mit Datum vermerkt.
+              </small>
+            </td>
+            <td>
+              <table class="table table-striped">
+                <tr>
+                  <td>Betrag eingegangen:</td><td>${member.dues18_07_amount_paid}</td>
+                </tr><tr>
+                  <td>Eingangsdatum:</td><td>${member.dues18_07_paid_date}</td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr tal:condition="'investing' not in member.membership_type and member.dues18_07_invoice">
+            <td>Rechnungen<br/>
+              <small>
+                Hier siehst Du die erstellten Rechnungen für dieses Mitglied.<br/>
+                Falls vorhanden in der vorletzten Zeile (über SALDO) auch einen Zahlungseingang.
+              </small>
+            </td>
+            <td>
+              <table class="table table-striped" rules="rows">
+                <tr class="table-striped">
+                  <th>invoice no</th>
+                  <th>invoice string<br/>(download PDF)</th>
+                  <th>date</th>
+                  <th>amount</th>
+                  <th>was<br/>reversed?</th>
+                  <th>is<br/>reversal?</th>
+                  <th>default or<br/>altered?</th>
+                </tr>
+
+                <!--! loop over the list of invoices -->
+                <tr tal:define="global i_saldo python:0"
+                    tal:repeat="i invoices18_07"
+                    tal:attributes="id python: 'invoice_{0}'.format(i.id)">
+                  <!-- td>${i.id}</td -->
+                  <td><a title="${i.invoice_no}">${i.invoice_no}</a></td>
+                  <td>
+                    <!--! if this invoice is a normal invoice -->
+                    <a tal:condition="not i.is_reversal"
+                       href="${request.route_url('make_dues18_07_invoice_no_pdf',
+                             i=str(i.invoice_no).zfill(4),
+                             email=i.email,
+                             code=i.token)}"
+                       title="download ${i.invoice_no_string}.pdf">
+                      ${i.invoice_no_string}
+                    </a>
+                    <!--! if this invoice is a REVERSAL INVOICE -->
+                    <a  tal:condition="i.is_reversal"
+                        href="${request.route_url('make_dues18_07_reversal_invoice_pdf',
+                              no=str(i.invoice_no).zfill(4),
+                              email=i.email,
+                              code=i.token)}"
+                        title="download ${i.invoice_no_string}-S.pdf">
+                      ${i.invoice_no_string}
+                    </a>
+                  </td>
+                  <td>${i.invoice_date.strftime('%d.%m.%Y %H:%M')}</td>
+                  <td tal:define="global i_saldo python: D(i_saldo) + D(i.invoice_amount)">
+                    ${i.invoice_amount}</td>
+                  <td>${'reversed by %s' % i.succeeding_invoice_no if i.is_cancelled else ''}</td>
+                  <td>${'reverses %s' % i.preceding_invoice_no if i.is_reversal else ''}</td>
+                  <td>${'altered' if i.is_altered else ''}</td>
+                </tr>
+                <tr tal:condition="member.dues18_07_paid">
+                  <td>n/a</td>
+                  <td>Zahlungseingang</td>
+                  <td>${member.dues18_07_paid_date.strftime('%Y-%m-%d')}</td>
+                  <td tal:define="global i_saldo python: D(i_saldo) - D(member.dues18_07_amount_paid)">
+                    ${member.dues18_07_amount_paid}</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>SALDO: </td>
+                  <td></td>
+                  <td>${i_saldo}</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+        </div>
+
+        <div tal:omit-tag="" tal:condition="not member.membership_date > date(2018,08,31) and (member.membership_loss_date is None or member.membership_loss_date >= date(2018,8,1))">
+        <a name="dues18_09"></a>
+        <h3 id="certificate">Membership Dues 2018_09</h3>
+        <table class="table table-striped">
+          <tr>
+            <td>
+              Versand Mitgliedsbeitrags-Email (Rechnung/Aufforderung)<br/>
+              <small>
+                Ein Klick hier berechnet den Mitgliedsbeitrag,<br/>
+                setzt ein (neues) Token und versendet eine Email,<br/>
+                bei normalen Mitgliedern mit Link auf die Rechnung.<br/>
+                Der versandte Link enthält das Token, ohne welches KEIN pdf generiert wird.
+              </small>
+
+            </td>
+            <td>
+              <a tal:condition="not member.dues18_09_invoice"
+                 href="${request.route_url('send_dues18_09_invoice_email', member_id=member.id)}"
+                 title="dues invoice not sent yet"
+                 class="btn btn-warning">
+                Noch nicht berechnet und verschickt. <br/>
+                Jetzt berechnen &amp; versenden: Klick!</a>
+              <a tal:condition="member.dues18_09_invoice"
+                 href="${request.route_url('send_dues18_09_invoice_email', member_id=member.id)}"
+                 title="gesendet ${member.dues18_09_invoice_date.strftime('am %d.%m.%Y um %H:%M')}"
+                 class="btn btn-success">gesendet ${member.dues18_09_invoice_date.strftime('am %d.%m.%Y um %H:%M')}. Klicken zum wiederholten versenden.</a>
+            </td>
+          </tr>
+          <tr tal:condition="'investing' not in member.membership_type and member.dues18_09_invoice">
+            <td>PDF generieren (download)</td>
+            <td>
+              <a href="${request.route_url('make_dues18_09_invoice_no_pdf',
+                       email=member.email,
+                       code=member.dues18_09_token,
+                       i=str(member.dues18_09_invoice_no).zfill(4))}"
+                 title="Mitgliedschaftsbeitragsrechnung ansehen"
+                 class="btn btn-success">PDF generieren und laden</a>
+            </td>
+          </tr>
+          <!--! reduction / exemption -->
+          <tr tal:condition="'investing' not in member.membership_type and member.dues18_09_invoice">
+            <td>Ermäßigung/Erlass<br/>
+              <small>
+                Hier siehst Du den errechneten Mitgliedsbeitrag.<br/>
+                Du kannst im Falle eines Antrags auf Ermäßigung einen neuen Betrag festsetzen -- auch 0 Euro.<br/>
+                Daraufhin wird die alte Rechnung storniert.
+                Das Mitglied erhält eine E-Mail.<br/>
+                Diese enthält Links auf die Storno-Rechnung
+                und eine neue geänderte Rechnung.
+              </small>
+            </td>
+            <td>
+              <table>
+                <tr>
+                  <td><small>müsste zahlen:</small></td>
+                  <td>${member.dues18_09_start}</td>
+                </tr>
+                <tr>
+                  <td><small>berechn. Beitrag: &nbsp;</small></td>
+                  <td>${member.dues18_09_amount} Euro</td>
+                </tr>
+                <tr>
+                  <td><small>ermäßigter Beitrag: &nbsp;</small></td>
+                  <td tal:condition="not member.dues18_09_reduced">
+                    kein Antrag gestellt</td>
+                  <td tal:condition="member.dues18_09_reduced">
+                    ${member.dues18_09_amount_reduced} Euro</td>
+                </tr>
+              </table>
+              <p>
+
+                <form tal:condition="not member.dues18_09_balanced"
+                      id="dues18_09_form"
+                      class="form-inline"
+                      action="${request.route_url('dues18_09_reduction', member_id=member.id)}"
+                      method="post">
+                    <label>ermäßigen auf:</label>
+                    <input type="hidden"
+                           name="confirmed"
+                           value="no" />
+                    <input type="text"
+                           class="form-control"
+                           title="foo"
+                           name="amount"
+                           value="" />
+                    <input id="dues18_09_reduce_submit"
+                           type="submit"
+                           name="submit"
+                           class="btn btn-primary"
+                           value="Reduce Dues" />
+                </form>
+              </p>
+              <p tal:define="messages request.session.pop_flash('dues18_09_message_to_staff')"
+                    tal:condition="messages"
+                    tal:attributes="class 'alert alert-danger'">
+                <span color="red"
+                      tal:repeat="message messages">
+                  ${message}
+                </span><br />
+              </p>
+              <p>
+                see also <a href="${request.route_url('dues18_09_listing')}"
+                            class="btn btn-primary">Dues18_09 Invoices Listing</a>
+              </p>
+            </td>
+          </tr>
+          <!--! payments for dues -->
+          <!--! case one: not paid yet -->
+          <tr tal:condition="'investing' not in member.membership_type
+                             and member.dues18_09_invoice
+                             and not member.dues18_09_paid
+                             and not member.dues18_09_balanced">
+            <td>Zahlungseingang<br/>
+              <small>
+                Hier kann der Zahlungseingang mit Datum vermerkt werden.
+              </small>
+            </td>
+            <td>
+              <p>
+                <form class="form-inline"
+                      action="${request.route_url('dues18_09_notice', member_id=member.id)}"
+                      method="post">
+                  <label>Betrag eingegangen:</label>
+                     <input type="text"
+                           class="form-control"
+                           title="foo"
+                           name="amount"
+                           value="" />
+                     <br />
+                     Eingangsdatum (yyyy-mm-dd):
+                     <input name="payment_date"
+                            class="form-control"
+                            type="text"
+                            value="${today}" />
+                     <br />
+                     <input name="submit" type="submit"
+                            class="btn btn-primary"
+                            value="Zahlungseingang bestätigen." />
+                </form>
+              </p>
+              <p tal:define="messages request.session.pop_flash('dues18_09notice_message_to_staff')"
+                    tal:condition="messages"
+                    tal:attributes="class 'alert alert-danger'">
+                <span color="red"
+                      tal:repeat="message messages">
+                  ${message}
+                </span><br />
+              </p>
+            </td>
+          </tr>
+          <!-- case two: already paid OR dues exempted-->
+          <tr tal:condition="'investing' not in member.membership_type
+                             and member.dues18_09_invoice
+                             and member.dues18_09_paid
+                             or member.dues18_09_balanced">
+            <td>Zahlungseingang<br/>
+              <small>
+                Hier ist der Zahlungseingang mit Datum vermerkt.
+              </small>
+            </td>
+            <td>
+              <table class="table table-striped">
+                <tr>
+                  <td>Betrag eingegangen:</td><td>${member.dues18_09_amount_paid}</td>
+                </tr><tr>
+                  <td>Eingangsdatum:</td><td>${member.dues18_09_paid_date}</td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr tal:condition="'investing' not in member.membership_type and member.dues18_09_invoice">
+            <td>Rechnungen<br/>
+              <small>
+                Hier siehst Du die erstellten Rechnungen für dieses Mitglied.<br/>
+                Falls vorhanden in der vorletzten Zeile (über SALDO) auch einen Zahlungseingang.
+              </small>
+            </td>
+            <td>
+              <table class="table table-striped" rules="rows">
+                <tr class="table-striped">
+                  <th>invoice no</th>
+                  <th>invoice string<br/>(download PDF)</th>
+                  <th>date</th>
+                  <th>amount</th>
+                  <th>was<br/>reversed?</th>
+                  <th>is<br/>reversal?</th>
+                  <th>default or<br/>altered?</th>
+                </tr>
+
+                <!--! loop over the list of invoices -->
+                <tr tal:define="global i_saldo python:0"
+                    tal:repeat="i invoices18_09"
+                    tal:attributes="id python: 'invoice_{0}'.format(i.id)">
+                  <!-- td>${i.id}</td -->
+                  <td><a title="${i.invoice_no}">${i.invoice_no}</a></td>
+                  <td>
+                    <!--! if this invoice is a normal invoice -->
+                    <a tal:condition="not i.is_reversal"
+                       href="${request.route_url('make_dues18_09_invoice_no_pdf',
+                             i=str(i.invoice_no).zfill(4),
+                             email=i.email,
+                             code=i.token)}"
+                       title="download ${i.invoice_no_string}.pdf">
+                      ${i.invoice_no_string}
+                    </a>
+                    <!--! if this invoice is a REVERSAL INVOICE -->
+                    <a  tal:condition="i.is_reversal"
+                        href="${request.route_url('make_dues18_09_reversal_invoice_pdf',
+                              no=str(i.invoice_no).zfill(4),
+                              email=i.email,
+                              code=i.token)}"
+                        title="download ${i.invoice_no_string}-S.pdf">
+                      ${i.invoice_no_string}
+                    </a>
+                  </td>
+                  <td>${i.invoice_date.strftime('%d.%m.%Y %H:%M')}</td>
+                  <td tal:define="global i_saldo python: D(i_saldo) + D(i.invoice_amount)">
+                    ${i.invoice_amount}</td>
+                  <td>${'reversed by %s' % i.succeeding_invoice_no if i.is_cancelled else ''}</td>
+                  <td>${'reverses %s' % i.preceding_invoice_no if i.is_reversal else ''}</td>
+                  <td>${'altered' if i.is_altered else ''}</td>
+                </tr>
+                <tr tal:condition="member.dues18_09_paid">
+                  <td>n/a</td>
+                  <td>Zahlungseingang</td>
+                  <td>${member.dues18_09_paid_date.strftime('%Y-%m-%d')}</td>
+                  <td tal:define="global i_saldo python: D(i_saldo) - D(member.dues18_09_amount_paid)">
+                    ${member.dues18_09_amount_paid}</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>SALDO: </td>
+                  <td></td>
+                  <td>${i_saldo}</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+        </div>
+
+        <div tal:omit-tag="" tal:condition="not member.membership_date > date(2018,09,30) and (member.membership_loss_date is None or member.membership_loss_date >= date(2018_09,9,1))">
+        <a name="dues18_09"></a>
+        <h3 id="certificate">Membership Dues 2018_09</h3>
+        <table class="table table-striped">
+          <tr>
+            <td>
+              Versand Mitgliedsbeitrags-Email (Rechnung/Aufforderung)<br/>
+              <small>
+                Ein Klick hier berechnet den Mitgliedsbeitrag,<br/>
+                setzt ein (neues) Token und versendet eine Email,<br/>
+                bei normalen Mitgliedern mit Link auf die Rechnung.<br/>
+                Der versandte Link enthält das Token, ohne welches KEIN pdf generiert wird.
+              </small>
+
+            </td>
+            <td>
+              <a tal:condition="not member.dues18_09_invoice"
+                 href="${request.route_url('send_dues18_09_invoice_email', member_id=member.id)}"
+                 title="dues invoice not sent yet"
+                 class="btn btn-warning">
+                Noch nicht berechnet und verschickt. <br/>
+                Jetzt berechnen &amp; versenden: Klick!</a>
+              <a tal:condition="member.dues18_09_invoice"
+                 href="${request.route_url('send_dues18_09_invoice_email', member_id=member.id)}"
+                 title="gesendet ${member.dues18_09_invoice_date.strftime('am %d.%m.%Y um %H:%M')}"
+                 class="btn btn-success">gesendet ${member.dues18_09_invoice_date.strftime('am %d.%m.%Y um %H:%M')}. Klicken zum wiederholten versenden.</a>
+            </td>
+          </tr>
+          <tr tal:condition="'investing' not in member.membership_type and member.dues18_09_invoice">
+            <td>PDF generieren (download)</td>
+            <td>
+              <a href="${request.route_url('make_dues18_09_invoice_no_pdf',
+                       email=member.email,
+                       code=member.dues18_09_token,
+                       i=str(member.dues18_09_invoice_no).zfill(4))}"
+                 title="Mitgliedschaftsbeitragsrechnung ansehen"
+                 class="btn btn-success">PDF generieren und laden</a>
+            </td>
+          </tr>
+          <!--! reduction / exemption -->
+          <tr tal:condition="'investing' not in member.membership_type and member.dues18_09_invoice">
+            <td>Ermäßigung/Erlass<br/>
+              <small>
+                Hier siehst Du den errechneten Mitgliedsbeitrag.<br/>
+                Du kannst im Falle eines Antrags auf Ermäßigung einen neuen Betrag festsetzen -- auch 0 Euro.<br/>
+                Daraufhin wird die alte Rechnung storniert.
+                Das Mitglied erhält eine E-Mail.<br/>
+                Diese enthält Links auf die Storno-Rechnung
+                und eine neue geänderte Rechnung.
+              </small>
+            </td>
+            <td>
+              <table>
+                <tr>
+                  <td><small>müsste zahlen:</small></td>
+                  <td>${member.dues18_09_start}</td>
+                </tr>
+                <tr>
+                  <td><small>berechn. Beitrag: &nbsp;</small></td>
+                  <td>${member.dues18_09_amount} Euro</td>
+                </tr>
+                <tr>
+                  <td><small>ermäßigter Beitrag: &nbsp;</small></td>
+                  <td tal:condition="not member.dues18_09_reduced">
+                    kein Antrag gestellt</td>
+                  <td tal:condition="member.dues18_09_reduced">
+                    ${member.dues18_09_amount_reduced} Euro</td>
+                </tr>
+              </table>
+              <p>
+
+                <form tal:condition="not member.dues18_09_balanced"
+                      id="dues18_09_form"
+                      class="form-inline"
+                      action="${request.route_url('dues18_09_reduction', member_id=member.id)}"
+                      method="post">
+                    <label>ermäßigen auf:</label>
+                    <input type="hidden"
+                           name="confirmed"
+                           value="no" />
+                    <input type="text"
+                           class="form-control"
+                           title="foo"
+                           name="amount"
+                           value="" />
+                    <input id="dues18_09_reduce_submit"
+                           type="submit"
+                           name="submit"
+                           class="btn btn-primary"
+                           value="Reduce Dues" />
+                </form>
+              </p>
+              <p tal:define="messages request.session.pop_flash('dues18_09_message_to_staff')"
+                    tal:condition="messages"
+                    tal:attributes="class 'alert alert-danger'">
+                <span color="red"
+                      tal:repeat="message messages">
+                  ${message}
+                </span><br />
+              </p>
+              <p>
+                see also <a href="${request.route_url('dues18_09_listing')}"
+                            class="btn btn-primary">Dues18_09 Invoices Listing</a>
+              </p>
+            </td>
+          </tr>
+          <!--! payments for dues -->
+          <!--! case one: not paid yet -->
+          <tr tal:condition="'investing' not in member.membership_type
+                             and member.dues18_09_invoice
+                             and not member.dues18_09_paid
+                             and not member.dues18_09_balanced">
+            <td>Zahlungseingang<br/>
+              <small>
+                Hier kann der Zahlungseingang mit Datum vermerkt werden.
+              </small>
+            </td>
+            <td>
+              <p>
+                <form class="form-inline"
+                      action="${request.route_url('dues18_09_notice', member_id=member.id)}"
+                      method="post">
+                  <label>Betrag eingegangen:</label>
+                     <input type="text"
+                           class="form-control"
+                           title="foo"
+                           name="amount"
+                           value="" />
+                     <br />
+                     Eingangsdatum (yyyy-mm-dd):
+                     <input name="payment_date"
+                            class="form-control"
+                            type="text"
+                            value="${today}" />
+                     <br />
+                     <input name="submit" type="submit"
+                            class="btn btn-primary"
+                            value="Zahlungseingang bestätigen." />
+                </form>
+              </p>
+              <p tal:define="messages request.session.pop_flash('dues18_09notice_message_to_staff')"
+                    tal:condition="messages"
+                    tal:attributes="class 'alert alert-danger'">
+                <span color="red"
+                      tal:repeat="message messages">
+                  ${message}
+                </span><br />
+              </p>
+            </td>
+          </tr>
+          <!-- case two: already paid OR dues exempted-->
+          <tr tal:condition="'investing' not in member.membership_type
+                             and member.dues18_09_invoice
+                             and member.dues18_09_paid
+                             or member.dues18_09_balanced">
+            <td>Zahlungseingang<br/>
+              <small>
+                Hier ist der Zahlungseingang mit Datum vermerkt.
+              </small>
+            </td>
+            <td>
+              <table class="table table-striped">
+                <tr>
+                  <td>Betrag eingegangen:</td><td>${member.dues18_09_amount_paid}</td>
+                </tr><tr>
+                  <td>Eingangsdatum:</td><td>${member.dues18_09_paid_date}</td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr tal:condition="'investing' not in member.membership_type and member.dues18_09_invoice">
+            <td>Rechnungen<br/>
+              <small>
+                Hier siehst Du die erstellten Rechnungen für dieses Mitglied.<br/>
+                Falls vorhanden in der vorletzten Zeile (über SALDO) auch einen Zahlungseingang.
+              </small>
+            </td>
+            <td>
+              <table class="table table-striped" rules="rows">
+                <tr class="table-striped">
+                  <th>invoice no</th>
+                  <th>invoice string<br/>(download PDF)</th>
+                  <th>date</th>
+                  <th>amount</th>
+                  <th>was<br/>reversed?</th>
+                  <th>is<br/>reversal?</th>
+                  <th>default or<br/>altered?</th>
+                </tr>
+
+                <!--! loop over the list of invoices -->
+                <tr tal:define="global i_saldo python:0"
+                    tal:repeat="i invoices18_09"
+                    tal:attributes="id python: 'invoice_{0}'.format(i.id)">
+                  <!-- td>${i.id}</td -->
+                  <td><a title="${i.invoice_no}">${i.invoice_no}</a></td>
+                  <td>
+                    <!--! if this invoice is a normal invoice -->
+                    <a tal:condition="not i.is_reversal"
+                       href="${request.route_url('make_dues18_09_invoice_no_pdf',
+                             i=str(i.invoice_no).zfill(4),
+                             email=i.email,
+                             code=i.token)}"
+                       title="download ${i.invoice_no_string}.pdf">
+                      ${i.invoice_no_string}
+                    </a>
+                    <!--! if this invoice is a REVERSAL INVOICE -->
+                    <a  tal:condition="i.is_reversal"
+                        href="${request.route_url('make_dues18_09_reversal_invoice_pdf',
+                              no=str(i.invoice_no).zfill(4),
+                              email=i.email,
+                              code=i.token)}"
+                        title="download ${i.invoice_no_string}-S.pdf">
+                      ${i.invoice_no_string}
+                    </a>
+                  </td>
+                  <td>${i.invoice_date.strftime('%d.%m.%Y %H:%M')}</td>
+                  <td tal:define="global i_saldo python: D(i_saldo) + D(i.invoice_amount)">
+                    ${i.invoice_amount}</td>
+                  <td>${'reversed by %s' % i.succeeding_invoice_no if i.is_cancelled else ''}</td>
+                  <td>${'reverses %s' % i.preceding_invoice_no if i.is_reversal else ''}</td>
+                  <td>${'altered' if i.is_altered else ''}</td>
+                </tr>
+                <tr tal:condition="member.dues18_09_paid">
+                  <td>n/a</td>
+                  <td>Zahlungseingang</td>
+                  <td>${member.dues18_09_paid_date.strftime('%Y-%m-%d')}</td>
+                  <td tal:define="global i_saldo python: D(i_saldo) - D(member.dues18_09_amount_paid)">
+                    ${member.dues18_09_amount_paid}</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>SALDO: </td>
+                  <td></td>
+                  <td>${i_saldo}</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+        </div>
+
+        <div tal:omit-tag="" tal:condition="not member.membership_date > date(2018,10,31) and (member.membership_loss_date is None or member.membership_loss_date >= date(2018,10,1))">
+        <a name="dues18_10"></a>
+        <h3 id="certificate">Membership Dues 2018_10</h3>
+        <table class="table table-striped">
+          <tr>
+            <td>
+              Versand Mitgliedsbeitrags-Email (Rechnung/Aufforderung)<br/>
+              <small>
+                Ein Klick hier berechnet den Mitgliedsbeitrag,<br/>
+                setzt ein (neues) Token und versendet eine Email,<br/>
+                bei normalen Mitgliedern mit Link auf die Rechnung.<br/>
+                Der versandte Link enthält das Token, ohne welches KEIN pdf generiert wird.
+              </small>
+
+            </td>
+            <td>
+              <a tal:condition="not member.dues18_10_invoice"
+                 href="${request.route_url('send_dues18_10_invoice_email', member_id=member.id)}"
+                 title="dues invoice not sent yet"
+                 class="btn btn-warning">
+                Noch nicht berechnet und verschickt. <br/>
+                Jetzt berechnen &amp; versenden: Klick!</a>
+              <a tal:condition="member.dues18_10_invoice"
+                 href="${request.route_url('send_dues18_10_invoice_email', member_id=member.id)}"
+                 title="gesendet ${member.dues18_10_invoice_date.strftime('am %d.%m.%Y um %H:%M')}"
+                 class="btn btn-success">gesendet ${member.dues18_10_invoice_date.strftime('am %d.%m.%Y um %H:%M')}. Klicken zum wiederholten versenden.</a>
+            </td>
+          </tr>
+          <tr tal:condition="'investing' not in member.membership_type and member.dues18_10_invoice">
+            <td>PDF generieren (download)</td>
+            <td>
+              <a href="${request.route_url('make_dues18_10_invoice_no_pdf',
+                       email=member.email,
+                       code=member.dues18_10_token,
+                       i=str(member.dues18_10_invoice_no).zfill(4))}"
+                 title="Mitgliedschaftsbeitragsrechnung ansehen"
+                 class="btn btn-success">PDF generieren und laden</a>
+            </td>
+          </tr>
+          <!--! reduction / exemption -->
+          <tr tal:condition="'investing' not in member.membership_type and member.dues18_10_invoice">
+            <td>Ermäßigung/Erlass<br/>
+              <small>
+                Hier siehst Du den errechneten Mitgliedsbeitrag.<br/>
+                Du kannst im Falle eines Antrags auf Ermäßigung einen neuen Betrag festsetzen -- auch 0 Euro.<br/>
+                Daraufhin wird die alte Rechnung storniert.
+                Das Mitglied erhält eine E-Mail.<br/>
+                Diese enthält Links auf die Storno-Rechnung
+                und eine neue geänderte Rechnung.
+              </small>
+            </td>
+            <td>
+              <table>
+                <tr>
+                  <td><small>müsste zahlen:</small></td>
+                  <td>${member.dues18_10_start}</td>
+                </tr>
+                <tr>
+                  <td><small>berechn. Beitrag: &nbsp;</small></td>
+                  <td>${member.dues18_10_amount} Euro</td>
+                </tr>
+                <tr>
+                  <td><small>ermäßigter Beitrag: &nbsp;</small></td>
+                  <td tal:condition="not member.dues18_10_reduced">
+                    kein Antrag gestellt</td>
+                  <td tal:condition="member.dues18_10_reduced">
+                    ${member.dues18_10_amount_reduced} Euro</td>
+                </tr>
+              </table>
+              <p>
+
+                <form tal:condition="not member.dues18_10_balanced"
+                      id="dues18_10_form"
+                      class="form-inline"
+                      action="${request.route_url('dues18_10_reduction', member_id=member.id)}"
+                      method="post">
+                    <label>ermäßigen auf:</label>
+                    <input type="hidden"
+                           name="confirmed"
+                           value="no" />
+                    <input type="text"
+                           class="form-control"
+                           title="foo"
+                           name="amount"
+                           value="" />
+                    <input id="dues18_10_reduce_submit"
+                           type="submit"
+                           name="submit"
+                           class="btn btn-primary"
+                           value="Reduce Dues" />
+                </form>
+              </p>
+              <p tal:define="messages request.session.pop_flash('dues18_10_message_to_staff')"
+                    tal:condition="messages"
+                    tal:attributes="class 'alert alert-danger'">
+                <span color="red"
+                      tal:repeat="message messages">
+                  ${message}
+                </span><br />
+              </p>
+              <p>
+                see also <a href="${request.route_url('dues18_10_listing')}"
+                            class="btn btn-primary">Dues18_10 Invoices Listing</a>
+              </p>
+            </td>
+          </tr>
+          <!--! payments for dues -->
+          <!--! case one: not paid yet -->
+          <tr tal:condition="'investing' not in member.membership_type
+                             and member.dues18_10_invoice
+                             and not member.dues18_10_paid
+                             and not member.dues18_10_balanced">
+            <td>Zahlungseingang<br/>
+              <small>
+                Hier kann der Zahlungseingang mit Datum vermerkt werden.
+              </small>
+            </td>
+            <td>
+              <p>
+                <form class="form-inline"
+                      action="${request.route_url('dues18_10_notice', member_id=member.id)}"
+                      method="post">
+                  <label>Betrag eingegangen:</label>
+                     <input type="text"
+                           class="form-control"
+                           title="foo"
+                           name="amount"
+                           value="" />
+                     <br />
+                     Eingangsdatum (yyyy-mm-dd):
+                     <input name="payment_date"
+                            class="form-control"
+                            type="text"
+                            value="${today}" />
+                     <br />
+                     <input name="submit" type="submit"
+                            class="btn btn-primary"
+                            value="Zahlungseingang bestätigen." />
+                </form>
+              </p>
+              <p tal:define="messages request.session.pop_flash('dues18_10notice_message_to_staff')"
+                    tal:condition="messages"
+                    tal:attributes="class 'alert alert-danger'">
+                <span color="red"
+                      tal:repeat="message messages">
+                  ${message}
+                </span><br />
+              </p>
+            </td>
+          </tr>
+          <!-- case two: already paid OR dues exempted-->
+          <tr tal:condition="'investing' not in member.membership_type
+                             and member.dues18_10_invoice
+                             and member.dues18_10_paid
+                             or member.dues18_10_balanced">
+            <td>Zahlungseingang<br/>
+              <small>
+                Hier ist der Zahlungseingang mit Datum vermerkt.
+              </small>
+            </td>
+            <td>
+              <table class="table table-striped">
+                <tr>
+                  <td>Betrag eingegangen:</td><td>${member.dues18_10_amount_paid}</td>
+                </tr><tr>
+                  <td>Eingangsdatum:</td><td>${member.dues18_10_paid_date}</td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr tal:condition="'investing' not in member.membership_type and member.dues18_10_invoice">
+            <td>Rechnungen<br/>
+              <small>
+                Hier siehst Du die erstellten Rechnungen für dieses Mitglied.<br/>
+                Falls vorhanden in der vorletzten Zeile (über SALDO) auch einen Zahlungseingang.
+              </small>
+            </td>
+            <td>
+              <table class="table table-striped" rules="rows">
+                <tr class="table-striped">
+                  <th>invoice no</th>
+                  <th>invoice string<br/>(download PDF)</th>
+                  <th>date</th>
+                  <th>amount</th>
+                  <th>was<br/>reversed?</th>
+                  <th>is<br/>reversal?</th>
+                  <th>default or<br/>altered?</th>
+                </tr>
+
+                <!--! loop over the list of invoices -->
+                <tr tal:define="global i_saldo python:0"
+                    tal:repeat="i invoices18_10"
+                    tal:attributes="id python: 'invoice_{0}'.format(i.id)">
+                  <!-- td>${i.id}</td -->
+                  <td><a title="${i.invoice_no}">${i.invoice_no}</a></td>
+                  <td>
+                    <!--! if this invoice is a normal invoice -->
+                    <a tal:condition="not i.is_reversal"
+                       href="${request.route_url('make_dues18_10_invoice_no_pdf',
+                             i=str(i.invoice_no).zfill(4),
+                             email=i.email,
+                             code=i.token)}"
+                       title="download ${i.invoice_no_string}.pdf">
+                      ${i.invoice_no_string}
+                    </a>
+                    <!--! if this invoice is a REVERSAL INVOICE -->
+                    <a  tal:condition="i.is_reversal"
+                        href="${request.route_url('make_dues18_10_reversal_invoice_pdf',
+                              no=str(i.invoice_no).zfill(4),
+                              email=i.email,
+                              code=i.token)}"
+                        title="download ${i.invoice_no_string}-S.pdf">
+                      ${i.invoice_no_string}
+                    </a>
+                  </td>
+                  <td>${i.invoice_date.strftime('%d.%m.%Y %H:%M')}</td>
+                  <td tal:define="global i_saldo python: D(i_saldo) + D(i.invoice_amount)">
+                    ${i.invoice_amount}</td>
+                  <td>${'reversed by %s' % i.succeeding_invoice_no if i.is_cancelled else ''}</td>
+                  <td>${'reverses %s' % i.preceding_invoice_no if i.is_reversal else ''}</td>
+                  <td>${'altered' if i.is_altered else ''}</td>
+                </tr>
+                <tr tal:condition="member.dues18_10_paid">
+                  <td>n/a</td>
+                  <td>Zahlungseingang</td>
+                  <td>${member.dues18_10_paid_date.strftime('%Y-%m-%d')}</td>
+                  <td tal:define="global i_saldo python: D(i_saldo) - D(member.dues18_10_amount_paid)">
+                    ${member.dues18_10_amount_paid}</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>SALDO: </td>
+                  <td></td>
+                  <td>${i_saldo}</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+        </div>
+
+        <div tal:omit-tag="" tal:condition="not member.membership_date > date(2018,11,31) and (member.membership_loss_date is None or member.membership_loss_date >= date(2018,11,1))">
+        <a name="dues18_11"></a>
+        <h3 id="certificate">Membership Dues 2018_11</h3>
+        <table class="table table-striped">
+          <tr>
+            <td>
+              Versand Mitgliedsbeitrags-Email (Rechnung/Aufforderung)<br/>
+              <small>
+                Ein Klick hier berechnet den Mitgliedsbeitrag,<br/>
+                setzt ein (neues) Token und versendet eine Email,<br/>
+                bei normalen Mitgliedern mit Link auf die Rechnung.<br/>
+                Der versandte Link enthält das Token, ohne welches KEIN pdf generiert wird.
+              </small>
+
+            </td>
+            <td>
+              <a tal:condition="not member.dues18_11_invoice"
+                 href="${request.route_url('send_dues18_11_invoice_email', member_id=member.id)}"
+                 title="dues invoice not sent yet"
+                 class="btn btn-warning">
+                Noch nicht berechnet und verschickt. <br/>
+                Jetzt berechnen &amp; versenden: Klick!</a>
+              <a tal:condition="member.dues18_11_invoice"
+                 href="${request.route_url('send_dues18_11_invoice_email', member_id=member.id)}"
+                 title="gesendet ${member.dues18_11_invoice_date.strftime('am %d.%m.%Y um %H:%M')}"
+                 class="btn btn-success">gesendet ${member.dues18_11_invoice_date.strftime('am %d.%m.%Y um %H:%M')}. Klicken zum wiederholten versenden.</a>
+            </td>
+          </tr>
+          <tr tal:condition="'investing' not in member.membership_type and member.dues18_11_invoice">
+            <td>PDF generieren (download)</td>
+            <td>
+              <a href="${request.route_url('make_dues18_11_invoice_no_pdf',
+                       email=member.email,
+                       code=member.dues18_11_token,
+                       i=str(member.dues18_11_invoice_no).zfill(4))}"
+                 title="Mitgliedschaftsbeitragsrechnung ansehen"
+                 class="btn btn-success">PDF generieren und laden</a>
+            </td>
+          </tr>
+          <!--! reduction / exemption -->
+          <tr tal:condition="'investing' not in member.membership_type and member.dues18_11_invoice">
+            <td>Ermäßigung/Erlass<br/>
+              <small>
+                Hier siehst Du den errechneten Mitgliedsbeitrag.<br/>
+                Du kannst im Falle eines Antrags auf Ermäßigung einen neuen Betrag festsetzen -- auch 0 Euro.<br/>
+                Daraufhin wird die alte Rechnung storniert.
+                Das Mitglied erhält eine E-Mail.<br/>
+                Diese enthält Links auf die Storno-Rechnung
+                und eine neue geänderte Rechnung.
+              </small>
+            </td>
+            <td>
+              <table>
+                <tr>
+                  <td><small>müsste zahlen:</small></td>
+                  <td>${member.dues18_11_start}</td>
+                </tr>
+                <tr>
+                  <td><small>berechn. Beitrag: &nbsp;</small></td>
+                  <td>${member.dues18_11_amount} Euro</td>
+                </tr>
+                <tr>
+                  <td><small>ermäßigter Beitrag: &nbsp;</small></td>
+                  <td tal:condition="not member.dues18_11_reduced">
+                    kein Antrag gestellt</td>
+                  <td tal:condition="member.dues18_11_reduced">
+                    ${member.dues18_11_amount_reduced} Euro</td>
+                </tr>
+              </table>
+              <p>
+
+                <form tal:condition="not member.dues18_11_balanced"
+                      id="dues18_11_form"
+                      class="form-inline"
+                      action="${request.route_url('dues18_11_reduction', member_id=member.id)}"
+                      method="post">
+                    <label>ermäßigen auf:</label>
+                    <input type="hidden"
+                           name="confirmed"
+                           value="no" />
+                    <input type="text"
+                           class="form-control"
+                           title="foo"
+                           name="amount"
+                           value="" />
+                    <input id="dues18_11_reduce_submit"
+                           type="submit"
+                           name="submit"
+                           class="btn btn-primary"
+                           value="Reduce Dues" />
+                </form>
+              </p>
+              <p tal:define="messages request.session.pop_flash('dues18_11_message_to_staff')"
+                    tal:condition="messages"
+                    tal:attributes="class 'alert alert-danger'">
+                <span color="red"
+                      tal:repeat="message messages">
+                  ${message}
+                </span><br />
+              </p>
+              <p>
+                see also <a href="${request.route_url('dues18_11_listing')}"
+                            class="btn btn-primary">Dues18_11 Invoices Listing</a>
+              </p>
+            </td>
+          </tr>
+          <!--! payments for dues -->
+          <!--! case one: not paid yet -->
+          <tr tal:condition="'investing' not in member.membership_type
+                             and member.dues18_11_invoice
+                             and not member.dues18_11_paid
+                             and not member.dues18_11_balanced">
+            <td>Zahlungseingang<br/>
+              <small>
+                Hier kann der Zahlungseingang mit Datum vermerkt werden.
+              </small>
+            </td>
+            <td>
+              <p>
+                <form class="form-inline"
+                      action="${request.route_url('dues18_11_notice', member_id=member.id)}"
+                      method="post">
+                  <label>Betrag eingegangen:</label>
+                     <input type="text"
+                           class="form-control"
+                           title="foo"
+                           name="amount"
+                           value="" />
+                     <br />
+                     Eingangsdatum (yyyy-mm-dd):
+                     <input name="payment_date"
+                            class="form-control"
+                            type="text"
+                            value="${today}" />
+                     <br />
+                     <input name="submit" type="submit"
+                            class="btn btn-primary"
+                            value="Zahlungseingang bestätigen." />
+                </form>
+              </p>
+              <p tal:define="messages request.session.pop_flash('dues18_11notice_message_to_staff')"
+                    tal:condition="messages"
+                    tal:attributes="class 'alert alert-danger'">
+                <span color="red"
+                      tal:repeat="message messages">
+                  ${message}
+                </span><br />
+              </p>
+            </td>
+          </tr>
+          <!-- case two: already paid OR dues exempted-->
+          <tr tal:condition="'investing' not in member.membership_type
+                             and member.dues18_11_invoice
+                             and member.dues18_11_paid
+                             or member.dues18_11_balanced">
+            <td>Zahlungseingang<br/>
+              <small>
+                Hier ist der Zahlungseingang mit Datum vermerkt.
+              </small>
+            </td>
+            <td>
+              <table class="table table-striped">
+                <tr>
+                  <td>Betrag eingegangen:</td><td>${member.dues18_11_amount_paid}</td>
+                </tr><tr>
+                  <td>Eingangsdatum:</td><td>${member.dues18_11_paid_date}</td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr tal:condition="'investing' not in member.membership_type and member.dues18_11_invoice">
+            <td>Rechnungen<br/>
+              <small>
+                Hier siehst Du die erstellten Rechnungen für dieses Mitglied.<br/>
+                Falls vorhanden in der vorletzten Zeile (über SALDO) auch einen Zahlungseingang.
+              </small>
+            </td>
+            <td>
+              <table class="table table-striped" rules="rows">
+                <tr class="table-striped">
+                  <th>invoice no</th>
+                  <th>invoice string<br/>(download PDF)</th>
+                  <th>date</th>
+                  <th>amount</th>
+                  <th>was<br/>reversed?</th>
+                  <th>is<br/>reversal?</th>
+                  <th>default or<br/>altered?</th>
+                </tr>
+
+                <!--! loop over the list of invoices -->
+                <tr tal:define="global i_saldo python:0"
+                    tal:repeat="i invoices18_11"
+                    tal:attributes="id python: 'invoice_{0}'.format(i.id)">
+                  <!-- td>${i.id}</td -->
+                  <td><a title="${i.invoice_no}">${i.invoice_no}</a></td>
+                  <td>
+                    <!--! if this invoice is a normal invoice -->
+                    <a tal:condition="not i.is_reversal"
+                       href="${request.route_url('make_dues18_11_invoice_no_pdf',
+                             i=str(i.invoice_no).zfill(4),
+                             email=i.email,
+                             code=i.token)}"
+                       title="download ${i.invoice_no_string}.pdf">
+                      ${i.invoice_no_string}
+                    </a>
+                    <!--! if this invoice is a REVERSAL INVOICE -->
+                    <a  tal:condition="i.is_reversal"
+                        href="${request.route_url('make_dues18_11_reversal_invoice_pdf',
+                              no=str(i.invoice_no).zfill(4),
+                              email=i.email,
+                              code=i.token)}"
+                        title="download ${i.invoice_no_string}-S.pdf">
+                      ${i.invoice_no_string}
+                    </a>
+                  </td>
+                  <td>${i.invoice_date.strftime('%d.%m.%Y %H:%M')}</td>
+                  <td tal:define="global i_saldo python: D(i_saldo) + D(i.invoice_amount)">
+                    ${i.invoice_amount}</td>
+                  <td>${'reversed by %s' % i.succeeding_invoice_no if i.is_cancelled else ''}</td>
+                  <td>${'reverses %s' % i.preceding_invoice_no if i.is_reversal else ''}</td>
+                  <td>${'altered' if i.is_altered else ''}</td>
+                </tr>
+                <tr tal:condition="member.dues18_11_paid">
+                  <td>n/a</td>
+                  <td>Zahlungseingang</td>
+                  <td>${member.dues18_11_paid_date.strftime('%Y-%m-%d')}</td>
+                  <td tal:define="global i_saldo python: D(i_saldo) - D(member.dues18_11_amount_paid)">
+                    ${member.dues18_11_amount_paid}</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>SALDO: </td>
+                  <td></td>
+                  <td>${i_saldo}</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+        </div>
+
+        <div tal:omit-tag="" tal:condition="not member.membership_date > date(2018,12,31) and (member.membership_loss_date is None or member.membership_loss_date >= date(2018,12,1))">
+        <a name="dues18_12"></a>
+        <h3 id="certificate">Membership Dues 2018_12</h3>
+        <table class="table table-striped">
+          <tr>
+            <td>
+              Versand Mitgliedsbeitrags-Email (Rechnung/Aufforderung)<br/>
+              <small>
+                Ein Klick hier berechnet den Mitgliedsbeitrag,<br/>
+                setzt ein (neues) Token und versendet eine Email,<br/>
+                bei normalen Mitgliedern mit Link auf die Rechnung.<br/>
+                Der versandte Link enthält das Token, ohne welches KEIN pdf generiert wird.
+              </small>
+
+            </td>
+            <td>
+              <a tal:condition="not member.dues18_12_invoice"
+                 href="${request.route_url('send_dues18_12_invoice_email', member_id=member.id)}"
+                 title="dues invoice not sent yet"
+                 class="btn btn-warning">
+                Noch nicht berechnet und verschickt. <br/>
+                Jetzt berechnen &amp; versenden: Klick!</a>
+              <a tal:condition="member.dues18_12_invoice"
+                 href="${request.route_url('send_dues18_12_invoice_email', member_id=member.id)}"
+                 title="gesendet ${member.dues18_12_invoice_date.strftime('am %d.%m.%Y um %H:%M')}"
+                 class="btn btn-success">gesendet ${member.dues18_12_invoice_date.strftime('am %d.%m.%Y um %H:%M')}. Klicken zum wiederholten versenden.</a>
+            </td>
+          </tr>
+          <tr tal:condition="'investing' not in member.membership_type and member.dues18_12_invoice">
+            <td>PDF generieren (download)</td>
+            <td>
+              <a href="${request.route_url('make_dues18_12_invoice_no_pdf',
+                       email=member.email,
+                       code=member.dues18_12_token,
+                       i=str(member.dues18_12_invoice_no).zfill(4))}"
+                 title="Mitgliedschaftsbeitragsrechnung ansehen"
+                 class="btn btn-success">PDF generieren und laden</a>
+            </td>
+          </tr>
+          <!--! reduction / exemption -->
+          <tr tal:condition="'investing' not in member.membership_type and member.dues18_12_invoice">
+            <td>Ermäßigung/Erlass<br/>
+              <small>
+                Hier siehst Du den errechneten Mitgliedsbeitrag.<br/>
+                Du kannst im Falle eines Antrags auf Ermäßigung einen neuen Betrag festsetzen -- auch 0 Euro.<br/>
+                Daraufhin wird die alte Rechnung storniert.
+                Das Mitglied erhält eine E-Mail.<br/>
+                Diese enthält Links auf die Storno-Rechnung
+                und eine neue geänderte Rechnung.
+              </small>
+            </td>
+            <td>
+              <table>
+                <tr>
+                  <td><small>müsste zahlen:</small></td>
+                  <td>${member.dues18_12_start}</td>
+                </tr>
+                <tr>
+                  <td><small>berechn. Beitrag: &nbsp;</small></td>
+                  <td>${member.dues18_12_amount} Euro</td>
+                </tr>
+                <tr>
+                  <td><small>ermäßigter Beitrag: &nbsp;</small></td>
+                  <td tal:condition="not member.dues18_12_reduced">
+                    kein Antrag gestellt</td>
+                  <td tal:condition="member.dues18_12_reduced">
+                    ${member.dues18_12_amount_reduced} Euro</td>
+                </tr>
+              </table>
+              <p>
+
+                <form tal:condition="not member.dues18_12_balanced"
+                      id="dues18_12_form"
+                      class="form-inline"
+                      action="${request.route_url('dues18_12_reduction', member_id=member.id)}"
+                      method="post">
+                    <label>ermäßigen auf:</label>
+                    <input type="hidden"
+                           name="confirmed"
+                           value="no" />
+                    <input type="text"
+                           class="form-control"
+                           title="foo"
+                           name="amount"
+                           value="" />
+                    <input id="dues18_12_reduce_submit"
+                           type="submit"
+                           name="submit"
+                           class="btn btn-primary"
+                           value="Reduce Dues" />
+                </form>
+              </p>
+              <p tal:define="messages request.session.pop_flash('dues18_12_message_to_staff')"
+                    tal:condition="messages"
+                    tal:attributes="class 'alert alert-danger'">
+                <span color="red"
+                      tal:repeat="message messages">
+                  ${message}
+                </span><br />
+              </p>
+              <p>
+                see also <a href="${request.route_url('dues18_12_listing')}"
+                            class="btn btn-primary">Dues18_12 Invoices Listing</a>
+              </p>
+            </td>
+          </tr>
+          <!--! payments for dues -->
+          <!--! case one: not paid yet -->
+          <tr tal:condition="'investing' not in member.membership_type
+                             and member.dues18_12_invoice
+                             and not member.dues18_12_paid
+                             and not member.dues18_12_balanced">
+            <td>Zahlungseingang<br/>
+              <small>
+                Hier kann der Zahlungseingang mit Datum vermerkt werden.
+              </small>
+            </td>
+            <td>
+              <p>
+                <form class="form-inline"
+                      action="${request.route_url('dues18_12_notice', member_id=member.id)}"
+                      method="post">
+                  <label>Betrag eingegangen:</label>
+                     <input type="text"
+                           class="form-control"
+                           title="foo"
+                           name="amount"
+                           value="" />
+                     <br />
+                     Eingangsdatum (yyyy-mm-dd):
+                     <input name="payment_date"
+                            class="form-control"
+                            type="text"
+                            value="${today}" />
+                     <br />
+                     <input name="submit" type="submit"
+                            class="btn btn-primary"
+                            value="Zahlungseingang bestätigen." />
+                </form>
+              </p>
+              <p tal:define="messages request.session.pop_flash('dues18_12notice_message_to_staff')"
+                    tal:condition="messages"
+                    tal:attributes="class 'alert alert-danger'">
+                <span color="red"
+                      tal:repeat="message messages">
+                  ${message}
+                </span><br />
+              </p>
+            </td>
+          </tr>
+          <!-- case two: already paid OR dues exempted-->
+          <tr tal:condition="'investing' not in member.membership_type
+                             and member.dues18_12_invoice
+                             and member.dues18_12_paid
+                             or member.dues18_12_balanced">
+            <td>Zahlungseingang<br/>
+              <small>
+                Hier ist der Zahlungseingang mit Datum vermerkt.
+              </small>
+            </td>
+            <td>
+              <table class="table table-striped">
+                <tr>
+                  <td>Betrag eingegangen:</td><td>${member.dues18_12_amount_paid}</td>
+                </tr><tr>
+                  <td>Eingangsdatum:</td><td>${member.dues18_12_paid_date}</td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr tal:condition="'investing' not in member.membership_type and member.dues18_12_invoice">
+            <td>Rechnungen<br/>
+              <small>
+                Hier siehst Du die erstellten Rechnungen für dieses Mitglied.<br/>
+                Falls vorhanden in der vorletzten Zeile (über SALDO) auch einen Zahlungseingang.
+              </small>
+            </td>
+            <td>
+              <table class="table table-striped" rules="rows">
+                <tr class="table-striped">
+                  <th>invoice no</th>
+                  <th>invoice string<br/>(download PDF)</th>
+                  <th>date</th>
+                  <th>amount</th>
+                  <th>was<br/>reversed?</th>
+                  <th>is<br/>reversal?</th>
+                  <th>default or<br/>altered?</th>
+                </tr>
+
+                <!--! loop over the list of invoices -->
+                <tr tal:define="global i_saldo python:0"
+                    tal:repeat="i invoices18_12"
+                    tal:attributes="id python: 'invoice_{0}'.format(i.id)">
+                  <!-- td>${i.id}</td -->
+                  <td><a title="${i.invoice_no}">${i.invoice_no}</a></td>
+                  <td>
+                    <!--! if this invoice is a normal invoice -->
+                    <a tal:condition="not i.is_reversal"
+                       href="${request.route_url('make_dues18_12_invoice_no_pdf',
+                             i=str(i.invoice_no).zfill(4),
+                             email=i.email,
+                             code=i.token)}"
+                       title="download ${i.invoice_no_string}.pdf">
+                      ${i.invoice_no_string}
+                    </a>
+                    <!--! if this invoice is a REVERSAL INVOICE -->
+                    <a  tal:condition="i.is_reversal"
+                        href="${request.route_url('make_dues18_12_reversal_invoice_pdf',
+                              no=str(i.invoice_no).zfill(4),
+                              email=i.email,
+                              code=i.token)}"
+                        title="download ${i.invoice_no_string}-S.pdf">
+                      ${i.invoice_no_string}
+                    </a>
+                  </td>
+                  <td>${i.invoice_date.strftime('%d.%m.%Y %H:%M')}</td>
+                  <td tal:define="global i_saldo python: D(i_saldo) + D(i.invoice_amount)">
+                    ${i.invoice_amount}</td>
+                  <td>${'reversed by %s' % i.succeeding_invoice_no if i.is_cancelled else ''}</td>
+                  <td>${'reverses %s' % i.preceding_invoice_no if i.is_reversal else ''}</td>
+                  <td>${'altered' if i.is_altered else ''}</td>
+                </tr>
+                <tr tal:condition="member.dues18_12_paid">
+                  <td>n/a</td>
+                  <td>Zahlungseingang</td>
+                  <td>${member.dues18_12_paid_date.strftime('%Y-%m-%d')}</td>
+                  <td tal:define="global i_saldo python: D(i_saldo) - D(member.dues18_12_amount_paid)">
+                    ${member.dues18_12_amount_paid}</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>SALDO: </td>
+                  <td></td>
+                  <td>${i_saldo}</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+        </div>
+
         <a name="account_balance"></a>
         <h3 id="certificate">Account Balance</h3>
         <table class="table table-striped">
@@ -1105,19 +2379,44 @@
             <th>Amount</th>
           </tr>
           <tr>
-            <?python balance += member.dues15_balance ?>
-            <td>Membership dues 2015</td>
-            <td>${-member.dues15_balance}</td>
+            <?python balance += member.dues18_05_balance ?>
+            <td>Membership dues 2018-05</td>
+            <td>${-member.dues18_05_balance}</td>
           </tr>
           <tr>
-            <?python balance += member.dues16_balance ?>
-            <td>Membership dues 2016</td>
-            <td>${-member.dues16_balance}</td>
+            <?python balance += member.dues18_06_balance ?>
+            <td>Membership dues 2018-05</td>
+            <td>${-member.dues18_06_balance}</td>
           </tr>
           <tr>
-            <?python balance += member.dues17_balance ?>
-            <td>Membership dues 2017</td>
-            <td>${-member.dues17_balance}</td>
+            <?python balance += member.dues18_07_balance ?>
+            <td>Membership dues 2018-05</td>
+            <td>${-member.dues18_07_balance}</td>
+          </tr>
+          <tr>
+            <?python balance += member.dues18_08_balance ?>
+            <td>Membership dues 2018-05</td>
+            <td>${-member.dues18_08_balance}</td>
+          </tr>
+          <tr>
+            <?python balance += member.dues18_09_balance ?>
+            <td>Membership dues 2018-05</td>
+            <td>${-member.dues18_09_balance}</td>
+          </tr>
+          <tr>
+            <?python balance += member.dues18_10_balance ?>
+            <td>Membership dues 2018-05</td>
+            <td>${-member.dues18_10_balance}</td>
+          </tr>
+          <tr>
+            <?python balance += member.dues18_11_balance ?>
+            <td>Membership dues 2018-05</td>
+            <td>${-member.dues18_11_balance}</td>
+          </tr>
+          <tr>
+            <?python balance += member.dues18_12_balance ?>
+            <td>Membership dues 2018-05</td>
+            <td>${-member.dues18_12_balance}</td>
           </tr>
           <tr>
             <?python

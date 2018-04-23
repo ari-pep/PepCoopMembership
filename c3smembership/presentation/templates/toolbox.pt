@@ -46,56 +46,59 @@
 
     <h2>Membership Dues</h2>
     <p>
-      <a href="${request.route_url('dues15_listing')}" class="btn btn-success">
-        List of Dues Invoices for 2015
+      <a href="${request.route_url('dues18_05_listing')}" class="btn btn-success">
+        List of Dues Invoices for 2018_05
       </a>
     </p>
+    <h2>Membership Dues</h2>
     <p>
-      <a href="${request.route_url('dues16_listing')}" class="btn btn-success">
-        List of Dues Invoices for 2016
+      <a href="${request.route_url('dues18_06_listing')}" class="btn btn-success">
+        List of Dues Invoices for 2018_06
       </a>
     </p>
+    <h2>Membership Dues</h2>
     <p>
-      <a href="${request.route_url('dues17_listing')}" class="btn btn-success">
-        List of Dues Invoices for 2017
+      <a href="${request.route_url('dues18_07_listing')}" class="btn btn-success">
+        List of Dues Invoices for 2018_07
       </a>
     </p>
-    <!--!
-    <h3>Mail Invoices for Membership Dues 2015</h3>
+    <h2>Membership Dues</h2>
     <p>
-      <a href="${request.route_url('send_dues15_invoice_batch', number=5)}"
+      <a href="${request.route_url('dues18_08_listing')}" class="btn btn-success">
+        List of Dues Invoices for 2018_08
+      </a>
+    </p>
+    <h2>Membership Dues</h2>
+    <p>
+      <a href="${request.route_url('dues18_09_listing')}" class="btn btn-success">
+        List of Dues Invoices for 2018_09
+      </a>
+    </p>
+    <h2>Membership Dues</h2>
+    <p>
+      <a href="${request.route_url('dues18_10_listing')}" class="btn btn-success">
+        List of Dues Invoices for 2018_10
+      </a>
+    </p><h2>Membership Dues</h2>
+    <p>
+      <a href="${request.route_url('dues18_11_listing')}" class="btn btn-success">
+        List of Dues Invoices for 2018_11
+      </a>
+    </p>
+    <h2>Membership Dues</h2>
+    <p>
+      <a href="${request.route_url('dues18_12_listing')}" class="btn btn-success">
+        List of Dues Invoices for 2018_12
+      </a>
+    </p>
+    <h3>Mail Invoices for Membership Dues 2018_05</h3>
+    <p>
+      <a href="${request.route_url('send_dues18_05_invoice_batch', number=5)}"
          title="Note: change number in URL as appropriate! Default is 5."
          class="btn btn-success">Send 5 Invoices for Membership Dues
       </a><br />
       You may send more than 5 invoices at once by using another number (in the URL):
-      <form method='POST' action="${request.route_url('send_dues15_invoice_batch', number='foo')}">
-        <input type='text' name='number'></input>
-        <input type='submit' name='submit'></input>
-      </form>
-    </p>
-    -->
-    <!--!
-    <h3>Mail Invoices for Membership Dues 2016</h3>
-    <p>
-      <a href="${request.route_url('send_dues16_invoice_batch', number=5)}"
-         title="Note: change number in URL as appropriate! Default is 5."
-         class="btn btn-success">Send 5 Invoices for Membership Dues
-      </a><br />
-      You may send more than 5 invoices at once by using another number (in the URL):
-      <form method='POST' action="${request.route_url('send_dues16_invoice_batch', number='foo')}">
-        <input type='text' name='number'></input>
-        <input type='submit' name='submit'></input>
-      </form>
-    </p>
-    -->
-    <h3>Mail Invoices for Membership Dues 2017</h3>
-    <p>
-      <a href="${request.route_url('send_dues17_invoice_batch', number=5)}"
-         title="Note: change number in URL as appropriate! Default is 5."
-         class="btn btn-success">Send 5 Invoices for Membership Dues
-      </a><br />
-      You may send more than 5 invoices at once by using another number (in the URL):
-      <form method='POST' action="${request.route_url('send_dues17_invoice_batch', number='foo')}">
+      <form method='POST' action="${request.route_url('send_dues18_05_invoice_batch', number='foo')}">
         <input type='text' name='number'></input>
         <input type='submit' name='submit'></input>
       </form>
@@ -149,7 +152,7 @@
       </div>
     </p>
 
-    <h4>Mail Invitations for GA &amp; BC 2017</h4>
+    <h4>Mail Invitations for GA &amp; BC 2018</h4>
     <p>
       <a href="${request.route_url('invite_batch', number=5)}"
          title="Note: change number in URL as appropriate! Default is 5."

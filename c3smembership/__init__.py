@@ -183,60 +183,113 @@ def main(global_config, **settings):
     config.add_route('membership_listing_aufstockers',
                      '/aml_aufstockers')
 
-    # membership dues 2015
-    config.add_route('send_dues15_invoice_email',
-                     '/dues15_invoice/{member_id}')
-    config.add_route('send_dues15_invoice_batch', '/dues15_invoice_batch')
-    config.add_route('make_dues15_invoice_no_pdf',
-                     '/dues15_invoice_no/{code}/C3S-dues15-{i}.pdf')
-    # for backward compatibility
-    config.add_route('make_dues15_invoice_no_pdf_email',
-                     '/dues15_invoice_no/{email}/{code}/C3S-dues15-{i}.pdf')
-    config.add_route('dues15_reduction',
-                     '/dues15_reduction/{member_id}')
-    config.add_route('make_dues15_reversal_invoice_pdf',
-                     '/dues15_reversal/{code}/C3S-dues15-{no}-S.pdf')
-    # for backward compatibility
-    config.add_route('make_dues15_reversal_invoice_pdf_email',
-                     '/dues15_reversal/{email}/{code}/C3S-dues15-{no}-S.pdf')
-    config.add_route('dues15_notice', '/dues15_notice/{member_id}')
-    config.add_route('dues15_listing', '/dues15_listing')
+    # membership dues 2018_05
+    config.add_route('send_dues18_05_invoice_email',
+                     '/dues18_05_invoice/{member_id}')
+    config.add_route('send_dues18_05_invoice_batch', '/dues18_05_invoice_batch')
+    config.add_route('make_dues18_05_invoice_no_pdf',
+                     '/dues18_05_invoice_no/{code}/C3S-dues18_05-{i}.pdf')
+    config.add_route('dues18_05_reduction',
+                     '/dues18_05_reduction/{member_id}')
+    config.add_route('make_dues18_05_reversal_invoice_pdf',
+                     '/dues18_05_reversal/{code}/C3S-dues18_05-{no}-S.pdf')
+    config.add_route('dues18_05_notice', '/dues18_05_notice/{member_id}')
+    config.add_route('dues18_05_listing', '/dues18_05_listing')
 
-    # membership dues 2016
-    config.add_route('send_dues16_invoice_email',
-                     '/dues16_invoice/{member_id}')
-    config.add_route('send_dues16_invoice_batch', '/dues16_invoice_batch')
-    config.add_route('make_dues16_invoice_no_pdf',
-                     '/dues16_invoice_no/{code}/C3S-dues16-{i}.pdf')
-    # for backward compatibility
-    config.add_route('make_dues16_invoice_no_pdf_email',
-                     '/dues16_invoice_no/{email}/{code}/C3S-dues16-{i}.pdf')
-    config.add_route('dues16_reduction',
-                     '/dues16_reduction/{member_id}')
-    config.add_route('make_dues16_reversal_invoice_pdf',
-                     '/dues16_reversal/{code}/C3S-dues16-{no}-S.pdf')
-    # for backward compatibility
-    config.add_route('make_dues16_reversal_invoice_pdf_email',
-                     '/dues16_reversal/{email}/{code}/C3S-dues16-{no}-S.pdf')
-    config.add_route('dues16_notice', '/dues16_notice/{member_id}')
-    config.add_route('dues16_listing', '/dues16_listing')
+    # membership dues 2018_06
+    config.add_route('send_dues18_06_invoice_email',
+                     '/dues18_06_invoice/{member_id}')
+    config.add_route('send_dues18_06_invoice_batch', '/dues18_06_invoice_batch')
+    config.add_route('make_dues18_06_invoice_no_pdf',
+                     '/dues18_06_invoice_no/{code}/C3S-dues18_06-{i}.pdf')
+    config.add_route('dues18_06_reduction',
+                     '/dues18_06_reduction/{member_id}')
+    config.add_route('make_dues18_06_reversal_invoice_pdf',
+                     '/dues18_06_reversal/{code}/C3S-dues18_06-{no}-S.pdf')
+    config.add_route('dues18_06_notice', '/dues18_06_notice/{member_id}')
+    config.add_route('dues18_06_listing', '/dues18_06_listing')
 
-    # membership dues 2017
-    config.add_route('send_dues17_invoice_email',
-                     '/dues17_invoice/{member_id}')
-    config.add_route('send_dues17_invoice_batch', '/dues17_invoice_batch')
-    config.add_route('make_dues17_invoice_no_pdf',
-                     '/dues17_invoice_no/{code}/C3S-dues17-{i}.pdf')
-    config.add_route('dues17_reduction',
-                     '/dues17_reduction/{member_id}')
-    config.add_route('make_dues17_reversal_invoice_pdf',
-                     '/dues17_reversal/{code}/C3S-dues17-{no}-S.pdf')
-    config.add_route('dues17_notice', '/dues17_notice/{member_id}')
-    config.add_route('dues17_listing', '/dues17_listing')
+    # membership dues 2018_07
+    config.add_route('send_dues18_07_invoice_email',
+                     '/dues18_07_invoice/{member_id}')
+    config.add_route('send_dues18_07_invoice_batch', '/dues18_07_invoice_batch')
+    config.add_route('make_dues18_07_invoice_no_pdf',
+                     '/dues18_07_invoice_no/{code}/C3S-dues18_07-{i}.pdf')
+    config.add_route('dues18_07_reduction',
+                     '/dues18_07_reduction/{member_id}')
+    config.add_route('make_dues18_07_reversal_invoice_pdf',
+                     '/dues18_07_reversal/{code}/C3S-dues18_07-{no}-S.pdf')
+    config.add_route('dues18_07_notice', '/dues18_07_notice/{member_id}')
+    config.add_route('dues18_07_listing', '/dues18_07_listing')
+
+    # membership dues 2018_08
+    config.add_route('send_dues18_08_invoice_email',
+                     '/dues18_08_invoice/{member_id}')
+    config.add_route('send_dues18_08_invoice_batch', '/dues18_08_invoice_batch')
+    config.add_route('make_dues18_08_invoice_no_pdf',
+                     '/dues18_08_invoice_no/{code}/C3S-dues18_08-{i}.pdf')
+    config.add_route('dues18_08_reduction',
+                     '/dues18_08_reduction/{member_id}')
+    config.add_route('make_dues18_08_reversal_invoice_pdf',
+                     '/dues18_08_reversal/{code}/C3S-dues18_08-{no}-S.pdf')
+    config.add_route('dues18_08_notice', '/dues18_08_notice/{member_id}')
+    config.add_route('dues18_08_listing', '/dues18_08_listing')
+
+    # membership dues 2018_09
+    config.add_route('send_dues18_09_invoice_email',
+                     '/dues18_09_invoice/{member_id}')
+    config.add_route('send_dues18_09_invoice_batch', '/dues18_09_invoice_batch')
+    config.add_route('make_dues18_09_invoice_no_pdf',
+                     '/dues18_09_invoice_no/{code}/C3S-dues18_09-{i}.pdf')
+    config.add_route('dues18_09_reduction',
+                     '/dues18_09_reduction/{member_id}')
+    config.add_route('make_dues18_09_reversal_invoice_pdf',
+                     '/dues18_09_reversal/{code}/C3S-dues18_09-{no}-S.pdf')
+    config.add_route('dues18_09_notice', '/dues18_09_notice/{member_id}')
+    config.add_route('dues18_09_listing', '/dues18_09_listing')
+
+    # membership dues 2018_10
+    config.add_route('send_dues18_10_invoice_email',
+                     '/dues18_10_invoice/{member_id}')
+    config.add_route('send_dues18_10_invoice_batch', '/dues18_10_invoice_batch')
+    config.add_route('make_dues18_10_invoice_no_pdf',
+                     '/dues18_10_invoice_no/{code}/C3S-dues18_10-{i}.pdf')
+    config.add_route('dues18_10_reduction',
+                     '/dues18_10_reduction/{member_id}')
+    config.add_route('make_dues18_10_reversal_invoice_pdf',
+                     '/dues18_10_reversal/{code}/C3S-dues18_10-{no}-S.pdf')
+    config.add_route('dues18_10_notice', '/dues18_10_notice/{member_id}')
+    config.add_route('dues18_10_listing', '/dues18_10_listing')
+
+    # membership dues 2018_11
+    config.add_route('send_dues18_11_invoice_email',
+                     '/dues18_11_invoice/{member_id}')
+    config.add_route('send_dues18_11_invoice_batch', '/dues18_11_invoice_batch')
+    config.add_route('make_dues18_11_invoice_no_pdf',
+                     '/dues18_11_invoice_no/{code}/C3S-dues18_11-{i}.pdf')
+    config.add_route('dues18_11_reduction',
+                     '/dues18_11_reduction/{member_id}')
+    config.add_route('make_dues18_11_reversal_invoice_pdf',
+                     '/dues18_11_reversal/{code}/C3S-dues18_11-{no}-S.pdf')
+    config.add_route('dues18_11_notice', '/dues18_11_notice/{member_id}')
+    config.add_route('dues18_11_listing', '/dues18_11_listing')
+
+    # membership dues 2018_12
+    config.add_route('send_dues18_12_invoice_email',
+                     '/dues18_12_invoice/{member_id}')
+    config.add_route('send_dues18_12_invoice_batch', '/dues18_12_invoice_batch')
+    config.add_route('make_dues18_12_invoice_no_pdf',
+                     '/dues18_12_invoice_no/{code}/C3S-dues18_12-{i}.pdf')
+    config.add_route('dues18_12_reduction',
+                     '/dues18_12_reduction/{member_id}')
+    config.add_route('make_dues18_12_reversal_invoice_pdf',
+                     '/dues18_12_reversal/{code}/C3S-dues18_12-{no}-S.pdf')
+    config.add_route('dues18_12_notice', '/dues18_12_notice/{member_id}')
+    config.add_route('dues18_12_listing', '/dues18_12_listing')
 
     # TODO: move application layer setup to separate module
     from c3smembership.models import C3sMember
-    from c3smembership.models import Dues15Invoice
+    from c3smembership.models import Dues18_05Invoice
     from c3smembership.data.model.base import DBSession
     from c3smembership.business.dues_invoice_archiving import (
         DuesInvoiceArchiving
@@ -252,7 +305,7 @@ def main(global_config, **settings):
     config.registry.dues_invoice_archiving = DuesInvoiceArchiving(
         DBSession,
         C3sMember,
-        Dues15Invoice,
+        Dues18_05Invoice,
         make_invoice_pdf_pdflatex,
         make_reversal_pdf_pdflatex,
         invoices_archive_path)

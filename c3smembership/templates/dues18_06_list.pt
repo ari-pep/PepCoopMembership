@@ -5,7 +5,7 @@
       xmlns:metal="http://xml.zope.org/namespaces/metal"
       metal:use-macro="backend">
   <tal:block metal:fill-slot="top">
-    <h1>Liste der Rechnungen der Mitgliedsbeiträge 2016
+    <h1>Liste der Rechnungen der Mitgliedsbeiträge 2018_05
       <small>${count} Rechnungen</small>
       <small>Stand ${_today}</small></h1>
   </tal:block>
@@ -25,7 +25,7 @@
     </p>
     <!--!
     <p>
-      You can archive membership dues 2016 invoices. They will be
+      You can archive membership dues 2018_05 invoices. They will be
       generated and permanently stored on the server. As this process may
       take some time you can choose the number of invoices to be archived
       at a time.
@@ -61,7 +61,7 @@
         <td>
           <!-- if this invoice is a normal invoice -->
           <a tal:condition="not i.is_reversal"
-              href="${request.route_url('make_dues16_invoice_no_pdf',
+              href="${request.route_url('make_dues18_05_invoice_no_pdf',
                     i=str(i.invoice_no).zfill(4),
                     email=i.email,
                     code=i.token)}"
@@ -70,7 +70,7 @@
           </a>
           <!-- if this invoice is a REVERSAL INVOICE -->
           <a  tal:condition="i.is_reversal"
-              href="${request.route_url('make_dues16_reversal_invoice_pdf',
+              href="${request.route_url('make_dues18_05_reversal_invoice_pdf',
                     no=str(i.invoice_no).zfill(4),
                     email=i.email,
                     code=i.token)}"
@@ -83,7 +83,7 @@
         <td>${'yes' if i.is_cancelled else 'no'}</td>
         <td>${'reversal' if i.is_reversal else 'normal'}</td>
         <td><a href="${request.route_url('detail',
-                     memberid=i.member_id) + '#dues16'}"
+                     memberid=i.member_id) + '#dues18_05'}"
                title="click to navigate to members dues">
             ${i.member_id}</a></td>
         <td>${i.membership_no}</td>

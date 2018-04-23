@@ -42,9 +42,14 @@ from c3smembership.mail_reminders_util import (
 from c3smembership.models import (
     C3sMember,
     C3sStaff,
-    Dues15Invoice,
-    Dues16Invoice,
-    Dues17Invoice,
+    Dues18_05Invoice,
+    Dues18_06Invoice,
+    Dues18_07Invoice,
+    Dues18_08Invoice,
+    Dues18_09Invoice,
+    Dues18_10Invoice,
+    Dues18_11Invoice,
+    Dues18_12Invoice,
 )
 from c3smembership.presentation.i18n import _
 from c3smembership.presentation.schemas.accountant_login import (
@@ -269,9 +274,15 @@ def member_detail(request):
             request.route_url('toolbox'))
 
     # get the members invoices from the DB
-    invoices15 = Dues15Invoice.get_by_membership_no(member.membership_number)
-    invoices16 = Dues16Invoice.get_by_membership_no(member.membership_number)
-    invoices17 = Dues17Invoice.get_by_membership_no(member.membership_number)
+    invoices18_05 = Dues18_05Invoice.get_by_membership_no(member.membership_number)
+    invoices18_06 = Dues18_06Invoice.get_by_membership_no(member.membership_number)
+    invoices18_07 = Dues18_07Invoice.get_by_membership_no(member.membership_number)
+    invoices18_08 = Dues18_08Invoice.get_by_membership_no(member.membership_number)
+    invoices18_09 = Dues18_09Invoice.get_by_membership_no(member.membership_number)
+    invoices18_10 = Dues18_10Invoice.get_by_membership_no(member.membership_number)
+    invoices18_11 = Dues18_11Invoice.get_by_membership_no(member.membership_number)
+    invoices18_12 = Dues18_12Invoice.get_by_membership_no(member.membership_number)
+
     shares = request.registry.share_information.get_member_shares(
         member.membership_number)
 
@@ -280,7 +291,14 @@ def member_detail(request):
         'D': D,
         'member': member,
         'shares': shares,
-        'invoices15': invoices15,
+        'invoices18_05': invoices18_05,
+        'invoices18_06': invoices18_06,
+        'invoices18_07': invoices18_07,
+        'invoices18_08': invoices18_08,
+        'invoices18_09': invoices18_09,
+        'invoices18_10': invoices18_10,
+        'invoices18_11': invoices18_11,
+        'invoices18_12': invoices18_12,
         'invoices16': invoices16,
         'invoices17': invoices17,
         # 'form': html

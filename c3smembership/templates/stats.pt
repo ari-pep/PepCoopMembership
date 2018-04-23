@@ -74,9 +74,9 @@
       <tr tal:repeat="country countries_list">
         <td>${country[0]}</td><td>${country[1]}</td></tr>
     </table>
-    <h5>XXX TODO Auflistung nach PLZ... grafische übersicht</h5> 
+    <h5>XXX TODO Auflistung nach PLZ... grafische übersicht</h5>
 
-    <h3 i18n:translate="stats-dues-2015">Dues 2015</h3>
+    <h3 i18n:translate="stats-dues-2018_05">Dues 2018_05</h3>
     <table class="table table-striped">
       <thead>
           <tr>
@@ -102,39 +102,26 @@
               amount_invoiced_current = Decimal('0.0')
               amount_paid_current = Decimal('0.0')
           ?>
-          <tr tal:repeat="dues15_stat dues15_stats">
+          <tr tal:repeat="dues18_05_stat dues18_05_stats">
               <?python
-                  amount_invoiced = dues15_stat['amount_invoiced_normal'] + dues15_stat['amount_invoiced_reversal']
-                  amount_invoiced_normal_total = amount_invoiced_normal_total + dues15_stat['amount_invoiced_normal']
-                  amount_invoiced_reversal_total = amount_invoiced_reversal_total + dues15_stat['amount_invoiced_reversal']
+                  amount_invoiced = dues18_05_stat['amount_invoiced_normal'] + dues18_05_stat['amount_invoiced_reversal']
+                  amount_invoiced_normal_total = amount_invoiced_normal_total + dues18_05_stat['amount_invoiced_normal']
+                  amount_invoiced_reversal_total = amount_invoiced_reversal_total + dues18_05_stat['amount_invoiced_reversal']
                   amount_invoiced_current = amount_invoiced_current + amount_invoiced
-                  amount_paid_current = amount_paid_current + dues15_stat['amount_paid']
+                  amount_paid_current = amount_paid_current + dues18_05_stat['amount_paid']
               ?>
-              <th>${dues15_stat.month.strftime('%Y-%m')}</th>
-              <td>${numbers.format_decimal(dues15_stat.amount_invoiced_normal, locale=user_locale)}&nbsp;&euro;</td>
-              <td>${numbers.format_decimal(dues15_stat.amount_invoiced_reversal, locale=user_locale)}&nbsp;&euro;</td>
+              <th>${dues18_05_stat.month.strftime('%Y-%m')}</th>
+              <td>${numbers.format_decimal(dues18_05_stat.amount_invoiced_normal, locale=user_locale)}&nbsp;&euro;</td>
+              <td>${numbers.format_decimal(dues18_05_stat.amount_invoiced_reversal, locale=user_locale)}&nbsp;&euro;</td>
               <td>${numbers.format_decimal(amount_invoiced, locale=user_locale)}&nbsp;&euro;</td>
-              <td>${numbers.format_decimal(dues15_stat.amount_paid, locale=user_locale)}&nbsp;&euro;</td>
+              <td>${numbers.format_decimal(dues18_05_stat.amount_paid, locale=user_locale)}&nbsp;&euro;</td>
               <td class="warning">${numbers.format_decimal(amount_invoiced_current, locale=user_locale)}&nbsp;&euro;</td>
               <td class="warning">${numbers.format_decimal(amount_paid_current, locale=user_locale)}&nbsp;&euro;</td>
               <td class="warning">${numbers.format_decimal(amount_invoiced_current - amount_paid_current, locale=user_locale)}&nbsp;&euro;</td>
           </tr>
       </tbody>
-      <tfoot>
-          <tr>
-              <th i18n:translate="stats-dues-sum">Total</th>
-              <th>${numbers.format_decimal(amount_invoiced_normal_total)}&nbsp;&euro;</th>
-              <th>${numbers.format_decimal(amount_invoiced_reversal_total)}&nbsp;&euro;</th>
-              <th>${numbers.format_decimal(amount_invoiced_normal_total + amount_invoiced_reversal_total)}&nbsp;&euro;</th>
-              <th>${numbers.format_decimal(amount_paid_current)}&nbsp;&euro;</th>
-              <th></th>
-              <th></th>
-              <th></th>
-          </tr>
-      </tfoot>
-    </table>
 
-    <h3 i18n:translate="stats-dues-2016">Dues 2016</h3>
+    <h3 i18n:translate="stats-dues-2018_06">Dues 2018_06</h3>
     <table class="table table-striped">
       <thead>
           <tr>
@@ -160,39 +147,26 @@
               amount_invoiced_current = Decimal('0.0')
               amount_paid_current = Decimal('0.0')
           ?>
-          <tr tal:repeat="dues16_stat dues16_stats">
+          <tr tal:repeat="dues18_06_stat dues18_06_stats">
               <?python
-                  amount_invoiced = dues16_stat['amount_invoiced_normal'] + dues16_stat['amount_invoiced_reversal']
-                  amount_invoiced_normal_total = amount_invoiced_normal_total + dues16_stat['amount_invoiced_normal']
-                  amount_invoiced_reversal_total = amount_invoiced_reversal_total + dues16_stat['amount_invoiced_reversal']
+                  amount_invoiced = dues18_06_stat['amount_invoiced_normal'] + dues18_06_stat['amount_invoiced_reversal']
+                  amount_invoiced_normal_total = amount_invoiced_normal_total + dues18_06_stat['amount_invoiced_normal']
+                  amount_invoiced_reversal_total = amount_invoiced_reversal_total + dues18_06_stat['amount_invoiced_reversal']
                   amount_invoiced_current = amount_invoiced_current + amount_invoiced
-                  amount_paid_current = amount_paid_current + dues16_stat['amount_paid']
+                  amount_paid_current = amount_paid_current + dues18_06_stat['amount_paid']
               ?>
-              <th>${dues16_stat.month.strftime('%Y-%m')}</th>
-              <td>${numbers.format_decimal(dues16_stat.amount_invoiced_normal, locale=user_locale)}&nbsp;&euro;</td>
-              <td>${numbers.format_decimal(dues16_stat.amount_invoiced_reversal, locale=user_locale)}&nbsp;&euro;</td>
+              <th>${dues18_06_stat.month.strftime('%Y-%m')}</th>
+              <td>${numbers.format_decimal(dues18_06_stat.amount_invoiced_normal, locale=user_locale)}&nbsp;&euro;</td>
+              <td>${numbers.format_decimal(dues18_06_stat.amount_invoiced_reversal, locale=user_locale)}&nbsp;&euro;</td>
               <td>${numbers.format_decimal(amount_invoiced, locale=user_locale)}&nbsp;&euro;</td>
-              <td>${numbers.format_decimal(dues16_stat.amount_paid, locale=user_locale)}&nbsp;&euro;</td>
+              <td>${numbers.format_decimal(dues18_06_stat.amount_paid, locale=user_locale)}&nbsp;&euro;</td>
               <td class="warning">${numbers.format_decimal(amount_invoiced_current, locale=user_locale)}&nbsp;&euro;</td>
               <td class="warning">${numbers.format_decimal(amount_paid_current, locale=user_locale)}&nbsp;&euro;</td>
               <td class="warning">${numbers.format_decimal(amount_invoiced_current - amount_paid_current, locale=user_locale)}&nbsp;&euro;</td>
           </tr>
       </tbody>
-      <tfoot>
-          <tr>
-              <th i18n:translate="stats-dues-sum">Total</th>
-              <th>${numbers.format_decimal(amount_invoiced_normal_total)}&nbsp;&euro;</th>
-              <th>${numbers.format_decimal(amount_invoiced_reversal_total)}&nbsp;&euro;</th>
-              <th>${numbers.format_decimal(amount_invoiced_normal_total + amount_invoiced_reversal_total)}&nbsp;&euro;</th>
-              <th>${numbers.format_decimal(amount_paid_current)}&nbsp;&euro;</th>
-              <th></th>
-              <th></th>
-              <th></th>
-          </tr>
-      </tfoot>
-    </table>
 
-    <h3 i18n:translate="stats-dues-2017">Dues 2017</h3>
+    <h3 i18n:translate="stats-dues-2018_07">Dues 2018_07</h3>
     <table class="table table-striped">
       <thead>
           <tr>
@@ -218,19 +192,244 @@
               amount_invoiced_current = Decimal('0.0')
               amount_paid_current = Decimal('0.0')
           ?>
-          <tr tal:repeat="dues17_stat dues17_stats">
+          <tr tal:repeat="dues18_07_stat dues18_07_stats">
               <?python
-                  amount_invoiced = dues17_stat['amount_invoiced_normal'] + dues17_stat['amount_invoiced_reversal']
-                  amount_invoiced_normal_total = amount_invoiced_normal_total + dues17_stat['amount_invoiced_normal']
-                  amount_invoiced_reversal_total = amount_invoiced_reversal_total + dues17_stat['amount_invoiced_reversal']
+                  amount_invoiced = dues18_07_stat['amount_invoiced_normal'] + dues18_07_stat['amount_invoiced_reversal']
+                  amount_invoiced_normal_total = amount_invoiced_normal_total + dues18_07_stat['amount_invoiced_normal']
+                  amount_invoiced_reversal_total = amount_invoiced_reversal_total + dues18_07_stat['amount_invoiced_reversal']
                   amount_invoiced_current = amount_invoiced_current + amount_invoiced
-                  amount_paid_current = amount_paid_current + dues17_stat['amount_paid']
+                  amount_paid_current = amount_paid_current + dues18_07_stat['amount_paid']
               ?>
-              <th>${dues17_stat.month.strftime('%Y-%m')}</th>
-              <td>${numbers.format_decimal(dues17_stat.amount_invoiced_normal, locale=user_locale)}&nbsp;&euro;</td>
-              <td>${numbers.format_decimal(dues17_stat.amount_invoiced_reversal, locale=user_locale)}&nbsp;&euro;</td>
+              <th>${dues18_07_stat.month.strftime('%Y-%m')}</th>
+              <td>${numbers.format_decimal(dues18_07_stat.amount_invoiced_normal, locale=user_locale)}&nbsp;&euro;</td>
+              <td>${numbers.format_decimal(dues18_07_stat.amount_invoiced_reversal, locale=user_locale)}&nbsp;&euro;</td>
               <td>${numbers.format_decimal(amount_invoiced, locale=user_locale)}&nbsp;&euro;</td>
-              <td>${numbers.format_decimal(dues17_stat.amount_paid, locale=user_locale)}&nbsp;&euro;</td>
+              <td>${numbers.format_decimal(dues18_07_stat.amount_paid, locale=user_locale)}&nbsp;&euro;</td>
+              <td class="warning">${numbers.format_decimal(amount_invoiced_current, locale=user_locale)}&nbsp;&euro;</td>
+              <td class="warning">${numbers.format_decimal(amount_paid_current, locale=user_locale)}&nbsp;&euro;</td>
+              <td class="warning">${numbers.format_decimal(amount_invoiced_current - amount_paid_current, locale=user_locale)}&nbsp;&euro;</td>
+          </tr>
+      </tbody>
+
+    <h3 i18n:translate="stats-dues-2018_08">Dues 2018_08</h3>
+    <table class="table table-striped">
+      <thead>
+          <tr>
+              <th i18n:translate="stats-dues-month">Month</th>
+              <th i18n:translate="stats-dues-amount-invoiced-normal">Normal amount invoiced</th>
+              <th i18n:translate="stats-dues-amount-invoiced-reversal">Reversal amount invoiced</th>
+              <th i18n:translate="stats-dues-amount-invoiced">Amount invoiced</th>
+              <th i18n:translate="stats-dues-amount-paid">Amount paid</th>
+              <th i18n:translate="stats-dues-amount-invoiced-current" class="warning">Current amount invoiced</th>
+              <th i18n:translate="stats-dues-amount-paid-current" class="warning">Current amount paid</th>
+              <th i18n:translate="stats-dues-amount-current" class="warning">Current balance</th>
+          </tr>
+      </thead>
+      <tbody>
+          <?python
+              from babel.core import Locale
+              user_locale = Locale(request.locale_name)
+              from babel import numbers
+              from decimal import Decimal
+
+              amount_invoiced_normal_total = Decimal('0.0')
+              amount_invoiced_reversal_total = Decimal('0.0')
+              amount_invoiced_current = Decimal('0.0')
+              amount_paid_current = Decimal('0.0')
+          ?>
+          <tr tal:repeat="dues18_08_stat dues18_08_stats">
+              <?python
+                  amount_invoiced = dues18_08_stat['amount_invoiced_normal'] + dues18_08_stat['amount_invoiced_reversal']
+                  amount_invoiced_normal_total = amount_invoiced_normal_total + dues18_08_stat['amount_invoiced_normal']
+                  amount_invoiced_reversal_total = amount_invoiced_reversal_total + dues18_08_stat['amount_invoiced_reversal']
+                  amount_invoiced_current = amount_invoiced_current + amount_invoiced
+                  amount_paid_current = amount_paid_current + dues18_08_stat['amount_paid']
+              ?>
+              <th>${dues18_08_stat.month.strftime('%Y-%m')}</th>
+              <td>${numbers.format_decimal(dues18_08_stat.amount_invoiced_normal, locale=user_locale)}&nbsp;&euro;</td>
+              <td>${numbers.format_decimal(dues18_08_stat.amount_invoiced_reversal, locale=user_locale)}&nbsp;&euro;</td>
+              <td>${numbers.format_decimal(amount_invoiced, locale=user_locale)}&nbsp;&euro;</td>
+              <td>${numbers.format_decimal(dues18_08_stat.amount_paid, locale=user_locale)}&nbsp;&euro;</td>
+              <td class="warning">${numbers.format_decimal(amount_invoiced_current, locale=user_locale)}&nbsp;&euro;</td>
+              <td class="warning">${numbers.format_decimal(amount_paid_current, locale=user_locale)}&nbsp;&euro;</td>
+              <td class="warning">${numbers.format_decimal(amount_invoiced_current - amount_paid_current, locale=user_locale)}&nbsp;&euro;</td>
+          </tr>
+      </tbody>
+
+    <h3 i18n:translate="stats-dues-2018_09">Dues 2018_09</h3>
+    <table class="table table-striped">
+      <thead>
+          <tr>
+              <th i18n:translate="stats-dues-month">Month</th>
+              <th i18n:translate="stats-dues-amount-invoiced-normal">Normal amount invoiced</th>
+              <th i18n:translate="stats-dues-amount-invoiced-reversal">Reversal amount invoiced</th>
+              <th i18n:translate="stats-dues-amount-invoiced">Amount invoiced</th>
+              <th i18n:translate="stats-dues-amount-paid">Amount paid</th>
+              <th i18n:translate="stats-dues-amount-invoiced-current" class="warning">Current amount invoiced</th>
+              <th i18n:translate="stats-dues-amount-paid-current" class="warning">Current amount paid</th>
+              <th i18n:translate="stats-dues-amount-current" class="warning">Current balance</th>
+          </tr>
+      </thead>
+      <tbody>
+          <?python
+              from babel.core import Locale
+              user_locale = Locale(request.locale_name)
+              from babel import numbers
+              from decimal import Decimal
+
+              amount_invoiced_normal_total = Decimal('0.0')
+              amount_invoiced_reversal_total = Decimal('0.0')
+              amount_invoiced_current = Decimal('0.0')
+              amount_paid_current = Decimal('0.0')
+          ?>
+          <tr tal:repeat="dues18_09_stat dues18_09_stats">
+              <?python
+                  amount_invoiced = dues18_09_stat['amount_invoiced_normal'] + dues18_09_stat['amount_invoiced_reversal']
+                  amount_invoiced_normal_total = amount_invoiced_normal_total + dues18_09_stat['amount_invoiced_normal']
+                  amount_invoiced_reversal_total = amount_invoiced_reversal_total + dues18_09_stat['amount_invoiced_reversal']
+                  amount_invoiced_current = amount_invoiced_current + amount_invoiced
+                  amount_paid_current = amount_paid_current + dues18_09_stat['amount_paid']
+              ?>
+              <th>${dues18_09_stat.month.strftime('%Y-%m')}</th>
+              <td>${numbers.format_decimal(dues18_09_stat.amount_invoiced_normal, locale=user_locale)}&nbsp;&euro;</td>
+              <td>${numbers.format_decimal(dues18_09_stat.amount_invoiced_reversal, locale=user_locale)}&nbsp;&euro;</td>
+              <td>${numbers.format_decimal(amount_invoiced, locale=user_locale)}&nbsp;&euro;</td>
+              <td>${numbers.format_decimal(dues18_09_stat.amount_paid, locale=user_locale)}&nbsp;&euro;</td>
+              <td class="warning">${numbers.format_decimal(amount_invoiced_current, locale=user_locale)}&nbsp;&euro;</td>
+              <td class="warning">${numbers.format_decimal(amount_paid_current, locale=user_locale)}&nbsp;&euro;</td>
+              <td class="warning">${numbers.format_decimal(amount_invoiced_current - amount_paid_current, locale=user_locale)}&nbsp;&euro;</td>
+          </tr>
+      </tbody>
+
+    <h3 i18n:translate="stats-dues-2018_10">Dues 2018_10</h3>
+    <table class="table table-striped">
+      <thead>
+          <tr>
+              <th i18n:translate="stats-dues-month">Month</th>
+              <th i18n:translate="stats-dues-amount-invoiced-normal">Normal amount invoiced</th>
+              <th i18n:translate="stats-dues-amount-invoiced-reversal">Reversal amount invoiced</th>
+              <th i18n:translate="stats-dues-amount-invoiced">Amount invoiced</th>
+              <th i18n:translate="stats-dues-amount-paid">Amount paid</th>
+              <th i18n:translate="stats-dues-amount-invoiced-current" class="warning">Current amount invoiced</th>
+              <th i18n:translate="stats-dues-amount-paid-current" class="warning">Current amount paid</th>
+              <th i18n:translate="stats-dues-amount-current" class="warning">Current balance</th>
+          </tr>
+      </thead>
+      <tbody>
+          <?python
+              from babel.core import Locale
+              user_locale = Locale(request.locale_name)
+              from babel import numbers
+              from decimal import Decimal
+
+              amount_invoiced_normal_total = Decimal('0.0')
+              amount_invoiced_reversal_total = Decimal('0.0')
+              amount_invoiced_current = Decimal('0.0')
+              amount_paid_current = Decimal('0.0')
+          ?>
+          <tr tal:repeat="dues18_10_stat dues18_10_stats">
+              <?python
+                  amount_invoiced = dues18_10_stat['amount_invoiced_normal'] + dues18_10_stat['amount_invoiced_reversal']
+                  amount_invoiced_normal_total = amount_invoiced_normal_total + dues18_10_stat['amount_invoiced_normal']
+                  amount_invoiced_reversal_total = amount_invoiced_reversal_total + dues18_10_stat['amount_invoiced_reversal']
+                  amount_invoiced_current = amount_invoiced_current + amount_invoiced
+                  amount_paid_current = amount_paid_current + dues18_10_stat['amount_paid']
+              ?>
+              <th>${dues18_10_stat.month.strftime('%Y-%m')}</th>
+              <td>${numbers.format_decimal(dues18_10_stat.amount_invoiced_normal, locale=user_locale)}&nbsp;&euro;</td>
+              <td>${numbers.format_decimal(dues18_10_stat.amount_invoiced_reversal, locale=user_locale)}&nbsp;&euro;</td>
+              <td>${numbers.format_decimal(amount_invoiced, locale=user_locale)}&nbsp;&euro;</td>
+              <td>${numbers.format_decimal(dues18_10_stat.amount_paid, locale=user_locale)}&nbsp;&euro;</td>
+              <td class="warning">${numbers.format_decimal(amount_invoiced_current, locale=user_locale)}&nbsp;&euro;</td>
+              <td class="warning">${numbers.format_decimal(amount_paid_current, locale=user_locale)}&nbsp;&euro;</td>
+              <td class="warning">${numbers.format_decimal(amount_invoiced_current - amount_paid_current, locale=user_locale)}&nbsp;&euro;</td>
+          </tr>
+      </tbody>
+
+    <h3 i18n:translate="stats-dues-2018_11">Dues 2018_11</h3>
+    <table class="table table-striped">
+      <thead>
+          <tr>
+              <th i18n:translate="stats-dues-month">Month</th>
+              <th i18n:translate="stats-dues-amount-invoiced-normal">Normal amount invoiced</th>
+              <th i18n:translate="stats-dues-amount-invoiced-reversal">Reversal amount invoiced</th>
+              <th i18n:translate="stats-dues-amount-invoiced">Amount invoiced</th>
+              <th i18n:translate="stats-dues-amount-paid">Amount paid</th>
+              <th i18n:translate="stats-dues-amount-invoiced-current" class="warning">Current amount invoiced</th>
+              <th i18n:translate="stats-dues-amount-paid-current" class="warning">Current amount paid</th>
+              <th i18n:translate="stats-dues-amount-current" class="warning">Current balance</th>
+          </tr>
+      </thead>
+      <tbody>
+          <?python
+              from babel.core import Locale
+              user_locale = Locale(request.locale_name)
+              from babel import numbers
+              from decimal import Decimal
+
+              amount_invoiced_normal_total = Decimal('0.0')
+              amount_invoiced_reversal_total = Decimal('0.0')
+              amount_invoiced_current = Decimal('0.0')
+              amount_paid_current = Decimal('0.0')
+          ?>
+          <tr tal:repeat="dues18_11_stat dues18_11_stats">
+              <?python
+                  amount_invoiced = dues18_11_stat['amount_invoiced_normal'] + dues18_11_stat['amount_invoiced_reversal']
+                  amount_invoiced_normal_total = amount_invoiced_normal_total + dues18_11_stat['amount_invoiced_normal']
+                  amount_invoiced_reversal_total = amount_invoiced_reversal_total + dues18_11_stat['amount_invoiced_reversal']
+                  amount_invoiced_current = amount_invoiced_current + amount_invoiced
+                  amount_paid_current = amount_paid_current + dues18_11_stat['amount_paid']
+              ?>
+              <th>${dues18_11_stat.month.strftime('%Y-%m')}</th>
+              <td>${numbers.format_decimal(dues18_11_stat.amount_invoiced_normal, locale=user_locale)}&nbsp;&euro;</td>
+              <td>${numbers.format_decimal(dues18_11_stat.amount_invoiced_reversal, locale=user_locale)}&nbsp;&euro;</td>
+              <td>${numbers.format_decimal(amount_invoiced, locale=user_locale)}&nbsp;&euro;</td>
+              <td>${numbers.format_decimal(dues18_11_stat.amount_paid, locale=user_locale)}&nbsp;&euro;</td>
+              <td class="warning">${numbers.format_decimal(amount_invoiced_current, locale=user_locale)}&nbsp;&euro;</td>
+              <td class="warning">${numbers.format_decimal(amount_paid_current, locale=user_locale)}&nbsp;&euro;</td>
+              <td class="warning">${numbers.format_decimal(amount_invoiced_current - amount_paid_current, locale=user_locale)}&nbsp;&euro;</td>
+          </tr>
+      </tbody>
+
+    <h3 i18n:translate="stats-dues-2018_12">Dues 2018_12</h3>
+    <table class="table table-striped">
+      <thead>
+          <tr>
+              <th i18n:translate="stats-dues-month">Month</th>
+              <th i18n:translate="stats-dues-amount-invoiced-normal">Normal amount invoiced</th>
+              <th i18n:translate="stats-dues-amount-invoiced-reversal">Reversal amount invoiced</th>
+              <th i18n:translate="stats-dues-amount-invoiced">Amount invoiced</th>
+              <th i18n:translate="stats-dues-amount-paid">Amount paid</th>
+              <th i18n:translate="stats-dues-amount-invoiced-current" class="warning">Current amount invoiced</th>
+              <th i18n:translate="stats-dues-amount-paid-current" class="warning">Current amount paid</th>
+              <th i18n:translate="stats-dues-amount-current" class="warning">Current balance</th>
+          </tr>
+      </thead>
+      <tbody>
+          <?python
+              from babel.core import Locale
+              user_locale = Locale(request.locale_name)
+              from babel import numbers
+              from decimal import Decimal
+
+              amount_invoiced_normal_total = Decimal('0.0')
+              amount_invoiced_reversal_total = Decimal('0.0')
+              amount_invoiced_current = Decimal('0.0')
+              amount_paid_current = Decimal('0.0')
+          ?>
+          <tr tal:repeat="dues18_12_stat dues18_12_stats">
+              <?python
+                  amount_invoiced = dues18_12_stat['amount_invoiced_normal'] + dues18_12_stat['amount_invoiced_reversal']
+                  amount_invoiced_normal_total = amount_invoiced_normal_total + dues18_12_stat['amount_invoiced_normal']
+                  amount_invoiced_reversal_total = amount_invoiced_reversal_total + dues18_12_stat['amount_invoiced_reversal']
+                  amount_invoiced_current = amount_invoiced_current + amount_invoiced
+                  amount_paid_current = amount_paid_current + dues18_12_stat['amount_paid']
+              ?>
+              <th>${dues18_12_stat.month.strftime('%Y-%m')}</th>
+              <td>${numbers.format_decimal(dues18_12_stat.amount_invoiced_normal, locale=user_locale)}&nbsp;&euro;</td>
+              <td>${numbers.format_decimal(dues18_12_stat.amount_invoiced_reversal, locale=user_locale)}&nbsp;&euro;</td>
+              <td>${numbers.format_decimal(amount_invoiced, locale=user_locale)}&nbsp;&euro;</td>
+              <td>${numbers.format_decimal(dues18_12_stat.amount_paid, locale=user_locale)}&nbsp;&euro;</td>
               <td class="warning">${numbers.format_decimal(amount_invoiced_current, locale=user_locale)}&nbsp;&euro;</td>
               <td class="warning">${numbers.format_decimal(amount_paid_current, locale=user_locale)}&nbsp;&euro;</td>
               <td class="warning">${numbers.format_decimal(amount_invoiced_current - amount_paid_current, locale=user_locale)}&nbsp;&euro;</td>
@@ -258,7 +457,7 @@
          class='btn btn-primary'>Staff
       </a>
       <br />
-      ...          
+      ...
     </p>
   </tal:block>
   <tal:block metal:fill-slot="bottom">

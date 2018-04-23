@@ -25,8 +25,7 @@ def make_dues_invoice_email(member, invoice, invoice_url, invoice_quarter):
             membership_number=member.membership_number,
             footer=get_email_footer(member.locale)))
 
-
-def make_dues16_invoice_email(member, invoice, invoice_url, invoice_quarter):
+def make_dues18_05_invoice_email(member, invoice, invoice_url, invoice_quarter):
     """
     Create email subject and body for an invoice notification for full
     members.
@@ -35,15 +34,14 @@ def make_dues16_invoice_email(member, invoice, invoice_url, invoice_quarter):
         get_template_text('dues_invoice_subject', member.locale),
         get_template_text('dues_invoice_body', member.locale).format(
             salutation=get_salutation(member),
-            dues_amount=str(member.dues16_amount),
+            dues_amount=str(member.dues18_05_amount),
             invoice_url=invoice_url,
             invoice_quarter=invoice_quarter,
             invoice_number=invoice.invoice_no_string,
             membership_number=member.membership_number,
             footer=get_email_footer(member.locale)))
 
-
-def make_dues17_invoice_email(member, invoice, invoice_url, invoice_quarter):
+def make_dues18_06_invoice_email(member, invoice, invoice_url, invoice_quarter):
     """
     Create email subject and body for an invoice notification for full
     members.
@@ -52,13 +50,109 @@ def make_dues17_invoice_email(member, invoice, invoice_url, invoice_quarter):
         get_template_text('dues_invoice_subject', member.locale),
         get_template_text('dues_invoice_body', member.locale).format(
             salutation=get_salutation(member),
-            dues_amount=str(member.dues17_amount),
+            dues_amount=str(member.dues18_06_amount),
             invoice_url=invoice_url,
             invoice_quarter=invoice_quarter,
             invoice_number=invoice.invoice_no_string,
             membership_number=member.membership_number,
             footer=get_email_footer(member.locale)))
 
+def make_dues18_07_invoice_email(member, invoice, invoice_url, invoice_quarter):
+    """
+    Create email subject and body for an invoice notification for full
+    members.
+    """
+    return (
+        get_template_text('dues_invoice_subject', member.locale),
+        get_template_text('dues_invoice_body', member.locale).format(
+            salutation=get_salutation(member),
+            dues_amount=str(member.dues18_07_amount),
+            invoice_url=invoice_url,
+            invoice_quarter=invoice_quarter,
+            invoice_number=invoice.invoice_no_string,
+            membership_number=member.membership_number,
+            footer=get_email_footer(member.locale)))
+
+def make_dues18_08_invoice_email(member, invoice, invoice_url, invoice_quarter):
+    """
+    Create email subject and body for an invoice notification for full
+    members.
+    """
+    return (
+        get_template_text('dues_invoice_subject', member.locale),
+        get_template_text('dues_invoice_body', member.locale).format(
+            salutation=get_salutation(member),
+            dues_amount=str(member.dues18_08_amount),
+            invoice_url=invoice_url,
+            invoice_quarter=invoice_quarter,
+            invoice_number=invoice.invoice_no_string,
+            membership_number=member.membership_number,
+            footer=get_email_footer(member.locale)))
+
+def make_dues18_09_invoice_email(member, invoice, invoice_url, invoice_quarter):
+    """
+    Create email subject and body for an invoice notification for full
+    members.
+    """
+    return (
+        get_template_text('dues_invoice_subject', member.locale),
+        get_template_text('dues_invoice_body', member.locale).format(
+            salutation=get_salutation(member),
+            dues_amount=str(member.dues18_09_amount),
+            invoice_url=invoice_url,
+            invoice_quarter=invoice_quarter,
+            invoice_number=invoice.invoice_no_string,
+            membership_number=member.membership_number,
+            footer=get_email_footer(member.locale)))
+
+def make_dues18_10_invoice_email(member, invoice, invoice_url, invoice_quarter):
+    """
+    Create email subject and body for an invoice notification for full
+    members.
+    """
+    return (
+        get_template_text('dues_invoice_subject', member.locale),
+        get_template_text('dues_invoice_body', member.locale).format(
+            salutation=get_salutation(member),
+            dues_amount=str(member.dues18_10_amount),
+            invoice_url=invoice_url,
+            invoice_quarter=invoice_quarter,
+            invoice_number=invoice.invoice_no_string,
+            membership_number=member.membership_number,
+            footer=get_email_footer(member.locale)))
+
+
+def make_dues18_11_invoice_email(member, invoice, invoice_url, invoice_quarter):
+    """
+    Create email subject and body for an invoice notification for full
+    members.
+    """
+    return (
+        get_template_text('dues_invoice_subject', member.locale),
+        get_template_text('dues_invoice_body', member.locale).format(
+            salutation=get_salutation(member),
+            dues_amount=str(member.dues18_11_amount),
+            invoice_url=invoice_url,
+            invoice_quarter=invoice_quarter,
+            invoice_number=invoice.invoice_no_string,
+            membership_number=member.membership_number,
+            footer=get_email_footer(member.locale)))
+
+def make_dues18_12_invoice_email(member, invoice, invoice_url, invoice_quarter):
+    """
+    Create email subject and body for an invoice notification for full
+    members.
+    """
+    return (
+        get_template_text('dues_invoice_subject', member.locale),
+        get_template_text('dues_invoice_body', member.locale).format(
+            salutation=get_salutation(member),
+            dues_amount=str(member.dues18_12_amount),
+            invoice_url=invoice_url,
+            invoice_quarter=invoice_quarter,
+            invoice_number=invoice.invoice_no_string,
+            membership_number=member.membership_number,
+            footer=get_email_footer(member.locale)))
 
 def make_dues_invoice_investing_email(member):
     """
@@ -109,7 +203,7 @@ def make_dues_reduction_email(member, invoice, invoice_url, reversal_url):
             footer=get_email_footer(member.locale)))
 
 
-def make_dues16_reduction_email(member, invoice, invoice_url, reversal_url):
+def make_dues18_05_reduction_email(member, invoice, invoice_url, reversal_url):
     """
     Create email subject and body for an invoice reduction.
     """
@@ -117,15 +211,14 @@ def make_dues16_reduction_email(member, invoice, invoice_url, reversal_url):
         get_template_text('dues_reduction_subject', member.locale),
         get_template_text('dues_reduction_body', member.locale).format(
             salutation=get_salutation(member),
-            dues_amount=str(member.dues16_amount_reduced),
+            dues_amount=str(member.dues18_05_amount_reduced),
             invoice_number=invoice.invoice_no_string,
             membership_number=member.membership_number,
             invoice_url=invoice_url,
             reversal_invoice_url=reversal_url,
             footer=get_email_footer(member.locale)))
 
-
-def make_dues17_reduction_email(member, invoice, invoice_url, reversal_url):
+def make_dues18_06_reduction_email(member, invoice, invoice_url, reversal_url):
     """
     Create email subject and body for an invoice reduction.
     """
@@ -133,7 +226,97 @@ def make_dues17_reduction_email(member, invoice, invoice_url, reversal_url):
         get_template_text('dues_reduction_subject', member.locale),
         get_template_text('dues_reduction_body', member.locale).format(
             salutation=get_salutation(member),
-            dues_amount=str(member.dues17_amount_reduced),
+            dues_amount=str(member.dues18_06_amount_reduced),
+            invoice_number=invoice.invoice_no_string,
+            membership_number=member.membership_number,
+            invoice_url=invoice_url,
+            reversal_invoice_url=reversal_url,
+            footer=get_email_footer(member.locale)))
+
+def make_dues18_07_reduction_email(member, invoice, invoice_url, reversal_url):
+    """
+    Create email subject and body for an invoice reduction.
+    """
+    return (
+        get_template_text('dues_reduction_subject', member.locale),
+        get_template_text('dues_reduction_body', member.locale).format(
+            salutation=get_salutation(member),
+            dues_amount=str(member.dues18_07_amount_reduced),
+            invoice_number=invoice.invoice_no_string,
+            membership_number=member.membership_number,
+            invoice_url=invoice_url,
+            reversal_invoice_url=reversal_url,
+            footer=get_email_footer(member.locale)))
+
+def make_dues18_08_reduction_email(member, invoice, invoice_url, reversal_url):
+    """
+    Create email subject and body for an invoice reduction.
+    """
+    return (
+        get_template_text('dues_reduction_subject', member.locale),
+        get_template_text('dues_reduction_body', member.locale).format(
+            salutation=get_salutation(member),
+            dues_amount=str(member.dues18_08_amount_reduced),
+            invoice_number=invoice.invoice_no_string,
+            membership_number=member.membership_number,
+            invoice_url=invoice_url,
+            reversal_invoice_url=reversal_url,
+            footer=get_email_footer(member.locale)))
+
+def make_dues18_09_reduction_email(member, invoice, invoice_url, reversal_url):
+    """
+    Create email subject and body for an invoice reduction.
+    """
+    return (
+        get_template_text('dues_reduction_subject', member.locale),
+        get_template_text('dues_reduction_body', member.locale).format(
+            salutation=get_salutation(member),
+            dues_amount=str(member.dues18_09_amount_reduced),
+            invoice_number=invoice.invoice_no_string,
+            membership_number=member.membership_number,
+            invoice_url=invoice_url,
+            reversal_invoice_url=reversal_url,
+            footer=get_email_footer(member.locale)))
+
+def make_dues18_10_reduction_email(member, invoice, invoice_url, reversal_url):
+    """
+    Create email subject and body for an invoice reduction.
+    """
+    return (
+        get_template_text('dues_reduction_subject', member.locale),
+        get_template_text('dues_reduction_body', member.locale).format(
+            salutation=get_salutation(member),
+            dues_amount=str(member.dues18_10_amount_reduced),
+            invoice_number=invoice.invoice_no_string,
+            membership_number=member.membership_number,
+            invoice_url=invoice_url,
+            reversal_invoice_url=reversal_url,
+            footer=get_email_footer(member.locale)))
+
+def make_dues18_11_reduction_email(member, invoice, invoice_url, reversal_url):
+    """
+    Create email subject and body for an invoice reduction.
+    """
+    return (
+        get_template_text('dues_reduction_subject', member.locale),
+        get_template_text('dues_reduction_body', member.locale).format(
+            salutation=get_salutation(member),
+            dues_amount=str(member.dues18_11_amount_reduced),
+            invoice_number=invoice.invoice_no_string,
+            membership_number=member.membership_number,
+            invoice_url=invoice_url,
+            reversal_invoice_url=reversal_url,
+            footer=get_email_footer(member.locale)))
+
+def make_dues18_12_reduction_email(member, invoice, invoice_url, reversal_url):
+    """
+    Create email subject and body for an invoice reduction.
+    """
+    return (
+        get_template_text('dues_reduction_subject', member.locale),
+        get_template_text('dues_reduction_body', member.locale).format(
+            salutation=get_salutation(member),
+            dues_amount=str(member.dues18_12_amount_reduced),
             invoice_number=invoice.invoice_no_string,
             membership_number=member.membership_number,
             invoice_url=invoice_url,

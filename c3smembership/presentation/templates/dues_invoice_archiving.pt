@@ -4,9 +4,9 @@
       xmlns:metal="http://xml.zope.org/namespaces/metal"
       metal:use-macro="backend">
     <tal:block metal:fill-slot="top">
-        <h1>Archiving Dues Invoice 2015</h1>
+        <h1>Archiving Dues Invoice 2018-05</h1>
         <a href="${request.route_url('toolbox')}" class="btn btn-success">Toolbox</a>
-        <a href="${request.route_url('dues15_listing')}" class="btn btn-success">Dues listing</a>
+        <a href="${request.route_url('dues18_05_listing')}" class="btn btn-success">Dues listing</a>
     </tal:block>
     <tal:block metal:fill-slot="middle">
         <p tal:condition="status == 'failed-count'" class="bg-danger">
@@ -62,6 +62,6 @@
             </form>
         </p>
         <a href="${request.route_url('toolbox')}" class="btn btn-success">Toolbox</a>
-        <a href="${request.route_url('dues15_listing')}" class="btn btn-success">Dues listing</a>
+        <a href="${request.route_url('dues18_05_listing')}" class="btn btn-success">Dues 18-05 listing</a>
   </tal:block>
 </html>

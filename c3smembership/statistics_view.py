@@ -9,9 +9,14 @@ from c3smembership.data.repository.share_repository import ShareRepository
 from c3smembership.models import (
     C3sMember,
     C3sStaff,
-    Dues15Invoice,
-    Dues16Invoice,
-    Dues17Invoice,
+    Dues18_05Invoice,
+    Dues18_06Invoice,
+    Dues18_07Invoice,
+    Dues18_08Invoice,
+    Dues18_09Invoice,
+    Dues18_10Invoice,
+    Dues18_11Invoice,
+    Dues18_12Invoice,
 )
 
 
@@ -67,9 +72,14 @@ def stats_view(request):
         # ),  # XXX TODO: sorte
 
         # dues stats
-        'dues15_stats': Dues15Invoice.get_monthly_stats(),
-        'dues16_stats': Dues16Invoice.get_monthly_stats(),
-        'dues17_stats': Dues17Invoice.get_monthly_stats(),
+        'dues18_05_stats': Dues18_05Invoice.get_monthly_stats(),
+        'dues18_06_stats': Dues18_06Invoice.get_monthly_stats(),
+        'dues18_07_stats': Dues18_07Invoice.get_monthly_stats(),
+        'dues18_08_stats': Dues18_08Invoice.get_monthly_stats(),
+        'dues18_09_stats': Dues18_09Invoice.get_monthly_stats(),
+        'dues18_10_stats': Dues18_10Invoice.get_monthly_stats(),
+        'dues18_11_stats': Dues18_11Invoice.get_monthly_stats(),
+        'dues18_12_stats': Dues18_12Invoice.get_monthly_stats(),
 
         # staff figures
         'num_staff': len(C3sStaff.get_all())
