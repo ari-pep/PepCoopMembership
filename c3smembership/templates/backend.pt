@@ -4,7 +4,7 @@
       xmlns:tal="http://xml.zope.org/namespaces/tal"
       xmlns:metal="http://xml.zope.org/namespaces/metal">
   <head>
-    <title>C3S AFM backend</title>
+    <title>p≡p coop AFM backend</title>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
     <link rel="shortcut icon"
           href="${request.static_url('c3smembership:static/favicon.ico')}" />
