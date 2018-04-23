@@ -149,7 +149,7 @@
             Disclaimer (Data Protection)
         </p>
         <p i18n:translate="join-form-disclaimer-paragraph">
-            We  will store and use the information you provide for administrative  purposes. Responsible  authority: p≡p coop SCE mbH i.G., Wittestr. 30E, 13509 Berlin:  © Copyright 2018, p≡p coop SCE.
+            We  will store and use the information you provide for administrative  purposes. Responsible  authority: p≡p coop SCE mbH i.G., Wittestr. 30E, 13509 Berlin.
         </p>
     </tal:block>
     <tal:block metal:fill-slot="deform-load">
