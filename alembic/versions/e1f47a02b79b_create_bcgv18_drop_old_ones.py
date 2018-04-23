@@ -1,14 +1,14 @@
 """create bcgv18, drop old ones
 
 Revision ID: e1f47a02b79b
-Revises: 2fbe1bde5df8
+Revises: cbcea62674f1
 Create Date: 2018-04-23 13:52:27.440873
 
 """
 
 # revision identifiers, used by Alembic.
 revision = 'e1f47a02b79b'
-down_revision = '2fbe1bde5df8'
+down_revision = 'cbcea62674f1'
 
 from alembic import op
 import sqlalchemy as sa
