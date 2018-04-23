@@ -669,36 +669,46 @@ class C3sMember(Base):
         DatabaseDecimal(12, 2), default=Decimal('0'))
     dues17_paid_date = Column(DateTime())  # paid when?
 
-    def __init__(self, firstname, lastname, email, password,
-                 address1, address2, postcode, city, country, locale,
-                 date_of_birth, email_is_confirmed, email_confirm_code,
-                 num_shares,
-                 date_of_submission,
-                 membership_type, member_of_colsoc, name_of_colsoc):
-        self.firstname = firstname
-        self.lastname = lastname
-        self.email = email
-        self.password = password
+    def __init__(self, **kwargs):
+        self.firstname = kwargs.pop('firstname')
+        self.lastname = kwargs.pop('lastname')
+        self.email = kwargs.pop('email')
+        self.password = kwargs.pop('password')
         self.last_password_change = datetime.now()
-        self.address1 = address1
-        self.address2 = address2
-        self.postcode = postcode
-        self.city = city
-        self.country = country
-        self.locale = locale
-        self.date_of_birth = date_of_birth
-        self.email_is_confirmed = email_is_confirmed
-        self.email_confirm_code = email_confirm_code
-        self.num_shares = num_shares
-        self.date_of_submission = date_of_submission
+        self.address1 = kwargs.pop('address1')
+        self.address2 = kwargs.pop('address2')
+        self.postcode = kwargs.pop('postcode')
+        self.city = kwargs.pop('city')
+        self.country = kwargs.pop('country')
+        self.locale = kwargs.pop('locale')
+        self.date_of_birth = kwargs.pop('date_of_birth')
+        self.email_is_confirmed = kwargs.pop('email_is_confirmed')
+        self.email_confirm_code = kwargs.pop('email_confirm_code')
+        self.num_shares = kwargs.pop('num_shares')
+        self.date_of_submission = kwargs.pop('date_of_submission')
         self.signature_received = False
         self.payment_received = False
-        self.membership_type = membership_type
-        self.member_of_colsoc = member_of_colsoc
+        if customization.membership_types and len(customization.membership_types) > 1:
+            self.membership_type = kwargs.pop('membership_type')
         if self.member_of_colsoc is True:
-            self.name_of_colsoc = name_of_colsoc
+            self.name_of_colsoc = kwargs.pop('name_of_colsoc')
         else:
             self.name_of_colsoc = u''
+
+        try:
+            if len(customization.membership_types) <= 1:
+                raise ValueError
+        except NameError, ValueError:
+            pass
+        else:
+            self.membership_type = kwargs.pop('membership_type')
+
+        if len(membership_fees)>1:
+            self.fee = kwargs.pop('fee')
+            self.member_type = kwargs.pop('membership_type')
+
+        if len(kwargs)!=0:
+            raise TypeError('__init__ did not consume all arguments')
 
     def _get_password(self):
         return self._password
