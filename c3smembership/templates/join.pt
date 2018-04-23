@@ -49,20 +49,6 @@
         <p i18n:translate="join-form-fill-verify-print-send">
             Please fill out the form. Later, you need to check your email for a verification code.
         </p>
-        <p>
-            <span i18n:translate="join-form-nonhumans-p">
-                Membership for private companies and institutions can be applied for using the following links:
-            </span>
-            <span i18n:translate="join-form-nonhumans-linktext">
-                Membership for Companies and Institutions
-            </span>
-            <a href="https://archive.c3s.cc/aktuell/legal/forms/C3S_SCE_corporation_de.pdf"
-                    target="_blank"
-                    i18n:translate="join-form-statute-linktitle-de">(german)</a>
-            <a href="https://archive.c3s.cc/aktuell/legal/forms/C3S_SCE_corporation_en.pdf"
-                    target="_blank"
-                    i18n:translate="join-form-statute-linktitle-en">(english)</a>
-        </p>
         <p i18n:translate="join-form-delete">
             Should you not follow through with the application process and neither send us the form via postal service nor pay for the share(s), we will delete your data after 6 month at the latest.
         </p>
