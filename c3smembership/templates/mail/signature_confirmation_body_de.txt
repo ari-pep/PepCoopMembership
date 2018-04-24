@@ -3,11 +3,11 @@ Hallo {salutation},
 Dein Beitrittsformular zur Zeichnung von {num_shares} Anteilen im Wert von
 {sum_shares} Euro ist sicher bei uns gelandet.
 
-Falls Probleme aufgetreten sind, melde Dich bitte bei uns (mitgliederverwaltung@pep.coop).
+Falls Probleme aufgetreten sind, melde Dich bitte bei uns (yes@c3s.cc).
 
-Schön, dass Du ein Teil der p≡p coop werden möchtest!
+Schön, dass Du ein Teil der C3S werden möchtest!
 
 Liebe Grüße
-Das p≡p coop Team
+Das C3S-Team
 
 {footer}
