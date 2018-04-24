@@ -76,7 +76,7 @@ def send_certificate_email(request):
 
     the_message = Message(
         subject=email_subject,
-        sender='office@c3s.cc',
+        sender='members-admin@pep.coop',
         recipients=[member.email],
         body=email_body
     )
@@ -138,8 +138,8 @@ def generate_certificate(request):
     except AssertionError:
         return Response(
             'Not found. Or invalid credentials.  <br /><br /> '
-            'Please contact office@c3s.cc. <br /><br /> '
-            'Nicht gefunden. Bitte office@c3s.cc kontaktieren.',
+            'Please contact members-admin@pep.coop. <br /><br /> '
+            'Nicht gefunden. Bitte mitgliederverwaltung@pep.coop kontaktieren.',
             status='404 Not Found',
         )
 
@@ -196,10 +196,10 @@ def gen_cert(member):
         latex_footer_tex = os.path.abspath(
             os.path.join(here, '../certificate/urkunde_footer_en.tex'))
 
-    sign_meik = os.path.abspath(
-        os.path.join(here, '../certificate/sign_meik.png'))
-    sign_julian = os.path.abspath(
-        os.path.join(here, '../certificate/sign_julian.png'))
+    sign_nana = os.path.abspath(
+        os.path.join(here, '../certificate/signNana.png'))
+    #sign_julian = os.path.abspath(
+     #   os.path.join(here, '../certificate/sign_julian.png'))
 
     # a temporary directory for the latex run
     tempdir = tempfile.mkdtemp()
@@ -221,14 +221,14 @@ def gen_cert(member):
     # prepare the certificate text
     if member.locale == 'de':  # german
         hereby_confirmed = u'Hiermit wird bestätigt, dass'
-        is_member = u'Mitglied der Cultural Commons Collecting Society SCE ' \
-                    u'mit beschränkter Haftung (C3S SCE) ist'
+        is_member = u'Mitglied der p≡p coop SCE ' \
+                    u'mit beschränkter Haftung ist'
         one_more_share = u' und einen weiteren Geschäftsanteil übernommen hat'
         several_shares = u' weitere Geschäftsanteile übernommen hat'
         and_block = u' und '
         if is_founder:
             confirm_date = (
-                u'Der Beitritt erfolgte im Rahmen der Gründung am 25.09.2013')
+                u'Der Beitritt erfolgte im Rahmen der Gründung am 17.04.2018')
         else:
             confirm_date = u'Der Beitritt wurde am {} zugelassen'.format(
                 datetime.strftime(member.membership_date, '%d.%m.%Y'))
@@ -242,15 +242,14 @@ def gen_cert(member):
 
     else:  # default fallback is english
         hereby_confirmed = u'This is to certify that'
-        is_member = u'is a member of the >>Cultural Commons Collecting ' \
-                    u'Society SCE mit beschränkter Haftung (C3S SCE)<<'
+        is_member = u'is a member of the >>p≡p coop SCE mit beschränkter Haftung<<'
         one_more_share = u' and has subscribed to one additional share'
         several_shares = u'additional shares'
         and_block = u' and has subscribed to'
         if is_founder:
             confirm_date = (
                 u'Membership was acquired as a founding member '
-                'on the 25th of September 2013')
+                'on the 17th of April 2018')
         else:
             confirm_date = u'Registered on the {}'.format(
                 datetime.strftime(member.membership_date, '%Y-%m-%d'))
