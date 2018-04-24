@@ -211,11 +211,11 @@ def send_dues18_07_invoice_email(request, m_id=None):
             invoice_url)
         message = Message(
             subject=email_subject,
-            sender='yes@c3s.cc',
+            sender='members-admin@pep.coop',
             recipients=[member.email],
             body=email_body,
             extra_headers={
-                'Reply-To': 'office@c3s.cc',
+                'Reply-To': 'members-admin@pep.coop',
             }
         )
     elif 'investing' in member.membership_type:
@@ -227,11 +227,11 @@ def send_dues18_07_invoice_email(request, m_id=None):
                 make_dues_invoice_investing_email(member)
         message = Message(
             subject=email_subject,
-            sender='yes@c3s.cc',
+            sender='members-admin@pep.coop',
             recipients=[member.email],
             body=email_body,
             extra_headers={
-                'Reply-To': 'office@c3s.cc',
+                'Reply-To': 'members-admin@pep.coop',
             }
         )
 
@@ -736,11 +736,11 @@ def dues18_07_reduction(request):
 
     message = Message(
         subject=email_subject,
-        sender='yes@c3s.cc',
+        sender='members-admin@pep.coop',
         recipients=[member.email],
         body=email_body,
         extra_headers={
-            'Reply-To': 'office@c3s.cc',
+            'Reply-To': 'members-admin@pep.coop',
         }
     )
     if is_exemption:
