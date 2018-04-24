@@ -36,7 +36,7 @@
             <tr>
                 <td><a href="#new_shares">Neue Anteile</a></td>
                 <td>${num_shares}</td>
-                <td>${num_shares * 50}</td>
+                <td>${num_shares * 10}</td>
             </tr>
             <tr>
                 <td>
