@@ -294,7 +294,7 @@ def main(global_config, **settings):
     from c3smembership.business.dues_invoice_archiving import (
         DuesInvoiceArchiving
     )
-    from c3smembership.views.membership_dues import (
+    from c3smembership.views.membership_dues_2018_05 import (
         make_invoice_pdf_pdflatex,
         make_reversal_pdf_pdflatex,
     )
