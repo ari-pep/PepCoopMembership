@@ -97,7 +97,8 @@
         <p i18n:translate="success-paragraph-verify-email">
             Click the button to have an email sent to your email address.
             Then check your email and use the link which we send you to get your
-            membership application form.
+            membership application form. This needs to be printed out, signed, and
+            sent back to us.
         </p>
         <p>
             <form method="POST" action="/check_email">
