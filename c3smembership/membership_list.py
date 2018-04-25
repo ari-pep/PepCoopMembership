@@ -194,6 +194,7 @@ def member_list_date_pdf_view(request):
     pdflatex_output = subprocess.call(
         [
             'pdflatex',
+            '-interaction=nonstopmode',
             '-output-directory=%s' % tempdir,
             latex_file.name
         ],

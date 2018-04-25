@@ -341,6 +341,7 @@ def gen_cert(member):
     subprocess.call(
         [
             'pdflatex',
+            '-interaction=nonstopmode',
             '-output-directory=%s' % tempdir,
             latex_file.name
         ],
