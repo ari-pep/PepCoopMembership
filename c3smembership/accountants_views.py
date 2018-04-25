@@ -299,8 +299,6 @@ def member_detail(request):
         'invoices18_10': invoices18_10,
         'invoices18_11': invoices18_11,
         'invoices18_12': invoices18_12,
-        'invoices16': invoices16,
-        'invoices17': invoices17,
         # 'form': html
     }
 

@@ -389,7 +389,7 @@
       <!--! membership dues -->
       <div tal:condition="member.membership_accepted">
 
-        <div tal:omit-tag="" tal:condition="not member.membership_date > date(2018,05,31) and (member.membership_loss_date is None or member.membership_loss_date >= date(2018,5,1))">
+        <div tal:omit-tag="" tal:condition="not member.membership_date > date(2018,5,31) and (member.membership_loss_date is None or member.membership_loss_date >= date(2018,5,1))">
         <a name="dues18_05"></a>
         <h3 id="certificate">Membership Dues 2018-05</h3>
         <table class="table table-striped">
@@ -637,7 +637,7 @@
         </div>
 
 
-        <div tal:omit-tag="" tal:condition="not member.membership_date > date(2018,06,30) and (member.membership_loss_date is None or member.membership_loss_date >= date(2018,6,1))">
+        <div tal:omit-tag="" tal:condition="not member.membership_date > date(2018,6,30) and (member.membership_loss_date is None or member.membership_loss_date >= date(2018,6,1))">
         <a name="dues18_06"></a>
         <h3 id="certificate">Membership Dues 2018_06</h3>
         <table class="table table-striped">
@@ -885,7 +885,7 @@
         </div>
 
 
-        <div tal:omit-tag="" tal:condition="not member.membership_date > date(2018,07,31) and (member.membership_loss_date is None or member.membership_loss_date >= date(2018,7,1))">
+        <div tal:omit-tag="" tal:condition="not member.membership_date > date(2018,7,31) and (member.membership_loss_date is None or member.membership_loss_date >= date(2018,7,1))">
         <a name="dues18_07"></a>
         <h3 id="certificate">Membership Dues 2018_07</h3>
         <table class="table table-striped">
@@ -1132,7 +1132,7 @@
         </table>
         </div>
 
-        <div tal:omit-tag="" tal:condition="not member.membership_date > date(2018,08,31) and (member.membership_loss_date is None or member.membership_loss_date >= date(2018,8,1))">
+        <div tal:omit-tag="" tal:condition="not member.membership_date > date(2018,8,31) and (member.membership_loss_date is None or member.membership_loss_date >= date(2018,8,1))">
         <a name="dues18_09"></a>
         <h3 id="certificate">Membership Dues 2018_09</h3>
         <table class="table table-striped">
@@ -1379,7 +1379,7 @@
         </table>
         </div>
 
-        <div tal:omit-tag="" tal:condition="not member.membership_date > date(2018,09,30) and (member.membership_loss_date is None or member.membership_loss_date >= date(2018_09,9,1))">
+        <div tal:omit-tag="" tal:condition="not member.membership_date > date(2018,9,30) and (member.membership_loss_date is None or member.membership_loss_date >= date(2018,9,1))">
         <a name="dues18_09"></a>
         <h3 id="certificate">Membership Dues 2018_09</h3>
         <table class="table table-striped">
