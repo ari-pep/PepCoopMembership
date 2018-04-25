@@ -181,25 +181,23 @@ def gen_cert(member):
 
     if 'de' in member.locale:
         latex_background_image = os.path.abspath(
-            os.path.join(here, '../certificate/Urkunde_Hintergrund_blank.pdf'))
+            os.path.join(here, '../customization/certificates/Urkunde_Hintergrund_blank.pdf'))
         # latex header and footer
         latex_header_tex = os.path.abspath(
-            os.path.join(here, '../certificate/urkunde_header_de.tex'))
+            os.path.join(here, '../customization/certificates/urkunde_header_de.tex'))
         latex_footer_tex = os.path.abspath(
-            os.path.join(here, '../certificate/urkunde_footer_de.tex'))
+            os.path.join(here, '../customization/certificates/urkunde_footer_de.tex'))
     else:
         latex_background_image = os.path.abspath(
-            os.path.join(here, '../certificate/Urkunde_Hintergrund_blank.pdf'))
+            os.path.join(here, '../customization/certificates/Urkunde_Hintergrund_blank.pdf'))
         # latex header and footer
         latex_header_tex = os.path.abspath(
-            os.path.join(here, '../certificate/urkunde_header_en.tex'))
+            os.path.join(here, '../customization/certificates/urkunde_header_en.tex'))
         latex_footer_tex = os.path.abspath(
-            os.path.join(here, '../certificate/urkunde_footer_en.tex'))
+            os.path.join(here, '../customization/certificates/urkunde_footer_en.tex'))
 
     sign_nana = os.path.abspath(
-        os.path.join(here, '../certificate/signNana.png'))
-    #sign_julian = os.path.abspath(
-     #   os.path.join(here, '../certificate/sign_julian.png'))
+        os.path.join(here, '../customization/certificates/signNana'))
 
     # a temporary directory for the latex run
     tempdir = tempfile.mkdtemp()
@@ -221,7 +219,7 @@ def gen_cert(member):
     # prepare the certificate text
     if member.locale == 'de':  # german
         hereby_confirmed = u'Hiermit wird bestätigt, dass'
-        is_member = u'Mitglied der p≡p coop SCE ' \
+        is_member = u'Mitglied der p$\\equiv$p coop SCE ' \
                     u'mit beschränkter Haftung ist'
         one_more_share = u' und einen weiteren Geschäftsanteil übernommen hat'
         several_shares = u' weitere Geschäftsanteile übernommen hat'
@@ -242,7 +240,7 @@ def gen_cert(member):
 
     else:  # default fallback is english
         hereby_confirmed = u'This is to certify that'
-        is_member = u'is a member of the >>p≡p coop SCE mit beschränkter Haftung<<'
+        is_member = u'is a member of the >>p$\\equiv$p coop SCE mit beschränkter Haftung<<'
         one_more_share = u' and has subscribed to one additional share'
         several_shares = u'additional shares'
         and_block = u' and has subscribed to'
