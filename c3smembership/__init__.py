@@ -99,7 +99,7 @@ def main(global_config, **settings):
     # and step 4 (verify_password.pt): download form
     config.add_route('verify_email_password', '/verify/{email}/{code}')  # PDF
     # PDF download of Step 4.
-    config.add_route('success_pdf', '/pEp_coop_SCE_AFM_{namepart}.pdf')  # download
+    config.add_route('success_pdf', '/C3S_SCE_AFM_{namepart}.pdf')  # download
     # confirm email address later (30c3 cases)
     config.add_route(
         'verify_afm_email',

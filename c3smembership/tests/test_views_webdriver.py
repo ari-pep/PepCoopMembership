@@ -517,7 +517,7 @@ class EmailVerificationTests(SeleniumTestBase):
         # print(self.driver.page_source)
         self.assertTrue('Lade Dein PDF...' in self.driver.page_source)
         self.assertTrue(
-            'pEp_coop_SCE_AFM_Firstn_meLastname.pdf' in self.driver.page_source)
+            'C3S_SCE_AFM_Firstn_meLastname.pdf' in self.driver.page_source)
         # XXX TODO: check PDF download
 
     def test_verify_email_en(self):  # views.py 296-298
@@ -561,5 +561,5 @@ class EmailVerificationTests(SeleniumTestBase):
         # print(self.driver.page_source)
         self.assertTrue('Load your PDF...' in self.driver.page_source)
         self.assertTrue(  # PDF form is visible
-            'pEp_coop_SCE_AFM_Firstn_meLastname.pdf' in self.driver.page_source)
+            'C3S_SCE_AFM_Firstn_meLastname.pdf' in self.driver.page_source)
         # XXX TODO: check PDF download
