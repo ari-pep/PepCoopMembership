@@ -277,8 +277,7 @@ def gen_cert(member):
 \\def\\txtBlkMembershipNumber{%s}
 \\def\\txtBlkConfirmDate{%s}
 \\def\\signDate{%s}
-\\def\\signMeik{%s}
-\\def\\signJulian{%s}
+\\def\\signNana{%s}
 \\def\\txtBlkCEO{%s}
 \\def\\txtBlkMembershipNum{%s}
     ''' % (
@@ -299,8 +298,7 @@ def gen_cert(member):
             datetime.strftime(date.today(), "%d.%m.%Y")
             if member.locale == 'de'
             else date.today()),
-        sign_meik,
-        sign_julian,
+        sign_nana,
         exec_dir,
         mship_num_text
     )
