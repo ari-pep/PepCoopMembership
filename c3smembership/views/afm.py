@@ -56,7 +56,7 @@ from c3smembership.presentation.i18n import (
     _,
     ZPT_RENDERER,
 )
-import customization
+import customization as c
 
 DEBUG = False
 LOGGING = True
@@ -92,9 +92,9 @@ def join_c3s(request):
 
     # set default of Country select widget according to locale
     try:
-        country_default = customization.locale_country_mapping.get(locale_name)
+        country_default = c.locale_country_mapping.get(locale_name)
     except AttributeError:
-        print(dir(customization))
+        print(dir(c))
         country_default = 'GB'
     if DEBUG:
         print("== locale is :" + str(locale_name))
@@ -187,7 +187,7 @@ def join_c3s(request):
         """
         yes_no = ((u'yes', _(u'Yes')),
                   (u'no', _(u'No')))
-        if len(customization.membership_types) > 1:
+        if len(c.membership_types) > 1:
             membership_type = colander.SchemaNode(
                 colander.String(),
                 title=_(u'I want to become a ... '
@@ -195,11 +195,11 @@ def join_c3s(request):
                 description=_(u'choose the type of membership.'),
                 widget=deform.widget.RadioChoiceWidget(
                     values=( (i['name'],i['description']) for i in
-                        customization.membership_types ),
+                        c.membership_types ),
                 ),
                 oid='membership_type'
             )
-        if customization.enable_colsoc_association:
+        if c.enable_colsoc_association:
             member_of_colsoc = colander.SchemaNode(
                 colander.String(),
                 title=_(
@@ -228,7 +228,7 @@ def join_c3s(request):
             title=_(u'Please tell us wether you\'re an individual, '
                     u'freelancer or company or want to support us '
                     u'generously as a sustaining member'),
-            widget=deform.widget.RadioChoiceWidget(values=[ (member_type, t_description) for fee, member_type, t_description in customization.membership_fees]),
+            widget=deform.widget.RadioChoiceWidget(values=[ (member_type, t_description) for fee, member_type, t_description in c.membership_fees]),
             oid='member_type'
         )
 
@@ -236,11 +236,11 @@ def join_c3s(request):
         # http://deformdemo.repoze.org/require_one_or_another/
         member_custom_fee = colander.SchemaNode(colander.Decimal('1.00'),
             title=_(u'custom membership fee'),
-            widget=deform.widget.MoneyInputWidget(symbol=customization.currency,showSymbol=True, defaultZero=True),
+            widget=deform.widget.MoneyInputWidget(symbol=c.currency,showSymbol=True, defaultZero=True),
             description=_(u'Sustaining members: You can set your fees (minimum 100 €)'),
             oid='membership_custom_fee',
-            default=customization.membership_fee_custom_min,
-            validator=Range(min=customization.membership_fee_custom_min,max=None,min_err=_(u'please enter at least the minimum fee for sustaining members'))
+            default=c.membership_fee_custom_min,
+            validator=Range(min=c.membership_fee_custom_min,max=None,min_err=_(u'please enter at least the minimum fee for sustaining members'))
 
         )
 
@@ -264,9 +264,10 @@ def join_c3s(request):
                 size=3, css_class='num_shares_input'),
             validator=colander.Range(
                 min=1,
-                max=60,
-                min_err=_(u'You need at least one share of 50 €.'),
-                max_err=_(u'You may choose 60 shares at most (3000 €).'),
+                max=c.max_shares,
+                min_err=_(u'You need at least one share of {} {}.').format(c.share_price,c.currency),
+                max_err=_(u'You may choose {} shares at most ({} {}).').format(
+                    c.max_shares,c.max_shares*c.share_price,c.currency),
             ),
             oid="num_shares")
 
@@ -339,7 +340,7 @@ def join_c3s(request):
         person = PersonalData(
             title=_(u'Personal Data'),
         )
-        if len(customization.membership_types) > 1 or customization.enable_colsoc_association :
+        if len(c.membership_types) > 1 or c.enable_colsoc_association :
             membership_info = MembershipInfo(
                 title=_(u'Membership Data')
             )
@@ -347,7 +348,7 @@ def join_c3s(request):
             title=_(u'Shares')
         )
         try:
-            customization.membership_fees
+            c.membership_fees
         except NameError:
             pass
         else:
@@ -383,7 +384,7 @@ def join_c3s(request):
 
             # data sanity: if not in collecting society, don't save
             #  collsoc name even if it was supplied through form
-            if customization.membership_types and len(customization.membership_types) > 1 and 'no' in appstruct['membership_info']['member_of_colsoc']:
+            if c.membership_types and len(c.membership_types) > 1 and 'no' in appstruct['membership_info']['member_of_colsoc']:
                 appstruct['membership_info']['name_of_colsoc'] = ''
 
         except ValidationFailure as validation_failure:
@@ -442,12 +443,12 @@ def join_c3s(request):
             num_shares=appstruct['shares']['num_shares'],
         )
 
-        if customization.enable_colsoc_association:
+        if c.enable_colsoc_association:
             coopMemberArgs['member_of_colsoc']=(
                 appstruct['membership_info']['member_of_colsoc'] == u'yes'),
             coopMemberArgs['name_of_colsoc']=appstruct['membership_info']['name_of_colsoc']
 
-        if customization.membership_fees and len(customization.membership_fees) > 1:
+        if c.membership_fees and len(c.membership_fees) > 1:
             coopMemberArgs['member_type']=appstruct['fees']['member_type']
             if coopMemberArgs['member_type'] == 'sustaining':
                 coopMemberArgs['fee'] = appstruct['fees']['member_custom_fee']
@@ -543,7 +544,7 @@ def success_check_email(request):
             return HTTPFound(location=request.route_url('join'))
 
 
-        the_mail_body = customization.address_confirmation_mail.get(appstruct['person']['locale'],'en')
+        the_mail_body = c.address_confirmation_mail.get(appstruct['person']['locale'],'en')
         the_mail = Message(
             subject=request.localizer.translate(_(
                 'check-email-paragraph-check-email-subject',
