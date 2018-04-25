@@ -265,9 +265,8 @@ def join_c3s(request):
             validator=colander.Range(
                 min=1,
                 max=c.max_shares,
-                min_err=_(u'You need at least one share of {} {}.').format(c.share_price,c.currency),
-                max_err=_(u'You may choose {} shares at most ({} {}).').format(
-                    c.max_shares,c.max_shares*c.share_price,c.currency),
+                min_err=_(u'You need at least one share of 10 €.'),
+                max_err=_(u'You may choose 3001 shares at most (30010 €).')
             ),
             oid="num_shares")
 
