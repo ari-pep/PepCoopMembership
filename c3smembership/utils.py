@@ -10,6 +10,7 @@ from pyramid_mailer.message import (
 import subprocess
 import tempfile
 import time
+import customization as c
 
 DEBUG = False
 # DEBUG = True
@@ -127,31 +128,34 @@ def generate_pdf(appstruct):
 
     # calculate the amount to be transferred
     # print("the amount: %s" % (appstruct['num_shares'] * 50))
-    amount = str(appstruct['num_shares'] * 50)
+    amount = str(appstruct['num_shares'] * 10)
 
 # here we gather all information from the supplied data to prepare pdf-filling
 
     from datetime import datetime
 
-    fields = [
-        ('firstname', appstruct['firstname']),
-        ('lastname', appstruct['lastname']),
-        ('streetNo', appstruct['address1']),
-        ('address2', appstruct['address2']),
-        ('postcode', appstruct['postcode']),
-        ('town', appstruct['city']),
-        ('email', appstruct['email']),
-        ('country', appstruct['country']),
-        ('MembershipType', '1' if appstruct[
-            'membership_type'] == u'normal' else '2'),
-        ('numshares', str(appstruct['num_shares'])),
+    fields = [ (k, appstruct[k]) for k in ('firstname',  'lastname',  'address1',
+                'address2',  'postcode',  'city', 'email',  'country',  'num_shares', ) ]
+
+    if len(c.membership_types   ) > 1:
+        fields.append(('MembershipType', '1' if appstruct[
+            'membership_type'] == u'normal' else '2'))
+
+    if len(c.membership_fees)>1:
+        memberTypeIndex=[ i for i,(v,t,d) in enumerate(c.membership_fees) if t==appstruct['member_type']][0]
+        if memberTypeIndex == len(c.membership_fees) - 1:
+            fields.append(('freeFee',appstruct['fee']))
+        else:
+            fields.append(('member_type',memberTypeIndex+1))
+
+    fields.extend((
         ('dateofbirth', dob),
         ('submitted', dos),
         ('generated', str(datetime.now())),
         ('code', appstruct['email_confirm_code']),
         ('code2', appstruct['email_confirm_code']),  # for page 2
         ('amount', amount),  # for page 2
-    ]
+    ))
 
 # generate fdf string
 

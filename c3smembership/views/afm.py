@@ -671,6 +671,8 @@ def success_verify_email(request):
                 '_',  # with an underscore
                 namepart)
 
+            # ToDo: appstructFromMember or something...
+
             appstruct = {
                 'firstname': member.firstname,
                 'lastname': member.lastname,
@@ -693,6 +695,8 @@ def success_verify_email(request):
                 # 'opt_band': signee.opt_band,
                 # 'opt_URL': signee.opt_URL,
                 'num_shares': member.num_shares,
+                'member_type': member.member_type,
+                'fee': member.fee,
             }
             request.session['appstruct'] = appstruct
 
