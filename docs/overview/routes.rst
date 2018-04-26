@@ -48,7 +48,7 @@ The raw output from *proutes*:
    success         /success                       <function show_success at 0x7f7b8967a848>
    success_check_email /check_email                   <function success_check_email at 0x7f7b8967ab18>
    verify_email_password /verify/{email}/{code}         <function success_verify_email at 0x7f7b8967ac80>
-   success_pdf     /C3S_SCE_AFM_{namepart}.pdf    <function show_success_pdf at 0x7f7b8967a9b0>
+   success_pdf     /pEp_coop_SCE_AFM_{namepart}.pdf    <function show_success_pdf at 0x7f7b8967a9b0>
    verify_afm_email /vae/{refcode}/{token}/{email} <function verify_mailaddress_conf at 0x7f7b8972dc08>
    dashboard_only  /dashboard                     <function dashboard_only at 0x7f7b8971d140>
    dashboard       /dashboard/{number}/{orderby}/{order} <function accountants_desk at 0x7f7b89796cf8>
@@ -61,7 +61,7 @@ The raw output from *proutes*:
    edit            /edit/{_id}                    <function edit_member at 0x7f7b896c4de8>
    switch_sig      /switch_sig/{memberid}         <function switch_sig at 0x7f7b89724b90>
    mail_sig_confirmation /mail_sig_conf/{memberid}      <function mail_signature_confirmation at 0x7f7b8971df50>
-   regenerate_pdf  /re_C3S_SCE_AFM_{code}.pdf     <function regenerate_pdf at 0x7f7b897246e0>
+   regenerate_pdf  /re_pEp_coop_SCE_AFM_{code}.pdf     <function regenerate_pdf at 0x7f7b897246e0>
    switch_pay      /switch_pay/{memberid}         <function switch_pay at 0x7f7b89724938>
    mail_pay_confirmation /mail_pay_conf/{memberid}      <function mail_payment_confirmation at 0x7f7b8971daa0>
    mail_mail_confirmation /mail_mail_conf/{memberid}     <function mail_mail_conf at 0x7f7b8972d0c8>
