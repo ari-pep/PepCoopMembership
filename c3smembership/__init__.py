@@ -99,7 +99,7 @@ def main(global_config, **settings):
     # and step 4 (verify_password.pt): download form
     config.add_route('verify_email_password', '/verify/{email}/{code}')  # PDF
     # PDF download of Step 4.
-    config.add_route('success_pdf', '/C3S_SCE_AFM_{namepart}.pdf')  # download
+    config.add_route('success_pdf', '/pEp_coop_SCE_AFM_{namepart}.pdf')  # download
     # confirm email address later (30c3 cases)
     config.add_route(
         'verify_afm_email',
@@ -136,7 +136,7 @@ def main(global_config, **settings):
     config.add_route('switch_pay', '/switch_pay/{memberid}')
 
     config.add_route('mail_sig_confirmation', '/mail_sig_conf/{memberid}')
-    config.add_route('regenerate_pdf', '/re_C3S_SCE_AFM_{code}.pdf')
+    config.add_route('regenerate_pdf', '/re_pEp_coop_SCE_AFM_{code}.pdf')
     config.add_route('mail_pay_confirmation', '/mail_pay_conf/{member_id}')
     config.add_route('mail_mail_confirmation', '/mail_mail_conf/{memberid}')
     config.add_route('mail_sig_reminder', '/mail_sig_reminder/{memberid}')

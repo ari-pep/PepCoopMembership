@@ -563,9 +563,9 @@ class AccountantsFunctionalTests(unittest.TestCase):
         check size
         """
         # try invalid code
-        pdf = self.testapp.get('/re_C3S_SCE_AFM_WRONGCODE.pdf')
+        pdf = self.testapp.get('/re_pEp_coop_SCE_AFM_WRONGCODE.pdf')
         self.failUnless('The resource was found at' in pdf.body)
-        pdf = self.testapp.get('/re_C3S_SCE_AFM_ABCDEFGFOO.pdf')
+        pdf = self.testapp.get('/re_pEp_coop_SCE_AFM_ABCDEFGFOO.pdf')
         # now use existing code
         self.failUnless(80000 < len(pdf.body) < 220000)  # check pdf size
 
@@ -597,9 +597,9 @@ class AccountantsFunctionalTests(unittest.TestCase):
     #     try to send out the signature confirmation email
     #     """
     #     # try invalid code
-    #     pdf = self.testapp.get('/re_C3S_SCE_AFM_WRONGCODE.pdf')
+    #     pdf = self.testapp.get('/re_pEp_coop_SCE_AFM_WRONGCODE.pdf')
     #     self.failUnless('The resource was found at' in pdf.body)
-    #     pdf = self.testapp.get('/re_C3S_SCE_AFM_ABCDEFGFOO.pdf')
+    #     pdf = self.testapp.get('/re_pEp_coop_SCE_AFM_ABCDEFGFOO.pdf')
     #     # now use existing code
     #     self.failUnless(80000 < len(pdf.body) < 150000)  # check pdf size
 
@@ -866,10 +866,10 @@ class FunctionalTests(unittest.TestCase):
         res2 = form.submit('submit')
         # print res2.body
         self.failUnless(
-            'C3S_SCE_AFM_SomeFirstn_meSomeLastn_me.pdf' in res2.body)
+            'pEp_coop_SCE_AFM_SomeFirstn_meSomeLastn_me.pdf' in res2.body)
         # 'Your Email has been confirmed, Firstnäme Lastname!' in res.body)
         # res2 = self.testapp.get(
-        #    '/C3S_SCE_AFM_Firstn_meLastname.pdf', status=200)
+        #    '/pEp_coop_SCE_AFM_Firstn_meLastname.pdf', status=200)
         # self.failUnless(len(res2.body) > 70000)
 
     def test_success_wo_data_en(self):
@@ -893,7 +893,7 @@ class FunctionalTests(unittest.TestCase):
         """
         res = self.testapp.reset()
         res = self.testapp.get(
-            '/C3S_SCE_AFM_ThefirstnameThelastname.pdf',
+            '/pEp_coop_SCE_AFM_ThefirstnameThelastname.pdf',
             status=302)
         self.failUnless('The resource was found at' in res.body)
         # we are being redirected...
@@ -918,10 +918,10 @@ class FunctionalTests(unittest.TestCase):
         # print res2.body
         self.failUnless("Load your PDF..." in res2.body)
         self.failUnless(
-            "/C3S_SCE_AFM_SomeFirstn_meSomeLastn_me.pdf" in res2.body)
+            "/pEp_coop_SCE_AFM_SomeFirstn_meSomeLastn_me.pdf" in res2.body)
         # load the PDF, check size
         res3 = self.testapp.get(
-            '/C3S_SCE_AFM_SomeFirstn_meSomeLastn_me.pdf',
+            '/pEp_coop_SCE_AFM_SomeFirstn_meSomeLastn_me.pdf',
             status=200
         )
         # print("length of result: %s") % len(res3.body)
