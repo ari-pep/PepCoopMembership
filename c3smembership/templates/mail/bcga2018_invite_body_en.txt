@@ -1,6 +1,189 @@
 
 Hello {salutation},
 
+the administrative board of the
+
+CulturalCommons Collecting Society SCE
+mit beschränkter Haftung
+- C3S SCE -
+Rochusstr. 44
+40479 Düsseldorf
+
+invites you
+
+* to the 5th statutory general assembly, according to § 13 of the
+  articles of association of the C3S SCE [1] on 3rd June, 2018 and
+* to the C3S barcamp 2018 on the day preceding the general assembly.
+
+Please read the whole text of the invitation. It contains important
+information.
+
+*************************** Important ***************************
+This is your individual registration link:
+
   {invitation_url}
+
+Please use it to inform us early on about whether or not you would
+like to participate or if you want to be represented by somebody.
+Cancellations are requested as well. You can separately confirm your
+participation in the general assembly and the barcamp.
+***************************
+
+
+The general assembly
+====================
+
+The general assembly 2018 of the C3S SCE will be held in Düsseldorf
+in the building where we also have our office.
+
+June 3rd, 2018:  5th statutory general assembly of the C3S SCE
+                 Rochusstr. 44
+                 40479 Düsseldorf [2]
+                 1.00 pm - 5.00 pm
+                 Accreditation from 12.00 pm
+                 Admission free
+
+Please be punctual in order to avoid delays, because the accreditation
+will take some time. Of course, participation is free.
+
+The Barcamp
+===========
+
+June 2nd, 2018:  Barcamp [3]
+                 Rochusstr. 44
+                 40479 Düsseldorf [2]
+                 1.00 pm - 7.00 pm
+                 Admission free
+
+
+Again, we are of the opinion that on some topics there will be more
+need for information and discussion than we can deal with in the general
+assembly. In order to prepare the general assembly and to move up
+debates, we are offering a barcamp [3], where half a day is devoted to
+discussions and idea exchange in parallel time slots.
+The goal is to produce short and comprehensible summaries of what
+has been discussed at the barcamp.
+
+On the following wiki page you can add to and view the topics for the
+barcamp: https://wiki.c3s.cc/index.php/Themenvorschl%C3%A4ge_BarCamp2018
+
+Login details:
+Name: schwarm
+Password: letmein
+
+At the end of an exhausting and productive barcamp, everyone needs new
+energy. Therefore we would be happy to have dinner with you after the
+barcamp – likely at an Italian restaurant. In any case there will be
+vegetarian dishes as well. Please note on registration wether you
+want to attend so that we can make reservations accordingly.
+
+
+Agenda of the general assembly 2018 of the C3S SCE
+==================================================
+
+Welcoming address
+
+# 1 Appointment of the chairperson of the assembly
+    and the minute taker
+
+# 2 Approval of the agenda
+
+# 3 Recurring items on the agenda
+
+## 3.1 Acceptance of the progress report of the executive directors and
+       the administrative board, followed by debate
+## 3.2 Approval of the annual financial statement
+## 3.3 Resolution on the appropriation
+       of the net income and the offsetting ofthe annual net loss
+## 3.4 Discharge of the executive directors and the members of the
+       adminstrative board
+
+# 4 By-election of members of the administrative board
+
+# 5 Status report regarding the approval procedure by the German Patent and Trade Mark Office
+
+# 6 Report from the C3S barcamp 2018
+
+# 7 Reports from the consulting committees
+## 7.1 Tariffs commission
+## 7.2 Distribution and contributing rules commission
+## 7.3 Collection agreements commission
+
+# 8 Discussion and, if applicable, resolution on the determination of
+    temporary contribution rules
+    https://url.c3s.cc/ga5bv8en
+
+# 9 Discussion / Other issues
+
+You may contribute written proposals for resolutions and for alterations
+of the agenda until 23rd Mai, 2018 (midnight MESZ/CEST, i.e. UTC +2)
+to agenda@c3s.cc.
+
+
+Organizational issues
+=====================
+
+Participation
+-------------
+Participation in the general assembly is limited to members of the C3S
+SCE or authorized representatives of absent members.
+
+Authorized representatives
+--------------------------------
+If you are an active member and therefore entitled to vote, but unable
+to participate, you may grant a power of attorney. Further information
+on that will be included in the registration e-mail.
+
+Audio recording
+---------------
+During the general assembly, an audio recording will be made in order to
+ensure error-free minutes. The recording will not be published but
+archived internally as an appendix to the minutes.
+
+Those who do not wish their speech contributions to be recorded, may
+veto before commencing to speak.
+
+
+Why is it important that you participate?
+=========================================
+
+At the barcamp, you will be able to make detailed contributions to the
+discussions of the current topics and talk to the core team of the C3S.
+The general assembly is the body that takes the fundamental decisions
+for the C3S. (You are the general assembly, together with the other
+members.)
+
+That's all! Please let us know your proposals for topics, plan your
+trip - and we'll meet in Düsseldorf in June! If you have questions,
+you can get in touch, as always, via info@c3s.cc.
+
+We look forward to you and your ideas!
+
+For and on behalf of the administrative board of the C3S SCE
+Veit Winkler - Chairperson
+
+===============
+The administrative board of the C3S SCE consists of:
+
+Chairpersons:
+Veit Winkler, chairperson of the administrative board
+Danny Bruder, deputy chairperson of the administrative board
+
+Other members:
+* Johanna Breuckmann
+* m.eik michalke
+* Thomas Mielke 
+* Christoph Scheid
+* Elmar Schuck
+* Holger Schwetter
+
+======================
+
+Links:
+
+[1] Articles of association of the C3S SCE: https://url.c3s.cc/statutes
+[2] Map of location:
+https://www.openstreetmap.org/node/2679106873#map=19/51.23274/6.78834
+[3] What is a barcamp? https://url.c3s.cc/bcexplanation
 
 {footer}
