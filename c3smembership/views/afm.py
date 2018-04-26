@@ -753,7 +753,8 @@ def show_success_pdf(request):
             print(the_mail.body)
         else:
             try:
-                mailer.send(the_mail)
+                pass
+                # mailer.send(the_mail)
             except:
                 # if mailout fails for some reason (gnupg, whatever), we need
                 # 1) a mail to staff, so we take notice and fix it
@@ -781,7 +782,7 @@ go fix it!
                     'message_to_user')  # msg queue f. user
                 )
                 return HTTPFound(request.route_url('error_page'))
-
+        # ToDO appstruct should have member_type!
         return generate_pdf(request.session['appstruct'])
     # 'else': send user to the form
     # print("-- no valid session with data found")
