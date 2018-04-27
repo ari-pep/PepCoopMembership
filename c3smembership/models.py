@@ -445,6 +445,25 @@ class C3sMember(Base):
        from different times of acquisition.
 
     """
+
+    payment_method = Column(Unicode(20))
+    '''Unicode
+
+    * one of 'sdd','transfer' - of course this should be an enum, but we're on python2
+    '''
+
+    payment_sdd_iban = Column(Unicode(34))
+    '''Unicode
+
+    * the IBAN used for SEPA Direct Debit 'sdd'
+    '''
+
+    payment_sdd_bic = Column(Unicode(34))
+    '''Unicode
+
+    * the BIC used for SEPA Direct Debit 'sdd'
+    '''
+
     date_of_submission = Column(DateTime(), nullable=False)
     """datetime
 
@@ -805,6 +824,9 @@ class C3sMember(Base):
         self.date_of_submission = kwargs.pop('date_of_submission')
         self.signature_received = False
         self.payment_received = False
+        self.payment_method = kwargs.pop('payment_method')
+        self.payment_sdd_bic = re.sub(r'\s','',kwargs.pop('payment_sdd_bic'),flags=re.U)
+        self.payment_sdd_iban = re.sub(r'\s','',kwargs.pop('payment_sdd_iban'),flags=re.U)
         if customization.membership_types and len(customization.membership_types) > 1:
             self.membership_type = kwargs.pop('membership_type')
         if self.member_of_colsoc is True:
