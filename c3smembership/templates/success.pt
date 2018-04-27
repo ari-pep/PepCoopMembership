@@ -73,6 +73,13 @@
             <span i18n:translate=''>Number of Shares</span>:&nbsp; ${request.session['appstruct']['shares']['num_shares']}<br />
             <span i18n:translate=''>Cost of Shares (10 € each)</span>:&nbsp; ${int(request.session['appstruct']['shares']['num_shares']) * 10} €<br />
         </p>
+        <h4 class="c3s-subheading-4" i18n:translate=''>Payment Method</h4>
+            <span i18n:translate=''>Payment Type</span>:&nbsp; ${payment_method} <br />
+            <span tal:condition="request.session['appstruct']['payment_method']['payment_method'] == 'sdd'">
+                <span i18n:translate=''>member&apos;s bank account (IBAN)</span>:&nbsp; ${request.session['appstruct']['payment_method']['member_IBAN']}<br />
+                <span i18n:translate=''>member&apos;s bank (BIC)</span>:&nbsp; ${request.session['appstruct']['payment_method']['member_BIC']}<br />
+            </span>
+
         <p i18n:translate="success-paragraph-change-details">
             In case there are errors or you want to change details:
         </p>

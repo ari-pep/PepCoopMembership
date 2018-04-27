@@ -57,6 +57,7 @@ from c3smembership.presentation.i18n import (
     ZPT_RENDERER,
 )
 import customization as c
+import schwifty
 
 DEBUG = False
 LOGGING = True
@@ -270,6 +271,43 @@ def join_c3s(request):
             ),
             oid="num_shares")
 
+    class PaymentMethod(colander.Schema):
+        '''choose between classical bank transfer and SEPA direct debit'''
+        payment_method = colander.SchemaNode( colander.String(),
+            title=_(u'Please tell us how you want to pay'),
+            widget=deform.widget.RadioChoiceWidget(
+                values=[ (k,v) for k,v in c.payment_methods.items() ]),
+            required=True,
+            default='sdd',
+            oid='payment_method')
+
+        def IBAN_validator(node,value):
+            try:
+                schwifty.IBAN(value)
+            except ValueError as e:
+                print('try: DE89 3704 0044 0532 0130 00')
+                raise Invalid(node,str(e))
+
+        def BIC_validator(node,value):
+            try:
+                schwifty.BIC(value)
+            except ValueError as e:
+                print('try: DEUTPTPL')
+                raise Invalid(node,str(e))
+
+        member_IBAN = colander.SchemaNode( colander.String(),
+            title=_(u'member\'s bank account (IBAN)'),
+            validator=IBAN_validator,
+            required=False,
+            oid='payment_sdd_iban')
+
+        member_BIC = colander.SchemaNode( colander.String(),
+            title=_(u'member\'s bank (BIC)'),
+            validator=BIC_validator,
+            required=False,
+            oid='payment_sdd_iban')
+
+
     class TermsInfo(colander.Schema):
         """
         some legal requirements
@@ -354,6 +392,9 @@ def join_c3s(request):
             fees = Fees(
                 title=_(u'Membership Fees')
             )
+
+        payment_method = PaymentMethod(title=_(u'Payment Method'))
+
         acknowledge_terms = TermsInfo(
             title=_(u'Acknowledgement')
         )
@@ -440,6 +481,9 @@ def join_c3s(request):
             email_confirm_code=randomstring,
             date_of_submission=datetime.now(),
             num_shares=appstruct['shares']['num_shares'],
+            payment_method=appstruct['payment_method']['payment_method'],
+            payment_sdd_iban=appstruct['payment_method']['member_IBAN'],
+            payment_sdd_bic=appstruct['payment_method']['member_BIC']
         )
 
         if c.enable_colsoc_association:
@@ -510,12 +554,14 @@ def show_success(request):
     if 'appstruct' in request.session:
         # we do have valid info from the form in the session
         appstruct = request.session['appstruct']
+        print(appstruct)
         # delete old messages from the session (from invalid form input)
         request.session.pop_flash('message_above_form')
         # print("show_success: locale: %s") % appstruct['locale']
         return {
             'firstname': appstruct['person']['firstname'],
             'lastname': appstruct['person']['lastname'],
+            'payment_method': c.payment_methods[appstruct['payment_method']['payment_method']]
         }
     # 'else': send user to the form
     return HTTPFound(location=request.route_url('join'))
