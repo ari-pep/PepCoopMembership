@@ -8,8 +8,8 @@ Please transfer the above-mentioned amount to the following account
 of the p≡p coop SCE:
 
   Purpose: {invoice_number}, member no. {membership_number}
-  IBAN: DE79 XXXX 4495 XXXX 2643 78 FEHLT
-  BIC: GENODEF1ETK FEHLT
+  IBAN: DE59 4306 0967 1223 3688 00
+  BIC: 	GENODEM1GLS
   Bank: GLS Bank
 
 Please state the purpose on your transfer in order to enable the

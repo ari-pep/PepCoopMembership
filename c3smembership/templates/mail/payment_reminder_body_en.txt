@@ -8,9 +8,9 @@ However, you still have to transfer {shares_value} Euro for
 the {shares_count} shares you purchased. Please transfer the aforementioned
 amount to this bank account of p≡p coop SCE:
 
-IBAN: DE79 XXXX 4495 XXXX 2643 78 FEHLT
-BIC: GENODEF1ETK FEHLT
-Bank: GLS Bank
+IBAN: 	DE59 4306 0967 1223 3688 00
+BIC:	GENODEM1GLS
+Bank: 	GLS Bank
 
 When transfering money for your shares to us, please use the following
 confirmation code as reference: {transfer_purpose}
