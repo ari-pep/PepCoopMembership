@@ -8,8 +8,8 @@ Wir geben Deinem Antrag statt und reduzieren Deinen Beitrag daher auf
 Bitte überweise die genannte Summe auf folgendes Konto der p≡p coop SCE:
 
   Verwendungszweck: {invoice_number}, Mitglied Nr. {membership_number}
-  IBAN: DE79 XXXX 4495 XXXX 2643 78 FEHLT
-  BIC: GENODEF1ETK FEHLT
+  IBAN: DE59 4306 0967 1223 3688 00
+  BIC: 	GENODEM1GLS
   Bank: GLS Bank
 
 Gebe bei der Überweisung des Mitgliedsbeitrags bitte unbedingt den
