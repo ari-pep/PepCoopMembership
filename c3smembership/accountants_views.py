@@ -347,6 +347,8 @@ def regenerate_pdf(request):
         'num_shares': membership_application['shares_quantity'],
         'date_of_birth': member.date_of_birth,
         'date_of_submission': membership_application['date_of_submission'],
+        'member_type': member.member_type,
+        'fee': member.fee,
     }
     LOG.info(
         "%s regenerated the PDF for code %s",
