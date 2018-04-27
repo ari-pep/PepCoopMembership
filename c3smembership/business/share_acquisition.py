@@ -3,7 +3,7 @@
 Handles share acquisitions.
 """
 
-
+import customization as c
 class ShareAcquisition(object):
     """
     Handles share acquisitions.
@@ -35,10 +35,9 @@ class ShareAcquisition(object):
         if not isinstance(shares_quantity, int):
             raise ValueError(
                 'The parameter "shares_quantity" must be of type "int".')
-        if shares_quantity < 1 or shares_quantity > 60:
+        if shares_quantity < 1 or shares_quantity > c.max_shares:
             raise ValueError(
-                'The parameter "shares_quantity" must be at least 1 and at '
-                'most 60.')
+                'The parameter "shares_quantity" must be at least 1 and at most {}'.format(c.max_shares))
 
         return self.share_repository.create(
             membership_number, shares_quantity, board_confirmation)

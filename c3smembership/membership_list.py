@@ -296,10 +296,10 @@ def merge_member_view(request):
             'you can only merge to accepted members!',
             'merge_message')
         HTTPFound(request.route_url('make_member', afm_id=afm_id))
-    exceeds_60 = int(orig.num_shares) + int(merg.num_shares) > 60
-    if exceeds_60:
+    exceeds_max = int(orig.num_shares) + int(merg.num_shares) > c.max_shares
+    if exceeds_max:
         request.session.flash(
-            'merger would exceed 60 shares!',
+            'merger would exceed {} shares!'.format(c.max_shares),
             'merge_message')
         return HTTPFound(request.route_url('make_member', afm_id=afm_id))
 
@@ -371,7 +371,7 @@ def make_member_view(request):
     and should be merged with some other entry.
 
     In case of duplicate/merge, also check if the number of shares
-    when combining both entries would exceed 60,
+    when combining both entries would exceed c.max_shares,
     the maximum number of shares a member can hold.
     """
     afm_id = request.matchdict['afm_id']
