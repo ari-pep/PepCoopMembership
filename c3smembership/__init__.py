@@ -86,6 +86,9 @@ def main(global_config, **settings):
     share_acquisition = ShareAcquisition(ShareRepository)
     config.registry.share_acquisition = share_acquisition
 
+    from pyramid_mailer import get_mailer
+    config.registry.get_mailer = get_mailer
+
     # Membership application process
     # Step 1 (join.pt): home is /, the membership application form
     config.add_route('join', '/')

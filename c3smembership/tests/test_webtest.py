@@ -14,6 +14,7 @@ There are two 'areas' covered:
 # import os
 import unittest
 from pyramid import testing
+from pyramid_mailer import get_mailer
 from c3smembership.data.model.base import (
     DBSession,
     Base,
@@ -665,6 +666,7 @@ class FunctionalTests(unittest.TestCase):
 
         from c3smembership import main
         app = main({}, **my_settings)
+        app.registry.get_mailer = get_mailer
 
         from webtest import TestApp
         self.testapp = TestApp(app)

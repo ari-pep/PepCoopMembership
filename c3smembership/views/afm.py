@@ -36,7 +36,6 @@ from pyramid.i18n import (
     get_locale_name,
 )
 from pyramid.view import view_config
-from pyramid_mailer import get_mailer
 from pyramid_mailer.message import Message
 from pyramid.httpexceptions import HTTPFound
 from sqlalchemy.exc import (
@@ -514,7 +513,7 @@ def success_check_email(request):
         appstruct = request.session['appstruct']
         from pyramid_mailer.message import Message
         try:
-            mailer = get_mailer(request)
+            mailer = request.registry.get_mailer(request)
         except:
             return HTTPFound(location=request.route_url('join'))
 
@@ -736,7 +735,7 @@ def show_success_pdf(request):
         # we do have valid info from the form in the session
         # print("-- valid session with data found")
         # send mail to accountants // prepare a mailer
-        mailer = get_mailer(request)
+        mailer = request.registry.get_mailer(request)
         # prepare mail
         appstruct = request.session['appstruct']
         message_recipient = request.registry.settings['c3smembership.mailaddr']
