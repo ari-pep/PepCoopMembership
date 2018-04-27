@@ -401,12 +401,23 @@ def make_member_view(request):
             return HTTPFound(
                 request.route_url('make_member', afm_id=member.id))
 
+        # member.shares has subtle double semantics:
+        # - on registration it stores the amount of shares to be bought (intent)
+        # - on confirmation, it changes to the amount of shares currently in possession of that member
+        # the way to get rid of this would be to create a share transfer with intent status
+        # on registration and get rid of this field in members altogether
+        # ToDo: implement the proper behaviour
+        # This workaround resets the field to the proper value later.
+        shares_transferred_on_confirmation = member.num_shares
+
         member.membership_accepted = True
         if member.is_legalentity:
             member.membership_type = u'investing'
         else:
             member.is_legalentity = False
         member.membership_number = C3sMember.get_next_free_membership_number()
+
+        import pdb; pdb.set_trace()
 
         share_id = request.registry.share_acquisition.create(
             member.membership_number,
@@ -428,6 +439,13 @@ def make_member_view(request):
         share_acquisition.set_reference_code(
             share_id,
             member.email_confirm_code)
+
+        if member.num_shares != shares_transferred_on_confirmation:
+            if member.num_shares == 2*shares_transferred_on_confirmation:
+                print('hit bug: number of shares increased upon confirmation, fixing')
+                member.num_shares = shares_transferred_on_confirmation
+            else:
+                raise ValueError('member.num_shares changed in unexpected way!')
 
         # return the user to the page she came from
         if 'referrer' in request.POST:
