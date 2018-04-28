@@ -100,10 +100,12 @@
                 bc &amp; ga<br />
                 invitation
             </th>
+            <!--!
             <th>
                 dues17<br />
                 invoice
             </th>
+            -->
             <th>
                 certificate
             </th>
@@ -168,6 +170,7 @@
                       class="btn btn-success"></a>
                 </div>
             </td>
+            <!--!
             <td>
                 <div tal:omit-tag="" tal:condition="not member.membership_date > date(2017,12,31) and (member.membership_loss_date is None or member.membership_loss_date >= date(2017,1,1))">
                     <a tal:condition="member.dues17_invoice is False"
@@ -180,6 +183,7 @@
                         class="btn btn-success"></a>
                 </div>
             </td>
+            -->
             <td>
                 <div tal:condition="member.is_member()" tal:omit-tag="">
                   <a tal:condition="not member.certificate_email"

@@ -88,6 +88,7 @@
       </form>
     </p>
     -->
+    <!--!
     <h3>Mail Invoices for Membership Dues 2017</h3>
     <p>
       <a href="${request.route_url('send_dues17_invoice_batch', number=5)}"
@@ -100,6 +101,7 @@
         <input type='submit' name='submit'></input>
       </form>
     </p>
+    -->
 
     <h2>Search</h2>
     <p>

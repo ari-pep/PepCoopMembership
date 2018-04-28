@@ -10,6 +10,8 @@ Next Release
 
 - Invitations for general assembly and bar camp 2018.
 
+- Hide invoice 2017 sending in membership list and toolbox.
+
 
 
 1.20.4
