@@ -139,7 +139,7 @@ class MembershipApplication(object):
         email_subject, email_body = make_signature_confirmation_email(member)
         message = Message(
             subject=email_subject,
-            sender='yes@c3s.cc',
+            sender='members-admin@pep.coop',
             recipients=[member.email],
             body=email_body
         )

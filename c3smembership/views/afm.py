@@ -174,7 +174,7 @@ def join_c3s(request):
                 max_err=_(
                     u'Unfortunately, the membership application of an '
                     u'underaged person is currently not possible via our web '
-                    u'form. Please send an email to office@c3s.cc.')
+                    u'form. Please send an email to members-admin@pep.coop.')
             ),
             oid="date_of_birth",
         )
@@ -594,7 +594,7 @@ def success_check_email(request):
             subject=request.localizer.translate(_(
                 'check-email-paragraph-check-email-subject',
                 default=u'C3S: confirm your email address and load your PDF')),
-            sender="noreply@c3s.cc",
+            sender="members-admin@pep.coop",
             recipients=[appstruct['person']['email']],
             body=the_mail_body.format(
                 appstruct['person']['firstname'],
@@ -807,8 +807,8 @@ def show_success_pdf(request):
                 # 2) a message to $user, so she does not worry
                 staff_mail = Message(
                     subject=_("[yes][ALERT] check the logs!"),
-                    sender="noreply@c3s.cc",
-                    recipients=['yes@c3s.cc'],
+                    sender="members-admin@pep.coop",
+                    recipients=['members-admin@pep.coop'],
                     body="""
 problems! problems!
 

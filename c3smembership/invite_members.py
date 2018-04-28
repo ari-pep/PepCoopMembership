@@ -94,11 +94,11 @@ def invite_member_bcgv(request):
     email_subject, email_body = make_bcga17_invitation_email(member, url)
     message = Message(
         subject=email_subject,
-        sender='yes@c3s.cc',
+        sender='members-admin@pep.coop',
         recipients=[member.email],
         body=email_body,
         extra_headers={
-            'Reply-To': 'office@c3s.cc',
+            'Reply-To': 'members-admin@pep.coop',
             }
     )
     send_message(request, message)
@@ -158,11 +158,11 @@ def batch_invite(request):
         email_subject, email_body = make_bcga17_invitation_email(member, url)
         message = Message(
             subject=email_subject,
-            sender='yes@c3s.cc',
+            sender='members-admin@pep.coop',
             recipients=[member.email],
             body=email_body,
             extra_headers={
-                'Reply-To': 'office@c3s.cc',
+                'Reply-To': 'members-admin@pep.coop',
             }
         )
         send_message(request, message)

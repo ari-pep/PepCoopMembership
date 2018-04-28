@@ -86,8 +86,8 @@ best,
 your membership tool''' % (_staffer.login,
                            authenticated_userid(request)))
             message = Message(
-                subject='[C3S Yes] staff was deleted.',
-                sender='noreply@c3s.cc',
+                subject='[p≡p coop Yes] staff was deleted.',
+                sender='members-admin@pep.coop',
                 recipients=[
                     request.registry.settings['c3smembership.mailaddr']],
                 body=encrypted
@@ -125,8 +125,8 @@ best,
 your membership tool''' % (existing.login,
                            authenticated_userid(request)))
             message = Message(
-                subject='[C3S Yes] staff password changed.',
-                sender='noreply@c3s.cc',
+                subject='[p≡p coop Yes] staff password changed.',
+                sender='members-admin@pep.coop',
                 recipients=[
                     request.registry.settings['c3smembership.mailaddr']],
                 body=encrypted
@@ -149,8 +149,8 @@ best,
 your membership tool''' % (staffer.login,
                            authenticated_userid(request)))
             message = Message(
-                subject='[C3S Yes] staff was added.',
-                sender='noreply@c3s.cc',
+                subject='[p≡p coop Yes] staff was added.',
+                sender='members-admin@pep.coop',
                 recipients=[
                     request.registry.settings['c3smembership.mailaddr']],
                 body=encrypted
@@ -295,9 +295,9 @@ Best wishes :: The C3S Team
     log.info("mailing mail confirmation to AFM # {0}".format(afm.id))
 
     message = Message(
-        subject=(u'[C3S] Please confirm your email address! '
+        subject=(u'[p≡p coop] Please confirm your email address! '
                  u'/ Bitte E-Mail-Adresse bestätigen!'),
-        sender='yes@c3s.cc',
+        sender='members-admin@pep.coop',
         recipients=[afm.email],
         body=_body
     )
@@ -327,7 +327,7 @@ def verify_mailaddress_conf(request):
             'confirmed': False,
             'firstname': 'foo',
             'lastname': 'bar',
-            'result_msg': 'bad URL / bad codes. please contact office@c3s.cc!',
+            'result_msg': 'bad URL / bad codes. please contact members-admin@pep.coop!',
         }
     # check token
     if ('_used' in afm.email_confirm_token):  # token was invalidated already
@@ -336,7 +336,7 @@ def verify_mailaddress_conf(request):
             'firstname': afm.firstname,
             'lastname': afm.lastname,
             'result_msg': ('your token is invalid. '
-                           'please contact office@c3s.cc!'),
+                           'please contact members-admin@pep.coop!'),
         }
 
     try:
@@ -349,7 +349,7 @@ def verify_mailaddress_conf(request):
             'confirmed': False,
             'firstname': 'foo',
             'lastname': 'bar',
-            'result_msg': 'bad token/email. please contact office@c3s.cc!',
+            'result_msg': 'bad token/email. please contact members-admin@pep.coop!',
         }
 
     afm.email_is_confirmed = True
@@ -357,8 +357,8 @@ def verify_mailaddress_conf(request):
     DBSession.flush()
     # notify staff
     message = Message(
-        subject='[C3S Yes!] afm email confirmed',
-        sender='noreply@c3s.cc',
+        subject='[p≡p coop Yes!] afm email confirmed',
+        sender='members-admin@pep.coop',
         recipients=[request.registry.settings['c3smembership.mailaddr'], ],
         body=u'see {}/detail/{}'.format(
             request.registry.settings['c3smembership.url'],
@@ -406,13 +406,13 @@ def mail_mtype_fixer_link(request):
     log.info("mailing membership status form link to AFM # %s" % afm.id)
 
     if afm.locale == 'de':
-        _subject = u'[C3S] Hilfe benötigt: Dein Mitgliedschaftsstatus'
+        _subject = u'[p≡p coop] Hilfe benötigt: Dein Mitgliedschaftsstatus'
     else:
-        _subject = u'[C3S] Help needed: Your Membership Status'
+        _subject = u'[p≡p coop] Help needed: Your Membership Status'
 
     message = Message(
         subject=_subject,
-        sender='yes@c3s.cc',
+        sender='members-admin@pep.coop',
         recipients=[
             afm.email,
             request.registry.settings['c3smembership.mailaddr']],
@@ -441,7 +441,7 @@ def membership_status_fixer(request):
     afm = C3sMember.get_by_code(refcode)
     if isinstance(afm, NoneType):  # no entry?
         request.session.flash(
-            'bad URL / bad codes. please contact office@c3s.cc!',
+            'bad URL / bad codes. please contact members-admin@pep.coop!',
             'message_above_form'
         )
         return {
@@ -449,19 +449,19 @@ def membership_status_fixer(request):
             'confirmed': False,
             'firstname': 'foo',
             'lastname': 'bar',
-            'result_msg': 'bad URL / bad codes. please contact office@c3s.cc!',
+            'result_msg': 'bad URL / bad codes. please contact members-admin@pep.coop!',
         }
     if (len(afm.mtype_confirm_token) == 0) or (
             afm.mtype_confirm_token.endswith('_used')):
         request.session.flash(
-            'your token is invalid. please contact office@c3s.cc!',
+            'your token is invalid. please contact members-admin@pep.coop!',
             'message_above_form'
         )
         return {
             'form': '',
             'confirmed': False,
             'result_msg': ('your token is invalid. please contact '
-                           'office@c3s.cc!'),
+                           'members-admin@pep.coop!'),
         }
 
     try:
@@ -472,12 +472,12 @@ def membership_status_fixer(request):
         assert(user_email in afm.email)
     except:
         request.session.flash(
-            'bad token/email. please contact office@c3s.cc!',
+            'bad token/email. please contact members-admin@pep.coop!',
             'message_above_form')
         return {
             'form': '',
             'confirmed': False,
-            'result_msg': 'bad token/email. please contact office@c3s.cc!',
+            'result_msg': 'bad token/email. please contact members-admin@pep.coop!',
         }
 
     # construct a form
@@ -583,8 +583,8 @@ def membership_status_fixer(request):
         afm.mtype_confirm_token += u'_used'
         # # notify staff
         message = Message(
-            subject='[C3S Yes!] membership status confirmed',
-            sender='noreply@c3s.cc',
+            subject='[p≡p coop Yes!] membership status confirmed',
+            sender='members-admin@pep.coop',
             recipients=[
                 request.registry.settings['c3smembership.mailaddr'],
             ],

@@ -25,7 +25,7 @@ Informationen versorgen kannst:
   {2}
 
 Dort findest Du alle relevanten Hinweise und Erklärungen, die Dir die Wahl
-erleichtern. Bleiben dennoch Fragen, schreibe uns bitte unter info@c3s.cc
+erleichtern. Bleiben dennoch Fragen, schreibe uns bitte unter members-admin@pep.coop
 
 Bitte ergänze Deine Angaben bis zum 10. Juli 2014. Erhalten wir bis zum 10.
 Juli keine Angaben von Dir, gehen wir davon aus, dass Du investierendes
@@ -87,7 +87,7 @@ link to a website where you can enter your data with just a few clicks:
   {2}
 
 You will find all relevant information and explanations that enable you to make
-the right choice. If you still have questions, please write to us: info@c3s.cc
+the right choice. If you still have questions, please write to us: members-admin@pep.coop
 
 Please complete your data until July 10th, 2014. If we do not receive your data
 until then, we will set your membership status to be 'investing' (no vote) as

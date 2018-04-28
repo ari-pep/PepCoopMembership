@@ -332,8 +332,8 @@ def accountant_mail(appstruct):
     message_recipient = appstruct['message_recipient']
 
     message = Message(
-        subject="[C3S] Yes! a new member",
-        sender="noreply@c3s.cc",
+        subject="[p≡p coop] Yes! a new member",
+        sender="members-admin@pep.coop",
         recipients=[message_recipient],
         body=encrypted
     )
