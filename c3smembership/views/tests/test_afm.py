@@ -93,9 +93,23 @@ class TestViews(unittest.TestCase):
                 'firstname': 'foo',
                 'lastname': 'bar',
                 'email': 'bar@shri.de',
+                'password': 'bad password',
+                'address1': 'Some Street',
+                'address2': '',
+                'postcode': 'ABC123',
+                'city': 'Stockholm',
+                'country': 'SE',
                 'locale': 'de',
+                'date_of_birth': '1980-01-01',
             },
-            'email_confirm_code': '12345678',
+            'membership_info': {
+                'membership_type': 'person',
+                'member_of_colsoc': 'no',
+                'name_of_colsoc': '',
+            },
+            'shares': {
+                'num_shares': '3',
+            },
         }
         mailer = get_mailer(request)
         result = success_check_email(request)
@@ -109,7 +123,7 @@ class TestViews(unittest.TestCase):
             'C3S: confirm your email address and load your PDF')
         # self.assertEqual(mailer.outbox[0]., "hello world")
 
-        verif_link = "https://yes.c3s.cc/verify/bar@shri.de/12345678"
+        verif_link = "https://yes.c3s.cc/verify/bar@shri.de/"
         self.assertTrue("Hallo foo bar!" in mailer.outbox[0].body)
         self.assertTrue(verif_link in mailer.outbox[0].body)
 

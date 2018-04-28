@@ -8,6 +8,8 @@ Next Release
 
 - Show error message if applicant is younger than 18 years old.
 
+- Fix double entry when applicant edits details
+
 
 
 1.20.4
