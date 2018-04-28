@@ -200,15 +200,6 @@ def join_c3s(request):
             validator=colander.Email(),
             oid="email",
         )
-        password = colander.SchemaNode(
-            colander.String(),
-            validator=colander.Length(min=5, max=100),
-            widget=deform.widget.CheckedPasswordWidget(size=20),
-            title=_(u'Password (to protect access to your data)'),
-            description=_(u'We need a password to protect your data. After '
-                          u'verifying your email you will have to enter it.'),
-            oid='password',
-        )
         address1 = colander.SchemaNode(
             colander.String(),
             title=_(u'Address Line 1')
@@ -249,13 +240,24 @@ def join_c3s(request):
                     date.today().year-18,
                     date.today().month,
                     date.today().day),
-                min_err=_(u'Sorry, we do not believe that you are that old'),
+                min_err=_(
+                    u'Sorry, but we do not believe that the birthday you '
+                    u'entered is correct.'),
                 max_err=_(
                     u'Unfortunately, the membership application of an '
                     u'underaged person is currently not possible via our web '
                     u'form. Please send an email to members-admin@pep.coop.')
             ),
             oid="date_of_birth",
+        )
+        password = colander.SchemaNode(
+            colander.String(),
+            validator=colander.Length(min=5, max=100),
+            widget=deform.widget.CheckedPasswordWidget(size=20),
+            title=_(u'Password (to protect access to your data)'),
+            description=_(u'We need a password to protect your data. After '
+                          u'verifying your email you will have to enter it.'),
+            oid='password',
         )
         locale = colander.SchemaNode(colander.String(),
                                        widget=deform.widget.HiddenWidget(),
@@ -437,7 +439,6 @@ def join_c3s(request):
     # if the form has been used and SUBMITTED, check contents
     if 'submit' in request.POST:
         controls = request.POST.items()
-
         try:
             appstruct = form.validate(controls)
             if appstruct['payment_method']['payment_method'] == 'sdd':
@@ -479,77 +480,16 @@ def join_c3s(request):
             if form['person']['password'].error is None:
                 form['person']['password'].error = Invalid(
                     None,
-                    _(u'Please re-enter your password.'))
+                    _(
+                        u'Please re-enter your password. For security '
+                        u'reasons your password is not cached and therefore '
+                        u'needs to be re-entered in case of validation '
+                        u'issues.'
+                    ))
                 validation_failure = ValidationFailure(form, None, form.error)
 
             return {'form': validation_failure.render()}
 
-        def make_random_string():
-            """
-            used as email confirmation code
-            """
-            import random
-            import string
-            return u''.join(
-                random.choice(
-                    string.ascii_uppercase + string.digits
-                ) for x in range(10))
-
-        # make confirmation code and
-        randomstring = make_random_string()
-        # check if confirmation code is already used
-        while C3sMember.check_for_existing_confirm_code(randomstring):
-            # create a new one, if the new one already exists in the database
-            randomstring = make_random_string()  # pragma: no cover
-
-        # to store the data in the DB, an objet is created
-        coopMemberArgs = dict(
-            firstname=appstruct['person']['firstname'],
-            lastname=appstruct['person']['lastname'],
-            email=appstruct['person']['email'],
-            password=appstruct['person']['password'],
-            address1=appstruct['person']['address1'],
-            address2=appstruct['person']['address2'],
-            postcode=appstruct['person']['postcode'],
-            city=appstruct['person']['city'],
-            country=appstruct['person']['country'],
-            locale=appstruct['person']['locale'],
-            date_of_birth=appstruct['person']['date_of_birth'],
-            email_is_confirmed=False,
-            email_confirm_code=randomstring,
-            date_of_submission=datetime.now(),
-            num_shares=appstruct['shares']['num_shares'],
-            payment_method=appstruct['payment_method']['payment_method'],
-            payment_sdd_iban=appstruct['payment_method']['payment_sdd_iban'],
-            payment_sdd_bic=appstruct['payment_method']['payment_sdd_bic'],
-            payment_sdd_bankname=appstruct['payment_method']['payment_sdd_bankname']
-        )
-
-        if c.enable_colsoc_association:
-            coopMemberArgs['member_of_colsoc']=(
-                appstruct['membership_info']['member_of_colsoc'] == u'yes'),
-            coopMemberArgs['name_of_colsoc']=appstruct['membership_info']['name_of_colsoc']
-
-        if c.membership_fees and len(c.membership_fees) > 1:
-            coopMemberArgs['member_type']=appstruct['fees']['member_type']
-            if coopMemberArgs['member_type'] == 'sustaining':
-                coopMemberArgs['fee'] = appstruct['fees']['member_custom_fee']
-            else:
-                coopMemberArgs['fee'] = [ v for v,t,d,f in c.membership_fees if t == appstruct['fees']['member_type'] ][0]
-
-        if c.entry_fee:
-            coopMemberArgs['entry_fee'] = [ f for v,t,d,f in c.membership_fees if t == appstruct['fees']['member_type'] ][0]
-
-        member = C3sMember(**coopMemberArgs)
-        dbsession = DBSession()
-        try:
-            dbsession.add(member)
-            appstruct['email_confirm_code'] = randomstring
-
-        except InvalidRequestError as ire:  # pragma: no cover
-            print("InvalidRequestError! %s") % ire
-        except IntegrityError as integrity_error:  # pragma: no cover
-            print("IntegrityError! %s") % integrity_error
 
         # redirect to success page, then return the PDF
         # first, store appstruct in session
@@ -598,7 +538,6 @@ def show_success(request):
     if 'appstruct' in request.session:
         # we do have valid info from the form in the session
         appstruct = request.session['appstruct']
-        print(appstruct)
         # delete old messages from the session (from invalid form input)
         request.session.pop_flash('message_above_form')
         # print("show_success: locale: %s") % appstruct['locale']
@@ -630,6 +569,74 @@ def success_check_email(request):
     # check if user has used the form (good) or 'guessed' this URL (bad)
 
     if 'appstruct' in request.session:
+
+        appstruct = request.session['appstruct']
+
+        def make_random_string():
+            """
+            used as email confirmation code
+            """
+            import random
+            import string
+            return u''.join(
+                random.choice(
+                    string.ascii_uppercase + string.digits
+                ) for x in range(10))
+
+        # make confirmation code and
+        email_confirm_code = make_random_string()
+        # check if confirmation code is already used
+        while C3sMember.check_for_existing_confirm_code(email_confirm_code):
+            # create a new one, if the new one already exists in the database
+            email_confirm_code = make_random_string()  # pragma: no cover
+
+        import pdb; pdb.set_trace()
+        # to store the data in the DB, an objet is created
+
+        print(email_confirm_code)
+        coopMemberArgs = dict(
+            firstname=appstruct['person']['firstname'],
+            lastname=appstruct['person']['lastname'],
+            email=appstruct['person']['email'],
+            password=appstruct['person']['password'],
+            address1=appstruct['person']['address1'],
+            address2=appstruct['person']['address2'],
+            postcode=appstruct['person']['postcode'],
+            city=appstruct['person']['city'],
+            country=appstruct['person']['country'],
+            locale=appstruct['person']['locale'],
+            date_of_birth=appstruct['person']['date_of_birth'],
+            email_is_confirmed=False,
+            date_of_submission=datetime.now(),
+            num_shares=appstruct['shares']['num_shares'],
+            payment_method=appstruct['payment_method']['payment_method'],
+            payment_sdd_iban=appstruct['payment_method']['payment_sdd_iban'],
+            payment_sdd_bic=appstruct['payment_method']['payment_sdd_bic'],
+            payment_sdd_bankname=appstruct['payment_method']['payment_sdd_bankname']
+        )
+        print(email_confirm_code)
+        coopMemberArgs['email_confirm_code']=email_confirm_code
+
+        if len(c.membership_types)>1:
+            coopMemberArgs['membership_type']=appstruct['membership_info']['membership_type'],
+
+        if c.enable_colsoc_association:
+            coopMemberArgs['member_of_colsoc']=(
+                appstruct['membership_info']['member_of_colsoc'] == u'yes'),
+            coopMemberArgs['name_of_colsoc']=appstruct['membership_info']['name_of_colsoc']
+
+        if c.membership_fees and len(c.membership_fees) > 1:
+            coopMemberArgs['member_type']=appstruct['fees']['member_type']
+            if coopMemberArgs['member_type'] == 'sustaining':
+                coopMemberArgs['fee'] = appstruct['fees']['member_custom_fee']
+            else:
+                coopMemberArgs['fee'] = [ v for v,t,d,f in c.membership_fees if t == appstruct['fees']['member_type'] ][0]
+
+        if c.entry_fee:
+            coopMemberArgs['entry_fee'] = [ f for v,t,d,f in c.membership_fees if t == appstruct['fees']['member_type'] ][0]
+        member = C3sMember(**coopMemberArgs)
+        DBSession().add(member)
+
         # we do have valid info from the form in the session (good)
         appstruct = request.session['appstruct']
         from pyramid_mailer.message import Message
@@ -651,7 +658,7 @@ def success_check_email(request):
                 appstruct['person']['lastname'],
                 request.registry.settings['c3smembership.url'],
                 appstruct['person']['email'],
-                appstruct['email_confirm_code']
+                email_confirm_code
             )
         )
         if 'true' in request.registry.settings['testing.mail_to_console']:
