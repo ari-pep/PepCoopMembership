@@ -593,7 +593,7 @@ def success_check_email(request):
         the_mail = Message(
             subject=request.localizer.translate(_(
                 'check-email-paragraph-check-email-subject',
-                default=u'C3S: confirm your email address and load your PDF')),
+                default=u'p≡p coop: confirm your email address and load your PDF')),
             sender="members-admin@pep.coop",
             recipients=[appstruct['person']['email']],
             body=the_mail_body.format(
