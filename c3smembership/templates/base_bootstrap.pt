@@ -26,10 +26,9 @@
   <body>
     <div id="container">
       <div id="top">
-        <div class="top align-center">
-          <div><img src="${request.static_url('c3smembership:static/logo_horiz_w700.png')}"
-		    class="img-responsive"
-                    alt="p≡p coop"/></div>
+        <div class="top align-center"><img src="${request.static_url('c3smembership:static/logo_horiz_w700.png')}"
+		    class="img-responsive text-center" style="display:block; margin-left: auto; margin-right: auto;"
+                    alt="p≡p coop"/>
         </div>
       </div>
       <div id="middle">
