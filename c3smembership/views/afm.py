@@ -567,7 +567,10 @@ def join_c3s(request):
         if 'appstruct' in request.session:
             appstruct = request.session['appstruct']
             # pre-fill the form with the values from last time
-            form.set_appstruct(appstruct)
+            try:
+                form.set_appstruct(appstruct)
+            except colander.Invalid:
+                pass
 
     html = form.render()
 
