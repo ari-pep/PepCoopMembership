@@ -44,15 +44,14 @@
       </div>
       </div>
     </div>
-    <div id="footer">
-      <div class="footer">
+    <div id="footer" class="footer">
         &copy; Copyright 2018, p≡p coop SCE.
         <a tal:attributes="href python:'https://pep.coop/kontakt//' if request.locale_name == 'de' else 'https://pep.coop/kontakt/'"
            i18n:translate="">Contact</a>
 	&amp;
 	<a tal:attributes="href python:'https://pep.coop/impressum/' if request.locale_name == 'de' else 'https://pep.coop/impressum/'"
-           i18n:translate="">Imprint</a>
-      </div>
+           i18n:translate="">Imprint</a><br/>
+      <!--<div><img src="${request.static_url('c3smembership:static/g8532.png')}" /></div>-->
     </div>
     <tal:block metal:define-slot="javascript-last"></tal:block>
   </body>
