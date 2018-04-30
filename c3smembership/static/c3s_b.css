@@ -102,6 +102,7 @@ a {text-decoration: underline;}
 #footer {
     background-color:#d9f0c8!important;
     background-image:url(/static/g8532.png);
+    background-repeat:no-repeat;
     max-width: 100%;
     height: auto;
     height:342px;
