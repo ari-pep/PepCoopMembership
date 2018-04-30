@@ -4,8 +4,8 @@ we appreciate that you want to join p≡p coop as a member and thereby support
 us.
 
 You already downloaded your declaration to join p≡p coop on {submission_date}.
-However, you still have to transfer {shares_value} Euro for
-the {shares_count} shares you purchased. Please transfer the aforementioned
+However, you still have to transfer {shares_value} € for
+the {entry_fee_snippet}{shares_count} shares you purchased. Please transfer the aforementioned
 amount to this bank account of p≡p coop SCE:
 
 IBAN: 	DE59 4306 0967 1223 3688 00
@@ -26,7 +26,7 @@ All the best,
 The team of p≡p coop
 
 P.S.:
-Should you neither send in your declaration to join nor pay for your 
+Should you neither send in your declaration to join nor pay for your
 share(s) until 3 month after this reminder, we will delete your data.
 
 {footer}
