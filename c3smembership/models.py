@@ -458,10 +458,16 @@ class C3sMember(Base):
     * the IBAN used for SEPA Direct Debit 'sdd'
     '''
 
-    payment_sdd_bic = Column(Unicode(34))
+    payment_sdd_bic = Column(Unicode(11))
     '''Unicode
 
     * the BIC used for SEPA Direct Debit 'sdd'
+    '''
+
+    payment_sdd_bankname = Column(Unicode(255))
+    '''Unicode
+
+    * The name of the bank used for SEPA Direct Debit 'sdd'
     '''
 
     date_of_submission = Column(DateTime(), nullable=False)
@@ -831,6 +837,7 @@ class C3sMember(Base):
         self.payment_method = kwargs.pop('payment_method')
         self.payment_sdd_bic = re.sub(r'\s','',kwargs.pop('payment_sdd_bic'),flags=re.U)
         self.payment_sdd_iban = re.sub(r'\s','',kwargs.pop('payment_sdd_iban'),flags=re.U)
+        self.payment_sdd_bankname = kwargs.pop('payment_sdd_bankname')
         if c.membership_types and len(c.membership_types) > 1:
             self.membership_type = kwargs.pop('membership_type')
         if self.member_of_colsoc is True:
