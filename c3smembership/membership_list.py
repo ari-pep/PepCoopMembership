@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 """
-This module holds functionality to handle the C3S SCEs membership list.
+This module holds functionality to handle the p≡p coop SCEs membership list.
 
 Having and maintaining an alphabetical membership list is one of the
-obligations of an association like the C3S SCE.
+obligations of an association like the p≡p coop SCE.
 
 The list is available in several formats:
 

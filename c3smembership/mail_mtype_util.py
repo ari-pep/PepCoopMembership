@@ -70,13 +70,13 @@ Das Team der C3S
     else:
         body = u'''Hello {0} {1},
 
-together with you we are happily awaiting the first general assembly of C3S SCE
+together with you we are happily awaiting the first general assembly of p≡p coop SCE
 on August 23rd, at 2 pm in the Millowitsch Theater in Cologne. You will soon
 receive the details in a separate invitation.
 
 We still require your information about whether you want to become an active
 (full) member or a supporting (associate) member. According to the statutes of
-C3S SCE [1], full members must be able to assign at least three works of music
+p≡p coop SCE [1], full members must be able to assign at least three works of music
 created by them to us for utilization. Only full members are entitled to vote
 in the general assembly. It is also important for us to know whether you
 already are a member of another collecting society in Germany or abroad.
@@ -107,7 +107,7 @@ to a fair pay for musicians with C3S!
 
 Best wishes
 
-Your C3S team
+Your p≡p coop team
 
 
 

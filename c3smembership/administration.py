@@ -245,7 +245,7 @@ def mail_mail_conf(request):
 
 Hallo {1} {2},
 
-gemeinsam mit Dir freuen wir uns auf die erste Generalversammlung der C3S SCE
+gemeinsam mit Dir freuen wir uns auf die erste Generalversammlung der p≡p coop SCE
 am 23. August, um 14:00 Uhr im Millowitsch-Theater in Köln. Details dazu
 erhältst Du in Kürze in einer separaten Einladung.
 
@@ -268,7 +268,7 @@ Viele Grüße :: Das C3S-Team
 
 Hello {1} {2},
 
-together with you we are happily awaiting the first general assembly of C3S SCE
+together with you we are happily awaiting the first general assembly of p≡p coop SCE
 on August 23rd, at 2 pm in the Millowitsch-Theater in Cologne. You will soon
 receive the details in a separate invitation.
 
@@ -285,7 +285,7 @@ from our database.
 
 Should you want to change your email address please reply to this mail, too.
 
-Best wishes :: The C3S Team
+Best wishes :: The p≡p coop Team
     '''.format(
         _url,  # {0}
         afm.firstname,  # {1}
@@ -487,19 +487,19 @@ def membership_status_fixer(request):
         membership_type = colander.SchemaNode(
             colander.String(),
             title=_(u'I want to become a ... (choose '
-                    'membership type, see C3S SCE statute sec. 4)'),
+                    'membership type, see p≡p coop SCE statute sec. 4)'),
             description=_(u'choose the type of membership.'),
             widget=deform.widget.RadioChoiceWidget(
                 values=(
                     (u'normal',
                      _(u'FULL member. Full members have to be natural persons '
-                       'who register at least three works with C3S they '
+                       'who register at least three works with p≡p coop they '
                        'created themselves. This applies to composers, '
                        'lyricists and remixers. They get a vote.')),
                     (u'investing',
                      _(u'INVESTING member. Investing members can be natural '
                        'or legal entities or private companies that do not '
-                       'register works with C3S. They do not get a vote, '
+                       'register works with p≡p coop. They do not get a vote, '
                        'but may counsel.'))
                 ),
             ),
