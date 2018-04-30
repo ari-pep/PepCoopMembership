@@ -437,13 +437,13 @@ def join_c3s(request):
             if appstruct['payment_method']['payment_method'] == 'sdd':
                 # error when IBAN or BIC are empty
                 if not appstruct['payment_method']['sdd_iban']:
-                    form['payment_method']['member_IBAN'].error = Invalid(None,_(u'please enter IBAN'))
+                    form['payment_method']['sdd_iban'].error = Invalid(None,_(u'please enter IBAN'))
                     error_out=True
                 if not appstruct['payment_method']['sdd_bic']:
                     form['payment_method']['sdd_bic'].error = Invalid(None,_(u'please enter BIC'))
                     error_out=True
                 if not appstruct['payment_method']['sdd_bankname']:
-                    form['payment_method']['sdd_bic'].error = Invalid(None,_(u'please enter bank\'s name'))
+                    form['payment_method']['sdd_bankname'].error = Invalid(None,_(u'please enter bank\'s name'))
                     error_out=True
 
                 try:
