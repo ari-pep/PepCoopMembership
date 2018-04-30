@@ -786,7 +786,8 @@ def success_verify_email(request):
                 'payment_method': member.payment_method,
                 'payment_sdd_iban': member.payment_sdd_iban,
                 'payment_sdd_bic': member.payment_sdd_bic,
-                'payment_sdd_bankname': member.payment_sdd_bankname
+                'payment_sdd_bankname': member.payment_sdd_bankname,
+                'entry_fee': member.entry_fee
             }
             request.session['appstruct'] = appstruct
 
