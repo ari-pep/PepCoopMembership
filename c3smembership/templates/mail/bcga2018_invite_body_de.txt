@@ -100,11 +100,13 @@ Begrüßung der Anwesenden
 
 # 4 Nachwahl von Mitgliedern des Verwaltungsrates
 
-# 5 Bericht zum Stand des Zulassungsverfahrens beim Deutschen Patent- und Markenamt (DPMA) 
+# 5 Bericht zum Stand des Zulassungsverfahrens beim Deutschen Patent- 
+    und Markenamt (DPMA) 
 
 # 6 Bericht vom C3S-Barcamp 2018
 
 # 7 Berichte aus den Beratungskommissionen
+
 ## 7.1 Kommission Tarife
 ## 7.2 Kommission Verteilung und Beitragsordnung 
 ## 7.3 Kommission Wahrnehmungsverträge

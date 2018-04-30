@@ -100,11 +100,13 @@ Welcoming address
 
 # 4 By-election of members of the administrative board
 
-# 5 Status report regarding the approval procedure by the German Patent and Trade Mark Office
+# 5 Status report regarding the approval procedure by the German Patent 
+    and Trade Mark Office
 
 # 6 Report from the C3S barcamp 2018
 
 # 7 Reports from the consulting committees
+
 ## 7.1 Tariffs commission
 ## 7.2 Distribution and contributing rules commission
 ## 7.3 Collection agreements commission
