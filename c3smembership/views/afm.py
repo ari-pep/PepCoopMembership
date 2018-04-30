@@ -302,17 +302,23 @@ def join_c3s(request):
                 print('try: DEUTPTPL')
                 raise Invalid(node,str(e))
 
-        member_IBAN = colander.SchemaNode( colander.String(),
+        sdd_iban = colander.SchemaNode( colander.String(),
             title=_(u'member\'s bank account (IBAN)'),
             validator=IBAN_validator,
             missing=unicode(''),
             oid='payment_sdd_iban')
 
-        member_BIC = colander.SchemaNode( colander.String(),
+        sdd_bic = colander.SchemaNode( colander.String(),
             title=_(u'member\'s bank (BIC)'),
             validator=BIC_validator,
             missing=unicode(''),
             oid='payment_sdd_iban')
+
+        sdd_bankname = colander.SchemaNode(
+            colander.String(),
+            title=_(u'member\'s bank\'s name'),
+            missing=unicode(''),
+            oid='payment_sdd_bankname')
 
 
     class TermsInfo(colander.Schema):
@@ -430,12 +436,16 @@ def join_c3s(request):
             appstruct = form.validate(controls)
             if appstruct['payment_method']['payment_method'] == 'sdd':
                 # error when IBAN or BIC are empty
-                if not appstruct['payment_method']['member_IBAN']:
+                if not appstruct['payment_method']['sdd_iban']:
                     form['payment_method']['member_IBAN'].error = Invalid(None,_(u'please enter IBAN'))
                     error_out=True
-                if not appstruct['payment_method']['member_BIC']:
-                    form['payment_method']['member_BIC'].error = Invalid(None,_(u'please enter BIC'))
+                if not appstruct['payment_method']['sdd_bic']:
+                    form['payment_method']['sdd_bic'].error = Invalid(None,_(u'please enter BIC'))
                     error_out=True
+                if not appstruct['payment_method']['sdd_bankname']:
+                    form['payment_method']['sdd_bic'].error = Invalid(None,_(u'please enter bank\'s name'))
+                    error_out=True
+
                 try:
                     error_out
                 except NameError:
@@ -504,8 +514,9 @@ def join_c3s(request):
             date_of_submission=datetime.now(),
             num_shares=appstruct['shares']['num_shares'],
             payment_method=appstruct['payment_method']['payment_method'],
-            payment_sdd_iban=appstruct['payment_method']['member_IBAN'],
-            payment_sdd_bic=appstruct['payment_method']['member_BIC']
+            payment_sdd_iban=appstruct['payment_method']['sdd_iban'],
+            payment_sdd_bic=appstruct['payment_method']['sdd_bic'],
+            payment_sdd_bankname=appstruct['payment_method']['sdd_bankname']
         )
 
         if c.enable_colsoc_association:
@@ -685,8 +696,7 @@ def success_verify_email(request):
     """
     This view is called via links sent in mails to verify mail addresses.
     It extracts both email and verification code from the URL.
-    It will ask for a password
-    and checks if there is a match in the database.
+    It will ask for a password and checks if there is a match in the database.
 
     If the password matches, and all is correct,
     the view shows a download link and further info.
@@ -773,6 +783,11 @@ def success_verify_email(request):
                 'num_shares': member.num_shares,
                 'member_type': member.member_type,
                 'fee': member.fee,
+                'member_type': member.member_type,
+                'payment_method': member.payment_method,
+                'payment_sdd_iban': member.payment_sdd_iban,
+                'payment_sdd_bic': member.payment_sdd_bic,
+                'payment_sdd_bankname': member.payment_sdd_bankname
             }
             request.session['appstruct'] = appstruct
 
@@ -859,6 +874,7 @@ go fix it!
                 )
                 return HTTPFound(request.route_url('error_page'))
         # ToDO appstruct should have member_type!
+        print(request.session['appstruct'])
         return generate_pdf(request.session['appstruct'])
     # 'else': send user to the form
     # print("-- no valid session with data found")
