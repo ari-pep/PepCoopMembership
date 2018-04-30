@@ -8,18 +8,18 @@
     <meta name="description" content="pyramid web application"/>
     <meta name="author" content="Pylons Project"/>
     
-    <title>Merge Applicant to become C3S Member</title>
+    <title>Merge Applicant to become p≡p coop Member</title>
   </head>
   <body>
     <div class="container">
       <tal:block metal:fill-slot="middle">
-        <h1>Merge an Applicant <small>to become a C3S SCE member</small></h1>
+        <h1>Merge an Applicant <small>to become a p≡p coop SCE member</small></h1>
         <div style="color:red;"
              tal:repeat="message request.session.pop_flash('merge_message')"
              class="alert alert-danger">
           ${message}
         </div>
-        <p>You are about to make this person a proper member of C3S SCE:</p>
+        <p>You are about to make this person a proper member of p≡p coop SCE:</p>
         <p class="alert alert-info">
             ${member.firstname} ${member.lastname}<br />
             email: ${member.email}<br />
@@ -49,7 +49,7 @@
               <input name="membership_date" type="text"/>
               <input name="submit" type="submit"
                      class="btn btn-primary"
-                     value="Make Member of C3S SCE"/>
+                     value="Make Member of p≡p coop SCE"/>
             </form>
           </p>
           But wait!<br />
