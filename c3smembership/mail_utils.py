@@ -5,6 +5,7 @@ emails.
 """
 import os
 from pyramid_mailer import get_mailer
+import customization as c
 
 
 LOCALE_DEFINITIONS = {
@@ -95,7 +96,7 @@ def make_payment_confirmation_email(member):
         get_template_text('payment_confirmation_subject', member.locale),
         get_template_text('payment_confirmation_body', member.locale).format(
             num_shares=member.num_shares,
-            sum_shares=member.num_shares * 50,
+            sum_shares=member.num_shares * c.share_price,
             salutation=get_salutation(member),
             footer=get_email_footer(member.locale)))
 
@@ -108,7 +109,7 @@ def make_signature_confirmation_email(member):
         get_template_text('signature_confirmation_subject', member.locale),
         get_template_text('signature_confirmation_body', member.locale).format(
             num_shares=member.num_shares,
-            sum_shares=member.num_shares * 50,
+            sum_shares=member.num_shares * c.share_price,
             salutation=get_salutation(member),
             footer=get_email_footer(member.locale)))
 

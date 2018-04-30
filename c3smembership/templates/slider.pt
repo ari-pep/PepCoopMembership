@@ -22,23 +22,23 @@ $(function() {
   $( "#num_shares" ).val( $( "#slider-div-num_shares" ).slider( "value" ) );
 });
 </script>
-  <input type="text" name="${name}" value="${cstruct}" 
+  <input type="text" name="${name}" value="${cstruct}"
          tal:attributes="size size;
                          class css_class;
                          style style"
          id="${oid}"/>
-  (= <input type="text" name="${name}-calculated" value="${int(cstruct)*50}" 
+  (= <input type="text" name="${name}-calculated" value="${int(cstruct)*10}"
          tal:attributes="size size;
                          class css_class;
                          style style"
          id="${oid}-calculated"/>€)
-  
+
   <div id="slider-div-${oid}"></div><br />
   <script tal:condition="mask" type="text/javascript">
     deform.addCallback(
     '${oid}',
     function (oid) {
-    $("#" + oid).mask("${mask}", 
+    $("#" + oid).mask("${mask}",
     {placeholder:"${mask_placeholder}"});
     });
   </script>

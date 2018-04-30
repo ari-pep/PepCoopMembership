@@ -121,7 +121,7 @@ def member_list_date_pdf_view(request):
         latex_header_tex,
         members_count,
         shares_count,
-        shares_count * 50,
+        shares_count * c.share_price,
         effective_date.strftime('%d.%m.%Y'),
     )
 

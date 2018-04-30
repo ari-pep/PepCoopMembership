@@ -13,10 +13,10 @@
       ${_number_of_datasets} DB-Einträge
       <small>Eingegangene Mitgliedschaftsanträge und vollständige Mitgliedschaften</small><br />
       ${afm_shares_unpaid} Anteile, die noch nicht bezahlt sind.
-      Summe: ${python: int(afm_shares_unpaid)*50}€
+      Summe: ${python: int(afm_shares_unpaid)*int(share_price)}€
       <br />
       ${afm_shares_paid} Anteile, die schon bezahlt sind.
-      Summe: ${python: int(afm_shares_paid)*50}€<br />
+      Summe: ${python: int(afm_shares_paid)*int(share_price)}€<br />
     </p>
     <h4>Throughput/Turnover</h4>
     <p>

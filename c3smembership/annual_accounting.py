@@ -31,6 +31,7 @@ from c3smembership.models import (
 )
 from c3smembership.presentation.i18n import _
 
+import customization as c
 
 @view_config(
     renderer='c3smembership:templates/annual_report.pt',
@@ -103,6 +104,7 @@ def annual_report(request):  # pragma: no cover
                 'new_shares': [],
                 'shares_paid_unapproved_count': 0,
                 'shares_paid_unapproved': [],
+                'share_pric': c.share_price,
             }
 
     else:  # if form not submitted, preload values
@@ -142,7 +144,7 @@ def annual_report(request):  # pragma: no cover
         'num_members': members_count,
         # shares
         'num_shares': share_statistics['approved_shares_count'],
-        'sum_shares': share_statistics['approved_shares_count'] * 50,
+        'sum_shares': share_statistics['approved_shares_count'] * c.share_price,
         'new_shares': share_statistics['approved_shares'],
         # other shares paid but unapproved
         'shares_paid_unapproved_count': \
