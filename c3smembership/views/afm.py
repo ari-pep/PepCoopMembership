@@ -17,51 +17,67 @@ Tests for these functions can be found in
 
 """
 
+from datetime import (
+    date,
+    datetime,
+)
+import logging
+from types import NoneType
+
 import colander
 from colander import (
     Invalid,
     Range,
 )
-from datetime import (
-    date,
-    datetime,
-)
 import deform
 from deform import ValidationFailure
-from c3smembership.deform_text_input_slider_widget import (
-    TextInputSliderWidget
-)
-
 from pyramid.i18n import (
     get_locale_name,
 )
+from pyramid.httpexceptions import HTTPFound
 from pyramid.view import view_config
 from pyramid_mailer import get_mailer
 from pyramid_mailer.message import Message
-from pyramid.httpexceptions import HTTPFound
-from sqlalchemy.exc import (
-    IntegrityError,
-    InvalidRequestError,
-)
 
-from types import NoneType
+from c3smembership.deform_text_input_slider_widget import (
+    TextInputSliderWidget
+)
 from c3smembership.data.model.base import DBSession
 from c3smembership.models import C3sMember
-from c3smembership.utils import (
-    generate_pdf,
-    accountant_mail,
-)
 from c3smembership.presentation.i18n import (
     _,
     ZPT_RENDERER,
+)
+from c3smembership.utils import (
+    generate_pdf,
+    accountant_mail,
 )
 
 DEBUG = False
 LOGGING = True
 
 if LOGGING:
-    import logging
-    log = logging.getLogger(__name__)
+    LOG = logging.getLogger(__name__)
+
+
+def statute_validator(node, value):
+    """
+    Validator for statute confirmation.
+    """
+    if not value:
+        # raise without additional error message as the description
+        # already explains the necessity of the checkbox
+        raise Invalid(node, u'')
+
+
+def dues_regulations_validator(node, value):
+    """
+    Validator for dues regulations confirmation.
+    """
+    if not value:
+        # raise without additional error message as the description
+        # already explains the necessity of the checkbox
+        raise Invalid(node, u'')
 
 
 @view_config(renderer='c3smembership:templates/join.pt',
@@ -177,9 +193,10 @@ def join_c3s(request):
                           u'verifying your email you will have to enter it.'),
             oid='password',
         )
-        locale = colander.SchemaNode(colander.String(),
-                                       widget=deform.widget.HiddenWidget(),
-                                       default=locale_name)
+        locale = colander.SchemaNode(
+            colander.String(),
+            widget=deform.widget.HiddenWidget(),
+            default=locale_name)
 
     class MembershipInfo(colander.Schema):
         """
@@ -236,7 +253,6 @@ def join_c3s(request):
             # )
         )
 
-
     class Shares(colander.Schema):
         """
         the number of shares a member wants to hold
@@ -267,18 +283,8 @@ def join_c3s(request):
         some legal requirements
         """
 
-        def statute_validator(node, value):
-            """
-            Validator for statute confirmation.
-            """
-            if not value:
-                # raise without additional error message as the description
-                # already explains the necessity of the checkbox
-                raise Invalid(node, u'')
-
         got_statute = colander.SchemaNode(
             colander.Bool(true_val=u'yes'),
-            #title=(u''),
             title=_(
                 u'I acknowledge that the statutes and membership dues '
                 u'regulations determine periodic contributions '
@@ -292,16 +298,7 @@ def join_c3s(request):
             validator=statute_validator,
             required=True,
             oid='got_statute',
-            #label=_('Yes, really'),
         )
-        def dues_regulations_validator(node, value):
-            """
-            Validator for dues regulations confirmation.
-            """
-            if not value:
-                # raise without additional error message as the description
-                # already explains the necessity of the checkbox
-                raise Invalid(node, u'')
 
         got_dues_regulations = colander.SchemaNode(
             colander.Bool(true_val=u'yes'),
@@ -317,9 +314,7 @@ def join_c3s(request):
             validator=dues_regulations_validator,
             required=True,
             oid='got_dues_regulations',
-            #label=_('Yes'),
         )
-
 
     class MembershipForm(colander.Schema):
         """
@@ -340,7 +335,6 @@ def join_c3s(request):
         acknowledge_terms = TermsInfo(
             title=_(u'Acknowledgement')
         )
-
 
     schema = MembershipForm()
 
@@ -408,8 +402,6 @@ def join_c3s(request):
     # if the form was submitted and gathered info shown on the success page,
     # BUT the user wants to correct their information:
     else:
-        if 'edit' in request.POST:
-            print(request.POST['edit'])
         # remove annoying message from other session
         deleted_msg = request.session.pop_flash()
         del deleted_msg
@@ -439,7 +431,6 @@ def show_success(request):
         appstruct = request.session['appstruct']
         # delete old messages from the session (from invalid form input)
         request.session.pop_flash('message_above_form')
-        # print("show_success: locale: %s") % appstruct['locale']
         return {
             'firstname': appstruct['person']['firstname'],
             'lastname': appstruct['person']['lastname'],
@@ -508,7 +499,6 @@ def success_check_email(request):
 
         # we do have valid info from the form in the session (good)
         appstruct = request.session['appstruct']
-        from pyramid_mailer.message import Message
         try:
             mailer = get_mailer(request)
         except:
@@ -555,10 +545,9 @@ Your C3S team
             )
         )
         if 'true' in request.registry.settings['testing.mail_to_console']:
-            # print(the_mail.body)
-            log.info(the_mail.subject)
-            log.info(the_mail.recipients)
-            log.info(the_mail.body)
+            LOG.info(the_mail.subject)
+            LOG.info(the_mail.recipients)
+            LOG.info(the_mail.body)
             # just logging, not printing, b/c test fails otherwise:
             # env/bin/nosetests
             #    c3smembership/tests/test_views_webdriver.py:
@@ -574,28 +563,6 @@ Your C3S team
         }
     # 'else': send user to the form
     return HTTPFound(location=request.route_url('join'))
-
-
-# @view_config(
-#     renderer='templates/verify_password.pt',
-#     route_name='verify_password')
-# def verify_password(request):
-#     """
-#     This view is called via links sent in mails to verify mail addresses.
-#     It extracts both email and verification code from the URL
-#     and checks if there is a match in the database.
-#     """
-#     #dbsession = DBSession()
-#     # collect data from the URL/matchdict
-#     user_email = request.matchdict['email']
-#     #print(user_email)
-#     confirm_code = request.matchdict['code']
-#     #print(confirm_code)
-#     # get matching dataset from DB
-#     member = C3sMember.get_by_code(confirm_code)  # returns a member or None
-#     #print(member)
-
-#     return {'foo': 'bar'}
 
 
 @view_config(
@@ -619,7 +586,6 @@ def success_verify_email(request):
     post_url = '/verify/' + user_email + '/' + confirm_code
 
     if 'submit' in request.POST:
-        # print("the form was submitted")
         request.session.pop_flash('message_above_form')
         request.session.pop_flash('message_above_login')
         # check for password ! ! !
@@ -653,7 +619,6 @@ def success_verify_email(request):
         # -member
 
         if (member.email == user_email) and correct:
-            # print("-- found member, code matches, password too. COOL!")
             # set the email_is_confirmed flag in the DB for this signee
             member.email_is_confirmed = True
             # dbsession.flush()
@@ -690,7 +655,7 @@ def success_verify_email(request):
             request.session['appstruct'] = appstruct
 
             # log this person in, using the session
-            log.info('verified code and password for id %s', member.id)
+            LOG.info('verified code and password for id %s', member.id)
             request.session.save()
             return {
                 'firstname': member.firstname,
@@ -730,7 +695,6 @@ def show_success_pdf(request):
     # check if user has used form or 'guessed' this URL
     if 'appstruct' in request.session:
         # we do have valid info from the form in the session
-        # print("-- valid session with data found")
         # send mail to accountants // prepare a mailer
         mailer = get_mailer(request)
         # prepare mail
@@ -773,5 +737,4 @@ go fix it!
 
         return generate_pdf(request.session['appstruct'])
     # 'else': send user to the form
-    # print("-- no valid session with data found")
     return HTTPFound(location=request.route_url('join'))
