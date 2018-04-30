@@ -50,7 +50,7 @@ from sqlalchemy.orm import (
 import sqlalchemy.types as types
 import cryptacular.bcrypt
 
-import customization
+import customization as c
 
 from c3smembership.data.model.base import (
     Base,
@@ -803,6 +803,10 @@ class C3sMember(Base):
     """type of the member, like individual, commercial entity"""
     fee = Column(DatabaseDecimal(12, 2), default=Decimal('NaN'))
     """membership fee"""
+    if c.entry_fee:
+        entry_fee = Column(DatabaseDecimal(12, 2), default=Decimal('NaN'))
+        entry_fee_paid_amount = Column(DatabaseDecimal(12, 2), default=Decimal('0'))
+        entry_fee_paid_date = Column(DateTime()) # should this be paid in several transaction, update on every one.
 
     def __init__(self, **kwargs):
         print(kwargs)
@@ -827,7 +831,7 @@ class C3sMember(Base):
         self.payment_method = kwargs.pop('payment_method')
         self.payment_sdd_bic = re.sub(r'\s','',kwargs.pop('payment_sdd_bic'),flags=re.U)
         self.payment_sdd_iban = re.sub(r'\s','',kwargs.pop('payment_sdd_iban'),flags=re.U)
-        if customization.membership_types and len(customization.membership_types) > 1:
+        if c.membership_types and len(c.membership_types) > 1:
             self.membership_type = kwargs.pop('membership_type')
         if self.member_of_colsoc is True:
             self.name_of_colsoc = kwargs.pop('name_of_colsoc')
@@ -835,16 +839,19 @@ class C3sMember(Base):
             self.name_of_colsoc = u''
 
         try:
-            if len(customization.membership_types) <= 1:
+            if len(c.membership_types) <= 1:
                 raise ValueError
         except NameError, ValueError:
             pass
         else:
             self.membership_type = kwargs.pop('membership_type')
 
-        if len(customization.membership_fees)>1:
+        if len(c.membership_fees)>1:
             self.fee = kwargs.pop('fee')
             self.member_type = kwargs.pop('member_type')
+
+        if c.entry_fee:
+            self.entry_fee = kwargs.pop('entry_fee')
 
         if len(kwargs)!=0:
             raise TypeError('__init__ did not consume all arguments')
