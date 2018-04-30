@@ -229,7 +229,7 @@ def join_c3s(request):
             title=_(u'Please tell us wether you\'re an individual, '
                     u'freelancer or company or want to support us '
                     u'generously as a sustaining member'),
-            widget=deform.widget.RadioChoiceWidget(values=[ (member_type, t_description) for fee, member_type, t_description in c.membership_fees]),
+            widget=deform.widget.RadioChoiceWidget(values=[ (member_type, t_description) for fee, member_type, t_description,registration_fee in c.membership_fees]),
             oid='member_type'
         )
 
@@ -282,29 +282,35 @@ def join_c3s(request):
             oid='payment_method')
 
         def IBAN_validator(node,value):
+            '''validate data to be IBAN or empty'''
             try:
                 schwifty.IBAN(value)
             except ValueError as e:
+                if not value:
+                    return
                 print('try: DE89 3704 0044 0532 0130 00')
                 raise Invalid(node,str(e))
 
         def BIC_validator(node,value):
+            '''validate data to be BIC or empty'''
             try:
                 schwifty.BIC(value)
             except ValueError as e:
+                if not value:
+                    return
                 print('try: DEUTPTPL')
                 raise Invalid(node,str(e))
 
         member_IBAN = colander.SchemaNode( colander.String(),
             title=_(u'member\'s bank account (IBAN)'),
             validator=IBAN_validator,
-            required=False,
+            missing=unicode(''),
             oid='payment_sdd_iban')
 
         member_BIC = colander.SchemaNode( colander.String(),
             title=_(u'member\'s bank (BIC)'),
             validator=BIC_validator,
-            required=False,
+            missing=unicode(''),
             oid='payment_sdd_iban')
 
 
@@ -399,7 +405,6 @@ def join_c3s(request):
             title=_(u'Acknowledgement')
         )
 
-
     schema = MembershipForm()
 
     form = deform.Form(
@@ -419,8 +424,24 @@ def join_c3s(request):
     # if the form has been used and SUBMITTED, check contents
     if 'submit' in request.POST:
         controls = request.POST.items()
+
         try:
             appstruct = form.validate(controls)
+            if appstruct['payment_method']['payment_method'] == 'sdd':
+                # error when IBAN or BIC are empty
+                if not appstruct['payment_method']['member_IBAN']:
+                    form['payment_method']['member_IBAN'].error = Invalid(None,_(u'please enter IBAN'))
+                    error_out=True
+                if not appstruct['payment_method']['member_BIC']:
+                    form['payment_method']['member_BIC'].error = Invalid(None,_(u'please enter BIC'))
+                    error_out=True
+                try:
+                    error_out
+                except NameError:
+                    pass
+                else:
+                    validation_failure = ValidationFailure(form, None, form.error)
+                    return {'form': validation_failure.render()}
 
             # data sanity: if not in collecting society, don't save
             #  collsoc name even if it was supplied through form
