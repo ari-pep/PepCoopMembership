@@ -487,20 +487,20 @@ def membership_status_fixer(request):
         membership_type = colander.SchemaNode(
             colander.String(),
             title=_(u'I want to become a ... (choose '
-                    'membership type, see p≡p coop SCE statute sec. 4)'),
+                    u'membership type, see p≡p coop SCE statute sec. 4)'),
             description=_(u'choose the type of membership.'),
             widget=deform.widget.RadioChoiceWidget(
                 values=(
                     (u'normal',
                      _(u'FULL member. Full members have to be natural persons '
-                       'who register at least three works with p≡p coop they '
-                       'created themselves. This applies to composers, '
-                       'lyricists and remixers. They get a vote.')),
+                       u'who register at least three works with p≡p coop they '
+                       u'created themselves. This applies to composers, '
+                       u'lyricists and remixers. They get a vote.')),
                     (u'investing',
                      _(u'INVESTING member. Investing members can be natural '
-                       'or legal entities or private companies that do not '
-                       'register works with p≡p coop. They do not get a vote, '
-                       'but may counsel.'))
+                       u'or legal entities or private companies that do not '
+                       u'register works with p≡p coop. They do not get a vote, '
+                       u'but may counsel.'))
                 ),
             ),
             oid="mtype",
@@ -509,7 +509,7 @@ def membership_status_fixer(request):
             colander.String(),
             title=_(
                 u'Currently, I am a member of (at least) one other '
-                'collecting society.'),
+                u'collecting society.'),
             validator=colander.OneOf([x[0] for x in yes_no]),
             widget=deform.widget.RadioChoiceWidget(values=yes_no),
             oid="other_colsoc",
@@ -519,8 +519,8 @@ def membership_status_fixer(request):
             title=_(u'If so, which one(s)? (comma separated)'),
             description=_(
                 u'Please tell us which collecting societies '
-                'you are a member of. '
-                'If more than one, please separate them by comma(s).'),
+                u'you are a member of. '
+                u'If more than one, please separate them by comma(s).'),
             missing=unicode(''),
             oid="colsoc_name",
         )
