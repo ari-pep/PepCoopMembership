@@ -86,5 +86,8 @@ setup(name='c3smembership',
           'c3smembership': [
               ('**.py', 'lingua_python', None),
               ('**.pt', 'lingua_xml', None),
+          ],
+          'customization': [
+              ('**.py', 'lingua_python', None),
           ]},
       )
