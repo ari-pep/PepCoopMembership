@@ -142,7 +142,7 @@ def generate_pdf(appstruct):
             'membership_type'] == u'normal' else '2'))
 
     if len(c.membership_fees)>1:
-        memberTypeIndex=[ i for i,(v,t,d) in enumerate(c.membership_fees) if t==appstruct['member_type']][0]
+        memberTypeIndex=[ i for i,(v,t,d,l) in enumerate(c.membership_fees) if t==appstruct['member_type']][0]
         if memberTypeIndex == len(c.membership_fees) - 1:
             fields.append(('freeFee',appstruct['fee']))
         else:

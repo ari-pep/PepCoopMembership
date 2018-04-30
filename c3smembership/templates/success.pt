@@ -67,19 +67,22 @@
             <span i18n:translate=''>City</span>:&nbsp; ${request.session['appstruct']['person']['city']}<br />
             <span i18n:translate=''>Country</span>:&nbsp; ${request.session['appstruct']['person']['country']}<br />
             <span i18n:translate=''>Date of Birth</span>:&nbsp; ${request.session['appstruct']['person']['date_of_birth']}<br />
+            <span i18n:translate=''>Member Type</span>:&nbsp;${member_type}<br />
+            <span tal:condition='entry_fee != 0' i18n:translate=''>Entry Fee</span>:&nbsp;${entry_fee}&nbsp;${currency}<br />
         </p>
         <h4 class="c3s-subheading-4" i18n:translate=''>Shares</h4>
         <p>
             <span i18n:translate=''>Number of Shares</span>:&nbsp; ${request.session['appstruct']['shares']['num_shares']}<br />
-            <span i18n:translate=''>Cost of Shares (10 € each)</span>:&nbsp; ${int(request.session['appstruct']['shares']['num_shares']) * 10} €<br />
+            <span i18n:translate=''>Cost of Shares (10 € each)</span>:&nbsp; ${int(request.session['appstruct']['shares']['num_shares']) * share_price} €<br />
         </p>
-        <h4 class="c3s-subheading-4" i18n:translate=''>Payment Method</h4>
+        <h4 class="c3s-subheading-4" i18n:translate=''>Payment Method and Amount</h4>
             <span i18n:translate=''>Payment Type</span>:&nbsp; ${payment_method} <br />
+            <span i18n:translate=''>Initially Due</span>:&nbsp; ${float(entry_fee+share_price * int(request.session['appstruct']['shares']['num_shares']))}&nbsp;${currency}<br />
+            <span i18n:translate=''>Monthly Dues</span>:&nbsp; ${float(membership_fees)}&nbsp;${currency}<br />
             <span tal:condition="request.session['appstruct']['payment_method']['payment_method'] == 'sdd'">
-                <span i18n:translate=''>member&apos;s bank account (IBAN)</span>:&nbsp; ${request.session['appstruct']['payment_method']['member_IBAN']}<br />
-                <span i18n:translate=''>member&apos;s bank (BIC)</span>:&nbsp; ${request.session['appstruct']['payment_method']['member_BIC']}<br />
+                <span i18n:translate=''>Member&apos;s bank account (IBAN)</span>:&nbsp; ${request.session['appstruct']['payment_method']['member_IBAN']}<br />
+                <span i18n:translate=''>Member&apos;s bank (BIC)</span>:&nbsp; ${request.session['appstruct']['payment_method']['member_BIC']}<br />
             </span>
-
         <p i18n:translate="success-paragraph-change-details">
             In case there are errors or you want to change details:
         </p>

@@ -226,10 +226,11 @@ def join_c3s(request):
 
     class Fees(colander.Schema):
         member_type = colander.SchemaNode( colander.String(),
-            title=_(u'Please tell us wether you\'re an individual, '
-                    u'freelancer or company or want to support us '
-                    u'generously as a sustaining member'),
-            widget=deform.widget.RadioChoiceWidget(values=[ (member_type, t_description) for fee, member_type, t_description,registration_fee in c.membership_fees]),
+            title=_(u'Please tell us wether you\'re an individual, freelancer or company, '
+            u'or want to support us generously as a supporting member.\n'
+            u'Please be advised that freelancers/companies are suspect to an entry fee '
+            u'of 90 €.' ),
+            widget=deform.widget.RadioChoiceWidget(values=[ (member_type, t_description) for fee, member_type, t_description,entry_fee in c.membership_fees]),
             oid='member_type'
         )
 
@@ -517,8 +518,10 @@ def join_c3s(request):
             if coopMemberArgs['member_type'] == 'sustaining':
                 coopMemberArgs['fee'] = appstruct['fees']['member_custom_fee']
             else:
-                coopMemberArgs['fee'] = [ v for v,t,d in c.membership_fees if t == appstruct['fees']['member_type'] ][0]
+                coopMemberArgs['fee'] = [ v for v,t,d,f in c.membership_fees if t == appstruct['fees']['member_type'] ][0]
 
+        if c.entry_fee:
+            coopMemberArgs['entry_fee'] = [ f for v,t,d,f in c.membership_fees if t == appstruct['fees']['member_type'] ][0]
 
         member = C3sMember(**coopMemberArgs)
         dbsession = DBSession()
@@ -579,10 +582,16 @@ def show_success(request):
         # delete old messages from the session (from invalid form input)
         request.session.pop_flash('message_above_form')
         # print("show_success: locale: %s") % appstruct['locale']
+        v,t,d,f = [ i for i in c.membership_fees if i[1] == appstruct['fees']['member_type'] ][0]
         return {
             'firstname': appstruct['person']['firstname'],
             'lastname': appstruct['person']['lastname'],
-            'payment_method': c.payment_methods[appstruct['payment_method']['payment_method']]
+            'payment_method': c.payment_methods[appstruct['payment_method']['payment_method']],
+            'member_type': d,
+            'entry_fee': f,
+            'membership_fees': v,
+            'share_price': c.share_price,
+            'currency': c.currency
         }
     # 'else': send user to the form
     return HTTPFound(location=request.route_url('join'))
