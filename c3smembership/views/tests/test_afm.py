@@ -20,6 +20,7 @@ from c3smembership.models import (
 )
 from c3smembership.data.model.base import DBSession
 from c3smembership import main
+import c3smembership.views.afm as afm
 
 
 def _initTestingDB():
@@ -28,6 +29,18 @@ def _initTestingDB():
     # session = initialize_sql(create_engine('sqlite://'))
     session = DBSession
     return session
+
+
+class DummyDate(object):
+
+    def __init__(self, today):
+        self._today = today
+
+    def __call__(self, *args, **kwargs):
+        return date(*args, **kwargs)
+
+    def today(self):
+        return self._today
 
 
 class TestViews(unittest.TestCase):
@@ -191,9 +204,10 @@ class TestViews(unittest.TestCase):
         # success for 18th birthday
         res = self.testapp.get('/', status=200)
         form = self._fill_form_valid_natural(res.form)
-        form['year'] = unicode(date.today().year-18)
-        form['month'] = unicode(date.today().month)
-        form['day'] = unicode(date.today().day)
+        afm.date = DummyDate(date(2018, 4, 29))
+        form['year'] = u'2000'
+        form['month'] = u'04'
+        form['day'] = u'29'
         res = form.submit(u'submit', status=302)
         res = res.follow()
         self.assertTrue('information below to be correct' in res.body)
@@ -201,9 +215,10 @@ class TestViews(unittest.TestCase):
         # failure on test one day before 18th birthday
         res = self.testapp.get('/', status=200)
         form = self._fill_form_valid_natural(res.form)
-        form['year'] = unicode(date.today().year-18)
-        form['month'] = unicode(date.today().month)
-        form['day'] = unicode(date.today().day+1)
+        afm.date = DummyDate(date(2018, 4, 29))
+        form['year'] = u'2000'
+        form['month'] = u'04'
+        form['day'] = u'30'
         res = form.submit(u'submit', status=200)
         self.assertTrue('underaged person is currently not' in res.body)
 
