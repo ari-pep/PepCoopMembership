@@ -245,12 +245,7 @@ def mail_mail_conf(request):
 
 Hallo {1} {2},
 
-gemeinsam mit Dir freuen wir uns auf die erste Generalversammlung der p≡p coop SCE
-am 23. August, um 14:00 Uhr im Millowitsch-Theater in Köln. Details dazu
-erhältst Du in Kürze in einer separaten Einladung.
-
-Da wir die Einladungen per E-Mail verschicken werden, möchten wir Dich bitten
-uns kurz zu bestätigen, dass diese E-Mail-Adresse korrekt ist und Du auf diesem
+möchten wir Dich bitten uns kurz zu bestätigen, dass diese E-Mail-Adresse korrekt ist und Du auf diesem
 Wege erreichbar bist. Dafür brauchst Du nur den folgenden Link aufzurufen:
 
   {0}
@@ -262,18 +257,13 @@ Datenbank streichen.
 Antworte bitte ebenfalls, falls Du die E-Mail-Adresse ändern möchtest.
 
 
-Viele Grüße :: Das C3S-Team
+Viele Grüße :: Das p≡p coop Team
 
 ++++++++++++++++++++++++++++++++++++++++++++++++++
 
 Hello {1} {2},
 
-together with you we are happily awaiting the first general assembly of p≡p coop SCE
-on August 23rd, at 2 pm in the Millowitsch-Theater in Cologne. You will soon
-receive the details in a separate invitation.
-
-As we will send the invitations via email, we would like you to confirm your
-email address beforehand.
+please confirm your email address.
 
 Just click the following link to confirm your address:
 
