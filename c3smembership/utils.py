@@ -77,10 +77,15 @@ def generate_pdf(appstruct):
     import os
     here = os.path.dirname(__file__)
     registration_form_template = os.path.join(here,
-                                    "../customization/registrationForm/current-{}.pdf")
+            "../customization/registrationForm/current-{company}{sdd}{lang}.pdf")
 
     try:
-        pdf_to_be_used =registration_form_template.format(appstruct['locale'])
+        pdf_to_be_used =registration_form_template.format(
+            company='companies-' if appstruct['member_type'] in c.company_types else '',
+            sdd='sepa-' if appstruct['payment_method'] == 'sdd' else '',
+            lang=appstruct['locale']
+        )
+        print(pdf_to_be_used)
         open(pdf_to_be_used)
     except IOError:
         # deliberatly error out if fallback does not exist
@@ -147,6 +152,15 @@ def generate_pdf(appstruct):
             fields.append(('freeFee',appstruct['fee']))
         else:
             fields.append(('member_type',memberTypeIndex+1))
+
+    if appstruct['payment_method'] == 'sdd':
+        # yay, differing names
+        fields.extend((
+            ('iban', appstruct['payment_sdd_iban']),
+            ('bic', appstruct['payment_sdd_bic']),
+            ('nameOfBank', appstruct['payment_sdd_bankname']),
+            ('accountOwner', '{} {}'.format(appstruct['firstname'], appstruct['lastname']))
+        ))
 
     fields.extend((
         ('dateofbirth', dob),
