@@ -799,7 +799,8 @@ def success_verify_email(request):
                 'code': member.email_confirm_code,
                 'correct': True,
                 'namepart': pdf_file_name_part,
-                'result_msg': _("Success. Load your PDF!")
+                'result_msg': _("Success. Load your PDF!"),
+                'payment_prompt': member.payment_method != 'sdd'
             }
     # else: code did not match OR SOMETHING...
     # just display the form
