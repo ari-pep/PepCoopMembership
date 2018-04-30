@@ -133,7 +133,7 @@ def generate_pdf(appstruct):
 
     # calculate the amount to be transferred
     # print("the amount: %s" % (appstruct['num_shares'] * 50))
-    amount = str(appstruct['num_shares'] * 10)
+    amount = str(appstruct['num_shares'] * c.share_price)
 
 # here we gather all information from the supplied data to prepare pdf-filling
 

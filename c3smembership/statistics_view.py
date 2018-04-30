@@ -19,6 +19,7 @@ from c3smembership.models import (
     Dues18_12Invoice,
 )
 
+import customization as c
 
 @view_config(renderer='templates/stats.pt',
              permission='manage',
@@ -82,5 +83,6 @@ def stats_view(request):
         'dues18_12_stats': Dues18_12Invoice.get_monthly_stats(),
 
         # staff figures
-        'num_staff': len(C3sStaff.get_all())
+        'num_staff': len(C3sStaff.get_all()),
+        'share_price': c.share_price
     }

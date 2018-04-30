@@ -45,7 +45,7 @@
                     </a>
                 </td>
                 <td>${shares_paid_unapproved_count}</td>
-                <td>${shares_paid_unapproved_count * 50}</td>
+                <td>${shares_paid_unapproved_count * share_price}</td>
             </tr>
         </table>
 
@@ -132,7 +132,7 @@
         <h3>Bezahlte, nicht aufgenommene Anteile</h3>
         <p>
             Anteile, die im Zeitraum bezahlt wurden, die aber noch nicht aufgenommen wurden:
-            ${shares_paid_unapproved_count} (im Wert von ${shares_paid_unapproved_count * 50} Euro):
+            ${shares_paid_unapproved_count} (im Wert von ${shares_paid_unapproved_count * share_price} Euro):
         </p>
 
         <table class="table table-striped">
