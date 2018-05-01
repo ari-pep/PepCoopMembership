@@ -606,7 +606,7 @@ def show_success(request):
             'payment_method': c.payment_methods[appstruct['payment_method']['payment_method']],
             'member_type': d,
             'entry_fee': f,
-            'membership_fees': v,
+            'membership_fees': appstruct['fees']['member_custom_fee'] if t == 'sustaining' else v,
             'share_price': c.share_price,
             'currency': c.currency
         }
