@@ -265,8 +265,9 @@ def join_c3s(request):
             description=_(
                 u'You can choose any amount of shares between 1 and 3001.'),
             default="1",
-            widget=TextInputSliderWidget(
-                size=3, css_class='num_shares_input'),
+            #widget=TextInputSliderWidget(
+            #    size=3, css_class='num_shares_input'),
+            widget=deform.widget.TextInputWidget(),
             validator=colander.Range(
                 min=1,
                 max=c.max_shares,
