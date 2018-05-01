@@ -231,7 +231,10 @@ def join_c3s(request):
             u'Please be advised that freelancers/companies are suspect to an entry fee '
             u'of 90 €.' ),
             widget=deform.widget.RadioChoiceWidget(values=[ (member_type, t_description) for fee, member_type, t_description,entry_fee in c.membership_fees]),
-            oid='member_type'
+            oid='member_type',
+            description=_(u'For corporations, tradespersons, freelancers, corporate'
+                u'bodies and companies with or without an own legal entity an entry fee'
+                u' of 90,- € is charged (sec. 6).')
         )
 
         # not validating here: depends on ^

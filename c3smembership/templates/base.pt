@@ -20,9 +20,7 @@
   <div id="wrap">
     <div id="top">
       <div class="top align-center">
-	<!--<img src="${request.static_url('c3smembership:static/logo_horiz_w700.png')}" style="display: flex; margin-left:auto; margin-right:auto;"  alt="p≡p coop"/>-->
-	<img src="${request.static_url('c3smembership:static/logo_horiz_w700.png')}"style="display:block; margin-left: auto; margin-right: auto;"/>
-		
+	<img src="${request.static_url('c3smembership:static/logo_horiz_w700.png')}" style="display:block; margin-left: auto; margin-right: auto;" alt="p≡p coop"/>
       </div>
     </div>
     <div id="middle">
