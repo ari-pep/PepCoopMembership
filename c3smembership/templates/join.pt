@@ -109,13 +109,11 @@
             The Fine Print
         </h2>
         <p i18n:translate="" class="infoIndent">
-            <a href="https://pep.coop/manifest/"
-                    target="_blank"
+            <a href="https://pep.coop/manifest/" target="_blank"><div
                     i18n:attributes="href manifesto-link"
                     i18n:name="join-form-manifesto-title"
-                    i18n:translate="join-form-manifesto-title">
-                The p≡p coop manifesto
-            </a>
+                    i18n:translate="join-form-manifesto-title">The p≡p coop manifesto</div>
+        </a>
         </p>
         <p class="infoIndent">
             <span i18n:translate="join-form-statute">The p≡p coop SCE i.G. Statute</span>
