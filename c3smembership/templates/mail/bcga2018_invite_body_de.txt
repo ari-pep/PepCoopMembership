@@ -1,0 +1,192 @@
+
+Hallo {salutation},
+
+der Verwaltungsrat der
+
+Cultural Commons Collecting Society SCE
+mit beschränkter Haftung
+- C3S SCE -
+Rochusstr. 44
+40479 Düsseldorf
+
+lädt Dich ein
+
+* zur 5. ordentlichen Generalversammlung nach § 13 der Satzung der
+ C3S SCE [1] am 03.06.2018 und
+* zum C3S-Barcamp 2018 am Vortag der Generalversammlung
+
+Bitte lies den gesamten Einladungstext, er enthält wichtige Hinweise.
+
+***************************  W I C H T I G  ***************************
+Dies ist Dein individueller Link zur Anmeldung:
+
+  {invitation_url}
+
+Bitte teile uns dort frühzeitig mit, ob Du teilnimmst oder nicht oder
+ob du dich vertreten lassen möchtest.
+Auch Absagen sind erwünscht. Auf der verlinkten Seite kannst Du separat
+die Teilnahme für die Generalversammlung und das Barcamp bestätigen.
+***************************
+
+Die Generalversammlung
+======================
+
+Die Generalversammlung 2018 der C3S SCE findet in Düsseldorf im
+selben Gebäude statt, in dem wir auch unser Büro haben:
+
+03.06.2018: 5. ordentliche Generalversammlung der C3S SCE
+            Rochusstr. 44
+            40479 Düsseldorf [2]
+            13 - 17 Uhr
+            Akkreditierung ab 12 Uhr
+            Eintritt frei
+
+Bitte komme zeitig, um Verzögerungen zu vermeiden, da die Akkreditierung
+Zeit benötigt. Die Teilnahme an der GV ist selbstverständlich kostenlos.
+
+Das Barcamp
+===========
+
+02.06.2018: Barcamp [3]
+            Rochusstr. 44
+            40479 Düsseldorf [2]
+            13 - 19 Uhr
+            Eintritt frei
+
+Wir gehen davon aus, dass es zu einigen Themen mehr Informations-
+und Diskussionsbedarf gibt, als wir in der Generalversammlung selbst
+unterbringen können. Um die Generalversammlung vorzubereiten und
+Diskussionen vorzuverlagern, bieten wir am Vortag ein Barcamp [3] an,
+das einen halben Tag lang in mehreren parallelen Slots Zeit für
+Diskussion und Austausch bietet. Ziel ist es am Ende des Barcamps kurze 
+und verständliche Zusammenfassungen des Besprochenen zu erstellen.
+
+Dies ist der Link zu unserer wiki-Seite, auf der Du die Themen für das
+Barcamp ergänzen und einsehen kannst:
+
+    https://wiki.c3s.cc/index.php/Themenvorschl%C3%A4ge_BarCamp2018
+
+Zugangsdaten:
+Name: schwarm
+Kennwort: letmein
+
+Nach einem anstrengend-produktiven Barcamp braucht man auch wieder neue
+Energiezufuhr. Das wollen wir gerne in der gemeinsamen Runde
+bewerkstelligen. Deshalb würde es uns sehr freuen, wenn Du nach dem
+Barcamp mit uns gemeinsam Essen gehst -- wahrscheinlich in einem
+italienischen Restaurant. In jedem Fall wird es aber eine Auswahl
+an vegetarischen Speisen geben. Bitte vermerke das in der Anmeldung,
+damit wir entsprechend reservieren können.
+
+
+Agenda der Generalversammlung 2018 der C3S SCE
+==============================================
+
+Begrüßung der Anwesenden
+
+# 1 Wahl der Versammlungsleitung und de(s/r) Protokollführer(s/in)
+
+# 2 Genehmigung der Tagesordnung
+
+# 3 Wiederkehrende Tagesordnungspunkte
+
+## 3.1 Entgegennahme der Tätigkeitsberichte der geschäftsführenden
+       Direktoren und des Verwaltungsrates mit anschließender Aussprache
+## 3.2 Feststellung des Jahresabschlusses
+## 3.3 Entscheidung über die Verwendung des Jahresüberschusses und die
+       Verrechnung des Jahresfehlbetrages
+## 3.4 Entlastung der geschäftsführenden Direktoren und des
+       Verwaltungsrates
+
+# 4 Nachwahl von Mitgliedern des Verwaltungsrates
+
+# 5 Bericht zum Stand des Zulassungsverfahrens beim Deutschen Patent- 
+    und Markenamt (DPMA) 
+
+# 6 Bericht vom C3S-Barcamp 2018
+
+# 7 Berichte aus den Beratungskommissionen
+
+## 7.1 Kommission Tarife
+## 7.2 Kommission Verteilung und Beitragsordnung 
+## 7.3 Kommission Wahrnehmungsverträge
+
+# 8 Diskussion zu und ggfs. Beschlussfassung über Festlegung einer
+    vorläufigen Beitragsordnung
+    https://url.c3s.cc/ga5bv8de
+
+# 9 Diskussionen / Sonstiges
+
+Beschlussanträge und Anträge zur Änderung der Tagesordnung kannst Du bis
+zum 23.05.2018 (Ausschlussfrist 24 Uhr MESZ/CEST, d.h. UTC +2) in Textform
+unter agenda@c3s.cc einreichen.
+
+
+Organisatorisches
+=================
+
+Teilnahme
+---------
+Teilnahmeberechtigt an der Generalversammlung sind nur Mitglieder der
+C3S SCE oder Bevollmächtigte nicht anwesender Mitglieder.
+
+Stellvertretende Bevollmächtigte
+--------------------------------
+Solltest Du nicht teilnehmen können und stimmberechtigt sein,
+also nutzendes Mitglied, kannst Du eine Vollmacht erteilen. Weitere
+Informationen hierzu findest du bei der Anmeldung.
+
+Audio-Protokoll
+---------------
+Während der Generalversammlung wird ein Audio-Mitschnitt aufgezeichnet, um
+ein fehlerfreies Protokoll zu gewährleisten. Der Mitschnitt wird nicht
+veröffentlicht, aber intern als Anhang zum Protokoll archiviert.
+Wer nicht möchte, dass sein Redebeitrag aufgezeichnet wird, kann dem vor
+Beginn seines/ihres Beitrags widersprechen.
+
+
+Warum ist Deine Teilnahme wichtig?
+==================================
+
+Auf dem Barcamp kannst Du ausführlich zu den aktuellen Themen mitdiskutieren
+und Dich mit dem Kernteam der C3S austauschen. Die Generalversammlung ist das
+Organ, das die grundlegenden Entscheidungen der C3S SCE trifft.
+(Gemeinsam mit den anderen Mitgliedern bist Du die Generalversammlung.)
+
+Das war's! Versorge uns mit Themenvorschlägen, plane Deine Fahrt - dann sehen
+wir uns Anfang Juni in Düsseldorf! Bei Fragen kannst Du Dich, wie immer, an
+info@c3s.cc wenden.
+
+Wir freuen uns auf Dich & Deine Ideen!
+
+Der Verwaltungsrat der C3S SCE
+Veit Winkler - Vorsitzender
+
+
+====================
+Der Verwaltungsrat der C3S SCE setzt sich zusammen aus:
+
+Vorsitz:
+Veit Winkler, Vorsitzender des VR
+Danny Bruder, stellv. Vorsitzender des VR
+
+Weitere Mitglieder:
+* Johanna Breuckmann
+* m.eik michalke
+* Thomas Mielke 
+* Christoph Scheid
+* Elmar Schuck
+* Holger Schwetter
+
+====================
+
+Links:
+
+[1] Satzung der C3S SCE: https://url.c3s.cc/satzung
+[2] Karte Veranstaltungsort:
+https://www.openstreetmap.org/node/2679106873#map=19/51.23274/6.78834
+[3] Was ist ein Barcamp? https://url.c3s.cc/bcerklaerung
+
+{footer}
+
+

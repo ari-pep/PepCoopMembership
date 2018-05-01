@@ -383,7 +383,7 @@ def mail_payment_confirmation(request):
     if 'detail' in request.referrer:
         return HTTPFound(request.route_url(
             'detail',
-            memberid=request.matchdict['memberid']))
+            memberid=member.id))
     else:
         return get_dashboard_redirect(request, member.id)
 

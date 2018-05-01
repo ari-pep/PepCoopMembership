@@ -407,9 +407,21 @@ def make_member_view(request):
             member.is_legalentity = False
         member.membership_number = C3sMember.get_next_free_membership_number()
 
+        # Currently, the inconsistent data model stores the amount of applied
+        # shares in member.num_shares which must be moved to a membership
+        # application process property. As the acquisition of shares increases
+        # the amount of shares and this is still read from member.num_shares,
+        # this value must first be reset to 0 so that it can be increased by
+        # the share acquisition. Once the new data model is complete the
+        # property num_shares will not exist anymore. Instead, a membership
+        # application process stores the number of applied shares and the
+        # shares store the number of actual shares.
+        num_shares = member.num_shares
+        member.num_shares = 0
+
         share_id = request.registry.share_acquisition.create(
             member.membership_number,
-            member.num_shares,
+            num_shares,
             member.membership_date)
         share_acquisition = request.registry.share_acquisition
         share_acquisition.set_signature_reception(

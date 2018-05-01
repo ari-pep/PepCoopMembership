@@ -597,6 +597,9 @@ class C3sMember(Base):
     email_invite_flag_bcgv17 = Column(Boolean, default=False)
     email_invite_date_bcgv17 = Column(DateTime(), default=datetime(1970, 1, 1))
     email_invite_token_bcgv17 = Column(Unicode(255))
+    email_invite_flag_bcgv18 = Column(Boolean, default=False)
+    email_invite_date_bcgv18 = Column(DateTime(), default=datetime(1970, 1, 1))
+    email_invite_token_bcgv18 = Column(Unicode(255))
     # legal entities
     is_legalentity = Column(Boolean, default=False)
     court_of_law = Column(Unicode(255))
@@ -854,7 +857,7 @@ class C3sMember(Base):
             object: C3sMember object
         """
         return DBSession.query(cls).filter(
-            cls.email_invite_token_bcgv17 == token).first()
+            cls.email_invite_token_bcgv18 == token).first()
 
     @classmethod
     def check_for_existing_confirm_code(cls, email_confirm_code):
@@ -922,10 +925,10 @@ class C3sMember(Base):
             and_(
                 cls.is_member_filter(),
                 or_(
-                    (cls.email_invite_flag_bcgv17 == 0),
-                    (cls.email_invite_flag_bcgv17 == ''),
+                    (cls.email_invite_flag_bcgv18 == 0),
+                    (cls.email_invite_flag_bcgv18 == ''),
                     # pylint: disable=singleton-comparison
-                    (cls.email_invite_flag_bcgv17 == None),
+                    (cls.email_invite_flag_bcgv18 == None),
                 )
             )
         ).slice(0, num).all()

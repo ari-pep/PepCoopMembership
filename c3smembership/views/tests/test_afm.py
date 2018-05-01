@@ -4,6 +4,7 @@ from datetime import date
 import unittest
 # from pyramid.config import Configurator
 from pyramid import testing
+from pyramid_mailer import get_mailer
 from sqlalchemy import engine_from_config
 from c3smembership.data.model.base import (
     DBSession,
@@ -53,6 +54,7 @@ class TestViews(unittest.TestCase):
             'c3smembership.url'] = 'https://yes.c3s.cc'
         self.config.registry.settings['c3smembership.mailaddr'] = 'c@c3s.cc'
         self.config.registry.settings['testing.mail_to_console'] = 'false'
+        self.config.registry.get_mailer = get_mailer
 
         DBSession.remove()
         self.session = _initTestingDB()
@@ -92,7 +94,6 @@ class TestViews(unittest.TestCase):
         """
         from c3smembership.views.afm import success_check_email
         self.config.add_route('join', '/')
-        from pyramid_mailer import get_mailer
         request = testing.DummyRequest(
             params={
                 'appstruct': {

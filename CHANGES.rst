@@ -2,13 +2,23 @@ Next Release
 ============
 
 
+- Fix double entry when applicant edits details
+
+
+
+1.20.5
+======
+
+
 - Remove editing of number of shares hold by a member.
 
 - Remove old import and export functionality.
 
 - Show error message if applicant is younger than 18 years old.
 
-- Fix double entry when applicant edits details
+- Invitations for general assembly and bar camp 2018.
+
+- Hide invoice 2017 sending in membership list and toolbox.
 
 
 
