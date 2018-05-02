@@ -46,7 +46,7 @@
     </div>
     <div id="footer" class="footer">
         &copy; Copyright 2018, p≡p coop SCE.
-        <a tal:attributes="href python:'https://pep.coop/kontakt//' if request.locale_name == 'de' else 'https://pep.coop/kontakt/'"
+        <a tal:attributes="href python:'https://pep.coop/contact//' if request.locale_name == 'de' else 'https://pep.coop/contact/'"
            i18n:translate="">Contact</a>
 	&amp;
 	<a tal:attributes="href python:'https://pep.coop/impressum/' if request.locale_name == 'de' else 'https://pep.coop/impressum/'"
