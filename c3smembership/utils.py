@@ -159,7 +159,7 @@ def generate_pdf(appstruct):
             ('iban', appstruct['payment_sdd_iban']),
             ('bic', appstruct['payment_sdd_bic']),
             ('nameOfBank', appstruct['payment_sdd_bankname']),
-            ('accountOwner', '{} {}'.format(appstruct['firstname'], appstruct['lastname']))
+            ('accountOwner', u'{} {}'.format(appstruct['firstname'], appstruct['lastname']))
         ))
 
     fields.extend((
