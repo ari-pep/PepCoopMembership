@@ -349,6 +349,8 @@ def regenerate_pdf(request):
         'date_of_submission': membership_application['date_of_submission'],
         'member_type': member.member_type,
         'fee': member.fee,
+        'payment_method': member.payment_method,
+        'entry_fee': member.entry_fee
     }
     LOG.info(
         "%s regenerated the PDF for code %s",
