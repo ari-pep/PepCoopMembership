@@ -16,6 +16,7 @@ It was then reused for:
 - BarCamp and General Assembly 2015
 - BarCamp and General Assembly 2016
 - BarCamp and General Assembly 2017
+- BarCamp and General Assembly 2018
 
 How it works
 ------------
@@ -43,7 +44,7 @@ from pyramid.httpexceptions import HTTPFound
 from pyramid.view import view_config
 from pyramid_mailer.message import Message
 
-from c3smembership.invite_members_texts import make_bcga17_invitation_email
+from c3smembership.invite_members_texts import make_bcga18_invitation_email
 from c3smembership.mail_utils import send_message
 from c3smembership.membership_certificate import make_random_token
 from c3smembership.models import C3sMember
@@ -82,16 +83,16 @@ def invite_member_bcgv(request):
         return get_memberhip_listing_redirect(request, member_id)
 
     # prepare a random token iff none is set
-    if member.email_invite_token_bcgv17 is None:
-        member.email_invite_token_bcgv17 = make_random_token()
+    if member.email_invite_token_bcgv18 is None:
+        member.email_invite_token_bcgv18 = make_random_token()
     url = URL_PATTERN.format(
         ticketing_url=request.registry.settings['ticketing.url'],
-        token=member.email_invite_token_bcgv17,
+        token=member.email_invite_token_bcgv18,
         email=member.email)
 
     LOG.info("mailing event invitation to to member id %s", member.id)
 
-    email_subject, email_body = make_bcga17_invitation_email(member, url)
+    email_subject, email_body = make_bcga18_invitation_email(member, url)
     message = Message(
         subject=email_subject,
         sender='yes@c3s.cc',
@@ -104,8 +105,8 @@ def invite_member_bcgv(request):
     send_message(request, message)
 
     # member._token = _looong_token
-    member.email_invite_flag_bcgv17 = True
-    member.email_invite_date_bcgv17 = datetime.now()
+    member.email_invite_flag_bcgv18 = True
+    member.email_invite_date_bcgv18 = datetime.now()
     return get_memberhip_listing_redirect(request, member.id)
 
 
@@ -146,16 +147,16 @@ def batch_invite(request):
 
     for member in invitees:
         # prepare a random token iff none is set
-        if member.email_invite_token_bcgv17 is None:
-            member.email_invite_token_bcgv17 = make_random_token()
+        if member.email_invite_token_bcgv18 is None:
+            member.email_invite_token_bcgv18 = make_random_token()
         url = URL_PATTERN.format(
             ticketing_url=request.registry.settings['ticketing.url'],
-            token=member.email_invite_token_bcgv17,
+            token=member.email_invite_token_bcgv18,
             email=member.email)
 
         LOG.info("mailing event invitation to to member id %s", member.id)
 
-        email_subject, email_body = make_bcga17_invitation_email(member, url)
+        email_subject, email_body = make_bcga18_invitation_email(member, url)
         message = Message(
             subject=email_subject,
             sender='yes@c3s.cc',
@@ -167,8 +168,8 @@ def batch_invite(request):
         )
         send_message(request, message)
 
-        member.email_invite_flag_bcgv17 = True
-        member.email_invite_date_bcgv17 = datetime.now()
+        member.email_invite_flag_bcgv18 = True
+        member.email_invite_date_bcgv18 = datetime.now()
         num_sent += 1
         ids_sent.append(member.id)
 

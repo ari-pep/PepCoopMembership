@@ -8,6 +8,8 @@ from datetime import (
 
 from unittest import TestCase
 
+import c3smembership.business.membership_application as \
+    membership_application_package
 from c3smembership.business.membership_application import (
     MembershipApplication,
 )
@@ -141,10 +143,16 @@ class MemberApplicationTest(TestCase):
             signature_confirmed=None)
         member_repository_mock.get_member_by_id.side_effect = [member_mock]
         membership_application = MembershipApplication(member_repository_mock)
-        membership_application.make_signature_confirmation_email = mock.Mock()
-        membership_application.make_signature_confirmation_email.side_effect = \
+
+        make_signature_confirmation_email = mock.Mock()
+        make_signature_confirmation_email.side_effect = \
             [('email subject', 'email body')]
-        membership_application.send_message = mock.Mock()
+        send_message = mock.Mock()
+
+        membership_application_package._make_signature_confirmation_email = \
+            make_signature_confirmation_email
+        membership_application_package._send_message = send_message
+
         membership_application.datetime = mock.Mock()
         membership_application.datetime.now.side_effect = ['now result']
 
@@ -152,21 +160,23 @@ class MemberApplicationTest(TestCase):
             'member id',
             'pyramid request')
 
+        make_signature_confirmation_email.assert_called_with(member_mock)
         member_repository_mock.get_member_by_id.assert_called_with('member id')
         self.assertEqual(
-            membership_application.send_message.call_args[0][0],
+            send_message.call_args[0][0],
             'pyramid request')
         self.assertEqual(
-            membership_application.send_message.call_args[0][1].subject,
+            send_message.call_args[0][1].subject,
             'email subject')
         self.assertEqual(
-            membership_application.send_message.call_args[0][1].sender,
+            send_message.call_args[0][1].sender,
             'yes@c3s.cc')
         self.assertEqual(
-            membership_application.send_message.call_args[0][1].recipients,
+            send_message.call_args[0][1].recipients,
             ['jane@example.com'])
         self.assertEqual(
-            membership_application.send_message.call_args[0][1].body,
+            send_message.call_args[0][1].body,
             'email body')
+
         self.assertTrue(member_mock.signature_confirmed)
         self.assertEqual(member_mock.signature_confirmed_date, 'now result')

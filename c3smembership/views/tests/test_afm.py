@@ -4,6 +4,7 @@ from datetime import date
 import unittest
 # from pyramid.config import Configurator
 from pyramid import testing
+from pyramid_mailer import get_mailer
 from sqlalchemy import engine_from_config
 from c3smembership.data.model.base import (
     DBSession,
@@ -19,6 +20,7 @@ from c3smembership.models import (
 )
 from c3smembership.data.model.base import DBSession
 from c3smembership import main
+import c3smembership.views.afm as afm
 
 
 def _initTestingDB():
@@ -27,6 +29,18 @@ def _initTestingDB():
     # session = initialize_sql(create_engine('sqlite://'))
     session = DBSession
     return session
+
+
+class DummyDate(object):
+
+    def __init__(self, today):
+        self._today = today
+
+    def __call__(self, *args, **kwargs):
+        return date(*args, **kwargs)
+
+    def today(self):
+        return self._today
 
 
 class TestViews(unittest.TestCase):
@@ -40,6 +54,7 @@ class TestViews(unittest.TestCase):
             'c3smembership.url'] = 'https://yes.c3s.cc'
         self.config.registry.settings['c3smembership.mailaddr'] = 'c@c3s.cc'
         self.config.registry.settings['testing.mail_to_console'] = 'false'
+        self.config.registry.get_mailer = get_mailer
 
         DBSession.remove()
         self.session = _initTestingDB()
@@ -79,7 +94,6 @@ class TestViews(unittest.TestCase):
         """
         from c3smembership.views.afm import success_check_email
         self.config.add_route('join', '/')
-        from pyramid_mailer import get_mailer
         request = testing.DummyRequest(
             params={
                 'appstruct': {
@@ -93,9 +107,23 @@ class TestViews(unittest.TestCase):
                 'firstname': 'foo',
                 'lastname': 'bar',
                 'email': 'bar@shri.de',
+                'password': 'bad password',
+                'address1': 'Some Street',
+                'address2': '',
+                'postcode': 'ABC123',
+                'city': 'Stockholm',
+                'country': 'SE',
                 'locale': 'de',
+                'date_of_birth': '1980-01-01',
             },
-            'email_confirm_code': '12345678',
+            'membership_info': {
+                'membership_type': 'person',
+                'member_of_colsoc': 'no',
+                'name_of_colsoc': '',
+            },
+            'shares': {
+                'num_shares': '3',
+            },
         }
         mailer = get_mailer(request)
         result = success_check_email(request)
@@ -109,7 +137,7 @@ class TestViews(unittest.TestCase):
             'C3S: confirm your email address and load your PDF')
         # self.assertEqual(mailer.outbox[0]., "hello world")
 
-        verif_link = "https://yes.c3s.cc/verify/bar@shri.de/12345678"
+        verif_link = "https://yes.c3s.cc/verify/bar@shri.de/"
         self.assertTrue("Hallo foo bar!" in mailer.outbox[0].body)
         self.assertTrue(verif_link in mailer.outbox[0].body)
 
@@ -190,9 +218,10 @@ class TestViews(unittest.TestCase):
         # success for 18th birthday
         res = self.testapp.get('/', status=200)
         form = self._fill_form_valid_natural(res.form)
-        form['year'] = unicode(date.today().year-18)
-        form['month'] = unicode(date.today().month)
-        form['day'] = unicode(date.today().day)
+        afm.date = DummyDate(date(2018, 4, 29))
+        form['year'] = u'2000'
+        form['month'] = u'04'
+        form['day'] = u'29'
         res = form.submit(u'submit', status=302)
         res = res.follow()
         self.assertTrue('information below to be correct' in res.body)
@@ -200,9 +229,10 @@ class TestViews(unittest.TestCase):
         # failure on test one day before 18th birthday
         res = self.testapp.get('/', status=200)
         form = self._fill_form_valid_natural(res.form)
-        form['year'] = unicode(date.today().year-18)
-        form['month'] = unicode(date.today().month)
-        form['day'] = unicode(date.today().day+1)
+        afm.date = DummyDate(date(2018, 4, 29))
+        form['year'] = u'2000'
+        form['month'] = u'04'
+        form['day'] = u'30'
         res = form.submit(u'submit', status=200)
         self.assertTrue('underaged person is currently not' in res.body)
 

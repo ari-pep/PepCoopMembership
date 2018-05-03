@@ -7,11 +7,12 @@ from datetime import(
 )
 from decimal import Decimal as D
 from decimal import InvalidOperation
+import unittest
+
 from pyramid import testing
 from sqlalchemy import create_engine
 from sqlalchemy.exc import IntegrityError
 import transaction
-import unittest
 
 from c3smembership.data.model.base import (
     Base,
@@ -24,26 +25,27 @@ from c3smembership.models import (
     Dues16Invoice,
     Dues17Invoice,
     Group,
-    Shares,
 )
+
+# Disable Pylint error message when using DBSession methods
+# pylint: disable=no-member
 
 DEBUG = False
 
 
 class C3sMembershipModelTestBase(unittest.TestCase):
+
     def setUp(self):
         self.config = testing.setUp()
         self.config.include('pyramid_mailer.testing')
         try:
             DBSession.remove()
-            # print("removing old DBSession ==============================")
         except:
-            # print("no DBSession to remove ==============================")
             pass
         # engine = create_engine('sqlite:///test_models.db')
         engine = create_engine('sqlite:///:memory:')
         self.session = DBSession
-        DBSession.configure(bind=engine)  # XXX does influence self.session!?!
+        DBSession.configure(bind=engine)
         Base.metadata.create_all(engine)
 
     def tearDown(self):
@@ -51,31 +53,30 @@ class C3sMembershipModelTestBase(unittest.TestCase):
         self.session.remove()
         # os.remove('test_models.db')
 
-    def _getTargetClass(self):
+    @classmethod
+    def _get_target_class(cls):
         return C3sMember
 
-    def _makeOne(self,
-                 firstname=u'SomeFirstnäme',
-                 lastname=u'SomeLastnäme',
-                 email=u'some@shri.de',
-                 address1=u"addr one",
-                 address2=u"addr two",
-                 postcode=u"12345",
-                 city=u"Footown Mäh",
-                 country=u"Foocountry",
-                 locale=u"DE",
-                 date_of_birth=date.today(),
-                 email_is_confirmed=False,
-                 email_confirm_code=u'ABCDEFGHIK',
-                 password=u'arandompassword',
-                 date_of_submission=date.today(),
-                 membership_type=u'normal',
-                 member_of_colsoc=True,
-                 name_of_colsoc=u"GEMA",
-                 num_shares=u'23',
-                 ):
-        # print "type(self.session): " + str(type(self.session))
-        return self._getTargetClass()(  # order of params DOES matter
+    def _make_one(self,
+                  firstname=u'SomeFirstnäme',
+                  lastname=u'SomeLastnäme',
+                  email=u'some@shri.de',
+                  address1=u"addr one",
+                  address2=u"addr two",
+                  postcode=u"12345",
+                  city=u"Footown Mäh",
+                  country=u"Foocountry",
+                  locale=u"DE",
+                  date_of_birth=date.today(),
+                  email_is_confirmed=False,
+                  email_confirm_code=u'ABCDEFGHIK',
+                  password=u'arandompassword',
+                  date_of_submission=date.today(),
+                  membership_type=u'normal',
+                  member_of_colsoc=True,
+                  name_of_colsoc=u"GEMA",
+                  num_shares=u'23'):
+        return self._get_target_class()(  # order of params DOES matter
             firstname, lastname, email,
             password,
             address1, address2, postcode,
@@ -87,27 +88,26 @@ class C3sMembershipModelTestBase(unittest.TestCase):
             member_of_colsoc, name_of_colsoc,
         )
 
-    def _makeAnotherOne(self,
-                        firstname=u'SomeFirstname',
-                        lastname=u'SomeLastname',
-                        email=u'some@shri.de',
-                        address1=u"addr one",
-                        address2=u"addr two",
-                        postcode=u"12345",
-                        city=u"Footown Muh",
-                        country=u"Foocountry",
-                        locale=u"DE",
-                        date_of_birth=date.today(),
-                        email_is_confirmed=False,
-                        email_confirm_code=u'0987654321',
-                        password=u'arandompassword',
-                        date_of_submission=date.today(),
-                        membership_type=u'investing',
-                        member_of_colsoc=False,
-                        name_of_colsoc=u"deletethis",
-                        num_shares=u'23',
-                        ):
-        return self._getTargetClass()(  # order of params DOES matter
+    def _make_another_one(self,
+                          firstname=u'SomeFirstname',
+                          lastname=u'SomeLastname',
+                          email=u'some@shri.de',
+                          address1=u"addr one",
+                          address2=u"addr two",
+                          postcode=u"12345",
+                          city=u"Footown Muh",
+                          country=u"Foocountry",
+                          locale=u"DE",
+                          date_of_birth=date.today(),
+                          email_is_confirmed=False,
+                          email_confirm_code=u'0987654321',
+                          password=u'arandompassword',
+                          date_of_submission=date.today(),
+                          membership_type=u'investing',
+                          member_of_colsoc=False,
+                          name_of_colsoc=u"deletethis",
+                          num_shares=u'23'):
+        return self._get_target_class()(  # order of params DOES matter
             firstname, lastname, email,
             password,
             address1, address2, postcode,
@@ -151,8 +151,7 @@ class C3sMembershipModelTests(C3sMembershipModelTestBase):
             DBSession.flush()
 
     def test_constructor(self):
-        instance = self._makeOne()
-        # print(instance.address1)
+        instance = self._make_one()
         self.assertEqual(instance.firstname, u'SomeFirstnäme', "No match!")
         self.assertEqual(instance.lastname, u'SomeLastnäme', "No match!")
         self.assertEqual(instance.email, u'some@shri.de', "No match!")
@@ -168,204 +167,180 @@ class C3sMembershipModelTests(C3sMembershipModelTestBase):
         """
         Test the _get_password function.
         """
-        instance = self._makeOne()
-        res = instance._get_password()
-        self.assertEqual(res, instance._password)
+        instance = self._make_one()
+        self.assertEqual(instance.password, instance._password)
 
     def test_get_number(self):
         """
         test: get the number of entries in the database
         """
-        instance = self._makeOne()
+        instance = self._make_one()
         self.session.add(instance)
-        myMembershipSigneeClass = self._getTargetClass()
-        number_from_DB = myMembershipSigneeClass.get_number()
-        # print number_from_DB
-        self.assertEqual(number_from_DB, 2)
+        self.assertEqual(self._get_target_class().get_number(), 2)
 
     # GET BY .. tests # # # # # # # # # # # # # # # # # # # # # # # # # # #
     def test_get_by_code(self):
         """
         test: get one entry by code
         """
-        instance = self._makeOne()
+        instance = self._make_one()
         self.session.add(instance)
-        myMembershipSigneeClass = self._getTargetClass()
-        instance_from_DB = myMembershipSigneeClass.get_by_code(u'ABCDEFGHIK')
-        if DEBUG:
-            print "myMembershipSigneeClass: " + str(myMembershipSigneeClass)
-            #        print "str(myUserClass.get_by_username('SomeUsername')): "
-            # + str(myUserClass.get_by_username('SomeUsername'))
-            #        foo = myUserClass.get_by_username(instance.username)
-            #        print "test_get_by_username: type(foo): " + str(type(foo))
+        instance_from_db = self._get_target_class().get_by_code(u'ABCDEFGHIK')
         self.assertEqual(instance.firstname, u'SomeFirstnäme')
-        self.assertEqual(instance_from_DB.email, u'some@shri.de')
+        self.assertEqual(instance_from_db.email, u'some@shri.de')
 
     def test_get_by_bcgvtoken(self):
         """
-        test: get one entry by bcgv17 token
+        test: get one entry by bcgv18 token
         """
-        instance = self._makeOne()
+        instance = self._make_one()
         self.session.add(instance)
-        instance.email_invite_token_bcgv17 = u'SHINY_TOKEN'
-        myMembershipSigneeClass = self._getTargetClass()
-        instance_from_DB = myMembershipSigneeClass.get_by_bcgvtoken(
+        instance.email_invite_token_bcgv18 = u'SHINY_TOKEN'
+        instance_from_db = self._get_target_class().get_by_bcgvtoken(
             u'SHINY_TOKEN')
-        self.assertEqual(instance_from_DB.firstname, u'SomeFirstnäme')
-        self.assertEqual(instance_from_DB.email, u'some@shri.de')
+        self.assertEqual(instance_from_db.firstname, u'SomeFirstnäme')
+        self.assertEqual(instance_from_db.email, u'some@shri.de')
         self.assertEqual(
-            instance_from_DB.email_invite_token_bcgv17, u'SHINY_TOKEN')
+            instance_from_db.email_invite_token_bcgv18, u'SHINY_TOKEN')
 
     def test_get_by_dues15_token(self):
         """
         test: get one entry by token
         """
-        instance = self._makeOne()
+        instance = self._make_one()
         self.session.add(instance)
         instance.dues15_token = u'THIS_ONE'
-        myMembershipSigneeClass = self._getTargetClass()
-        instance_from_DB = myMembershipSigneeClass.get_by_dues15_token(
+        instance_from_db = self._get_target_class().get_by_dues15_token(
             u'THIS_ONE')
-        self.assertEqual(instance_from_DB.firstname, u'SomeFirstnäme')
-        self.assertEqual(instance_from_DB.email, u'some@shri.de')
+        self.assertEqual(instance_from_db.firstname, u'SomeFirstnäme')
+        self.assertEqual(instance_from_db.email, u'some@shri.de')
 
     def test_get_by_dues16_token(self):
         """
         test: get one entry by token
         """
-        instance = self._makeOne()
+        instance = self._make_one()
         self.session.add(instance)
         instance.dues16_token = u'F73sjf29g4eEf9giJ'
-        myMembershipSigneeClass = self._getTargetClass()
-        instance_from_DB = myMembershipSigneeClass.get_by_dues16_token(
+        instance_from_db = self._get_target_class().get_by_dues16_token(
             u'F73sjf29g4eEf9giJ')
-        self.assertEqual(instance_from_DB.firstname, u'SomeFirstnäme')
-        self.assertEqual(instance_from_DB.email, u'some@shri.de')
+        self.assertEqual(instance_from_db.firstname, u'SomeFirstnäme')
+        self.assertEqual(instance_from_db.email, u'some@shri.de')
 
     def test_get_by_dues17_token(self):
         """
         test: get one entry by token
         """
-        instance = self._makeOne()
+        instance = self._make_one()
         self.session.add(instance)
         instance.dues17_token = u'aa84f59a8fjf79oa83kd'
-        myMembershipSigneeClass = self._getTargetClass()
-        instance_from_DB = myMembershipSigneeClass.get_by_dues17_token(
+        instance_from_db = self._get_target_class().get_by_dues17_token(
             u'aa84f59a8fjf79oa83kd')
-        self.assertEqual(instance_from_DB.firstname, u'SomeFirstnäme')
-        self.assertEqual(instance_from_DB.email, u'some@shri.de')
+        self.assertEqual(instance_from_db.firstname, u'SomeFirstnäme')
+        self.assertEqual(instance_from_db.email, u'some@shri.de')
 
     def test_get_by_email(self):
         """
         test: get one entry by email
         """
-        instance = self._makeOne()
+        instance = self._make_one()
         self.session.add(instance)
-        myMembershipSigneeClass = self._getTargetClass()
-        list_from_DB = myMembershipSigneeClass.get_by_email(
+        list_from_db = self._get_target_class().get_by_email(
             u'some@shri.de')
-        self.assertEqual(list_from_DB[0].firstname, u'SomeFirstnäme')
-        self.assertEqual(list_from_DB[0].email, u'some@shri.de')
+        self.assertEqual(list_from_db[0].firstname, u'SomeFirstnäme')
+        self.assertEqual(list_from_db[0].email, u'some@shri.de')
 
     def test_get_by_id(self):
         """
         test: get one entry by id
         """
-        instance = self._makeOne()
+        instance = self._make_one()
         self.session.add(instance)
         self.session.flush()
         _id = instance.id
         _date_of_birth = instance.date_of_birth
         _date_of_submission = instance.date_of_submission
-        myMembershipSigneeClass = self._getTargetClass()
-        instance_from_DB = myMembershipSigneeClass.get_by_id(_id)
-        if DEBUG:
-            print "myMembershipSigneeClass: " + str(myMembershipSigneeClass)
-            #        print "str(myUserClass.get_by_username('SomeUsername')): "
-            # + str(myUserClass.get_by_username('SomeUsername'))
-            #        foo = myUserClass.get_by_username(instance.username)
-            #        print "test_get_by_username: type(foo): " + str(type(foo))
-        self.assertEqual(instance_from_DB.firstname, u'SomeFirstnäme')
-        self.assertEqual(instance_from_DB.lastname, u'SomeLastnäme')
-        self.assertEqual(instance_from_DB.email, u'some@shri.de')
-        self.assertEqual(instance_from_DB.address1, u'addr one')
-        self.assertEqual(instance_from_DB.address2, u'addr two')
-        self.assertEqual(instance_from_DB.postcode, u'12345')
-        self.assertEqual(instance_from_DB.city, u'Footown Mäh')
-        self.assertEqual(instance_from_DB.country, u'Foocountry')
-        self.assertEqual(instance_from_DB.locale, u'DE')
-        self.assertEqual(instance_from_DB.date_of_birth, _date_of_birth)
-        self.assertEqual(instance_from_DB.email_is_confirmed, False)
-        self.assertEqual(instance_from_DB.email_confirm_code, u'ABCDEFGHIK')
-        self.assertEqual(instance_from_DB.date_of_submission,
+        instance_from_db = self._get_target_class().get_by_id(_id)
+        self.assertEqual(instance_from_db.firstname, u'SomeFirstnäme')
+        self.assertEqual(instance_from_db.lastname, u'SomeLastnäme')
+        self.assertEqual(instance_from_db.email, u'some@shri.de')
+        self.assertEqual(instance_from_db.address1, u'addr one')
+        self.assertEqual(instance_from_db.address2, u'addr two')
+        self.assertEqual(instance_from_db.postcode, u'12345')
+        self.assertEqual(instance_from_db.city, u'Footown Mäh')
+        self.assertEqual(instance_from_db.country, u'Foocountry')
+        self.assertEqual(instance_from_db.locale, u'DE')
+        self.assertEqual(instance_from_db.date_of_birth, _date_of_birth)
+        self.assertEqual(instance_from_db.email_is_confirmed, False)
+        self.assertEqual(instance_from_db.email_confirm_code, u'ABCDEFGHIK')
+        self.assertEqual(instance_from_db.date_of_submission,
                          _date_of_submission)
-        self.assertEqual(instance_from_DB.membership_type, u'normal')
-        self.assertEqual(instance_from_DB.member_of_colsoc, True)
-        self.assertEqual(instance_from_DB.name_of_colsoc, u'GEMA')
-        self.assertEqual(instance_from_DB.num_shares, u'23')
+        self.assertEqual(instance_from_db.membership_type, u'normal')
+        self.assertEqual(instance_from_db.member_of_colsoc, True)
+        self.assertEqual(instance_from_db.name_of_colsoc, u'GEMA')
+        self.assertEqual(instance_from_db.num_shares, u'23')
 
     def test_get_all(self):
         """
         test: get all entries
         """
-        instance = self._makeOne()
-        instance2 = self._makeAnotherOne()
+        instance = self._make_one()
+        instance2 = self._make_another_one()
         self.session.add(instance, instance2)
         self.session.flush()
-        myMembershipSigneeClass = self._getTargetClass()
-        all = myMembershipSigneeClass.get_all()
-        self.assertEquals(len(all), 2)
+        my_membership_signee_class = self._get_target_class()
+        self.assertEquals(len(my_membership_signee_class.get_all()), 2)
 
     def test_get_dues15_invoicees(self):
         """
         test: get all members that haven't had their invoices sent
         """
-        instance = self._makeOne()
-        instance2 = self._makeAnotherOne()
+        instance = self._make_one()
+        instance2 = self._make_another_one()
         self.session.add(instance, instance2)
         self.session.flush()
-        myMembershipSigneeClass = self._getTargetClass()
-        invoicees = myMembershipSigneeClass.get_dues15_invoicees(27)
+        my_membership_signee_class = self._get_target_class()
+        invoicees = my_membership_signee_class.get_dues15_invoicees(27)
         self.assertEquals(len(invoicees), 0)
         # change details so they be found
         instance.membership_accepted = True
         instance2.membership_accepted = True
-        invoicees = myMembershipSigneeClass.get_dues15_invoicees(27)
+        invoicees = my_membership_signee_class.get_dues15_invoicees(27)
         self.assertEquals(len(invoicees), 1)
 
     def test_get_dues16_invoicees(self):
         """
         test: get all members that haven't had their invoices sent
         """
-        instance = self._makeOne()
-        instance2 = self._makeAnotherOne()
+        instance = self._make_one()
+        instance2 = self._make_another_one()
         self.session.add(instance, instance2)
         self.session.flush()
-        myMembershipSigneeClass = self._getTargetClass()
-        invoicees = myMembershipSigneeClass.get_dues16_invoicees(27)
+        my_membership_signee_class = self._get_target_class()
+        invoicees = my_membership_signee_class.get_dues16_invoicees(27)
         self.assertEquals(len(invoicees), 0)
         # change details so they be found
         instance.membership_accepted = True
         instance2.membership_accepted = True
-        invoicees = myMembershipSigneeClass.get_dues16_invoicees(27)
+        invoicees = my_membership_signee_class.get_dues16_invoicees(27)
         self.assertEquals(len(invoicees), 1)
 
     def test_get_dues17_invoicees(self):
         """
         test: get all members that haven't had their invoices sent
         """
-        instance = self._makeOne()
-        instance2 = self._makeAnotherOne()
+        instance = self._make_one()
+        instance2 = self._make_another_one()
         self.session.add(instance)
         self.session.add(instance2)
         self.session.flush()
-        myMembershipSigneeClass = self._getTargetClass()
+        my_membership_signee_class = self._get_target_class()
 
         instance.membership_accepted = False
         instance.membership_date = None
         instance2.membership_accepted = False
         instance2.membership_date = None
-        invoicees = myMembershipSigneeClass.get_dues17_invoicees(27)
+        invoicees = my_membership_signee_class.get_dues17_invoicees(27)
         self.assertEquals(len(invoicees), 0)
 
         # change details so they be found
@@ -373,97 +348,96 @@ class C3sMembershipModelTests(C3sMembershipModelTestBase):
         instance.membership_date = date(2016, 12, 1)
         instance2.membership_accepted = False
         instance2.membership_date = None
-        invoicees = myMembershipSigneeClass.get_dues17_invoicees(27)
+        invoicees = my_membership_signee_class.get_dues17_invoicees(27)
         self.assertEquals(len(invoicees), 1)
 
         instance.membership_accepted = True
         instance.membership_date = date(2016, 12, 1)
         instance2.membership_accepted = True
         instance2.membership_date = date(2016, 12, 2)
-        invoicees = myMembershipSigneeClass.get_dues17_invoicees(27)
+        invoicees = my_membership_signee_class.get_dues17_invoicees(27)
         self.assertEquals(len(invoicees), 2)
 
         # test boundary cases for membership date with one instance
         self.session.delete(instance2)
         self.session.flush()
         instance.membership_date = date(2017, 1, 1)
-        invoicees = myMembershipSigneeClass.get_dues17_invoicees(27)
+        invoicees = my_membership_signee_class.get_dues17_invoicees(27)
         self.assertEquals(len(invoicees), 1)
 
         instance.membership_date = date(2017, 12, 31)
-        invoicees = myMembershipSigneeClass.get_dues17_invoicees(27)
+        invoicees = my_membership_signee_class.get_dues17_invoicees(27)
         self.assertEquals(len(invoicees), 1)
 
         instance.membership_date = date(2016, 12, 31)
-        invoicees = myMembershipSigneeClass.get_dues17_invoicees(27)
+        invoicees = my_membership_signee_class.get_dues17_invoicees(27)
         self.assertEquals(len(invoicees), 1)
 
         instance.membership_date = date(2018, 1, 1)
-        invoicees = myMembershipSigneeClass.get_dues17_invoicees(27)
+        invoicees = my_membership_signee_class.get_dues17_invoicees(27)
         self.assertEquals(len(invoicees), 0)
 
         # test membership loss
         instance.membership_date = date(2016, 2, 3)
 
         instance.membership_loss_date = None
-        invoicees = myMembershipSigneeClass.get_dues17_invoicees(27)
+        invoicees = my_membership_signee_class.get_dues17_invoicees(27)
         self.assertEquals(len(invoicees), 1)
 
         instance.membership_loss_date = date(2018, 1, 1)
-        invoicees = myMembershipSigneeClass.get_dues17_invoicees(27)
+        invoicees = my_membership_signee_class.get_dues17_invoicees(27)
         self.assertEquals(len(invoicees), 1)
 
         instance.membership_loss_date = date(2017, 12, 31)
-        invoicees = myMembershipSigneeClass.get_dues17_invoicees(27)
+        invoicees = my_membership_signee_class.get_dues17_invoicees(27)
         self.assertEquals(len(invoicees), 1)
 
         instance.membership_loss_date = date(2017, 1, 1)
-        invoicees = myMembershipSigneeClass.get_dues17_invoicees(27)
+        invoicees = my_membership_signee_class.get_dues17_invoicees(27)
         self.assertEquals(len(invoicees), 1)
 
         instance.membership_loss_date = date(2016, 12, 31)
-        invoicees = myMembershipSigneeClass.get_dues17_invoicees(27)
+        invoicees = my_membership_signee_class.get_dues17_invoicees(27)
         self.assertEquals(len(invoicees), 0)
 
     def test_delete_by_id(self):
         """
         test: delete one entry by id
         """
-        instance = self._makeOne()
+        instance = self._make_one()
         self.session.add(instance)
-        myMembershipSigneeClass = self._getTargetClass()
-        instance_from_DB = myMembershipSigneeClass.get_by_id('1')
-        del_instance_from_DB = myMembershipSigneeClass.delete_by_id('1')
-        del_instance_from_DB
-        instance_from_DB = myMembershipSigneeClass.get_by_id('1')
-        self.assertEqual(None, instance_from_DB)
+        my_membership_signee_class = self._get_target_class()
+        instance_from_db = my_membership_signee_class.get_by_id('1')
+        my_membership_signee_class.delete_by_id('1')
+        instance_from_db = my_membership_signee_class.get_by_id('1')
+        self.assertEqual(None, instance_from_db)
 
     def test_check_user_or_none(self):
         """
         XXX TODO
         """
-        instance = self._makeOne()
+        instance = self._make_one()
         self.session.add(instance)
-        myMembershipSigneeClass = self._getTargetClass()
+        my_membership_signee_class = self._get_target_class()
         # get first dataset (id = 1)
-        result1 = myMembershipSigneeClass.check_user_or_none('1')
-        self.assertEqual(1, result1.id)
+        members = my_membership_signee_class.check_user_or_none('1')
+        self.assertEqual(1, members.id)
         # get invalid dataset
-        result2 = myMembershipSigneeClass.check_user_or_none('1234567')
+        result2 = my_membership_signee_class.check_user_or_none('1234567')
         self.assertEqual(None, result2)
 
-    def test_check_for_existing_confirm_code(self):
+    def test_existing_confirm_code(self):
         """
         XXX TODO
         """
-        instance = self._makeOne()
+        instance = self._make_one()
         self.session.add(instance)
-        myMembershipSigneeClass = self._getTargetClass()
+        my_membership_signee_class = self._get_target_class()
 
-        result1 = myMembershipSigneeClass.check_for_existing_confirm_code(
+        members = my_membership_signee_class.check_for_existing_confirm_code(
             u'ABCDEFGHIK')
-        self.assertEqual(result1, True)
-        result2 = myMembershipSigneeClass.check_for_existing_confirm_code(
+        self.assertEqual(members, True)
+        result2 = my_membership_signee_class.check_for_existing_confirm_code(
             u'ABCDEFGHIK0000000000')
         self.assertEqual(result2, False)
 
@@ -471,94 +445,86 @@ class C3sMembershipModelTests(C3sMembershipModelTestBase):
         """
         Test the member_listing classmethod in models.py
         """
-        instance = self._makeOne()
+        instance = self._make_one()
         self.session.add(instance)
-        instance2 = self._makeAnotherOne()
+        instance2 = self._make_another_one()
         self.session.add(instance2)
-        myMembershipSigneeClass = self._getTargetClass()
+        my_membership_signee_class = self._get_target_class()
 
-        result1 = myMembershipSigneeClass.member_listing("id")
-        self.failUnless(result1[0].firstname == u"SomeFirstnäme")
-        self.failUnless(result1[1].firstname == u"SomeFirstnäme")
-        self.failUnless(result1[2].firstname == u"SomeFirstname")
-        self.assertEqual(len(result1.all()), 3)
+        members = my_membership_signee_class.member_listing("id")
+        self.failUnless(members[0].firstname == u"SomeFirstnäme")
+        self.failUnless(members[1].firstname == u"SomeFirstnäme")
+        self.failUnless(members[2].firstname == u"SomeFirstname")
+        self.assertEqual(len(members.all()), 3)
 
     def test_member_listing_exception(self):
         """
         XXX TODO
         """
-        instance = self._makeOne()
+        instance = self._make_one()
         self.session.add(instance)
-        instance2 = self._makeAnotherOne()
+        instance2 = self._make_another_one()
         self.session.add(instance2)
-        myMembershipSigneeClass = self._getTargetClass()
+        my_membership_signee_class = self._get_target_class()
 
-        # self.assertRaises(myMembershipSigneeClass, member_listing, "foo")
         with self.assertRaises(Exception):
-            result1 = myMembershipSigneeClass.member_listing("foo")
+            members = my_membership_signee_class.member_listing("foo")
             if DEBUG:
-                print result1
-        # self.failUnless(result1[0].firstname == u"SomeFirstnäme")
-        # self.failUnless(result1[1].firstname == u"SomeFirstnäme")
-        # self.failUnless(result1[2].firstname == u"SomeFirstname")
+                print members
 
     def test_nonmember_listing(self):
         """
         Test the nonmember_listing classmethod in models.py
         """
-        instance = self._makeOne()
+        instance = self._make_one()
         self.session.add(instance)
-        instance2 = self._makeAnotherOne()
+        instance2 = self._make_another_one()
         self.session.add(instance2)
-        myMembershipSigneeClass = self._getTargetClass()
+        my_membership_signee_class = self._get_target_class()
 
         # try order_by with faulty expression -- must raise
         with self.assertRaises(Exception):
-            result1 = myMembershipSigneeClass.nonmember_listing(
+            members = my_membership_signee_class.nonmember_listing(
                 0, 100, 'schmoo')
         # try order with faulty expression -- must raise
         with self.assertRaises(Exception):
-            result1 = myMembershipSigneeClass.nonmember_listing(
+            members = my_membership_signee_class.nonmember_listing(
                 0, 100, 'id', 'schmoo')
-        result1 = myMembershipSigneeClass.nonmember_listing(
+        members = my_membership_signee_class.nonmember_listing(
             0, 100, 'id')
-        self.failUnless(result1[0].firstname == u'SomeFirstnäme')
-        self.failUnless(result1[1].firstname == u'SomeFirstnäme')
-        self.failUnless(result1[2].firstname == u'SomeFirstname')
-        for r in result1:
-            self.assertTrue(not r.membership_accepted)
-        result2 = myMembershipSigneeClass.nonmember_listing(
+        self.failUnless(members[0].firstname == u'SomeFirstnäme')
+        self.failUnless(members[1].firstname == u'SomeFirstnäme')
+        self.failUnless(members[2].firstname == u'SomeFirstname')
+        for member in members:
+            self.assertTrue(not member.membership_accepted)
+        members = my_membership_signee_class.nonmember_listing(
             0, 100, 'id', 'desc')
-        self.failUnless(result2[0].firstname == u'SomeFirstname')
-        self.failUnless(result2[1].firstname == u'SomeFirstnäme')
-        self.failUnless(result2[2].firstname == u'SomeFirstnäme')
-        for r in result2:
-            self.assertTrue(not r.membership_accepted)
+        self.failUnless(members[0].firstname == u'SomeFirstname')
+        self.failUnless(members[1].firstname == u'SomeFirstnäme')
+        self.failUnless(members[2].firstname == u'SomeFirstnäme')
+        for member in members:
+            self.assertTrue(not member.membership_accepted)
 
     def test_nonmember_listing_count(self):
         """
         Test the nonmember_listing_count classmethod in models.py
         """
-        instance = self._makeOne()
+        instance = self._make_one()
         self.session.add(instance)
-        instance2 = self._makeAnotherOne()
+        instance2 = self._make_another_one()
         self.session.add(instance2)
-        myMembershipSigneeClass = self._getTargetClass()
+        my_membership_signee_class = self._get_target_class()
 
-        # try order_by with faulty expression -- must raise
-        with self.assertRaises(Exception):
-            result1 = myMembershipSigneeClass.nonmember_listing(
-                "schmoo", 100)
         # try order with faulty expression -- must raise
         with self.assertRaises(Exception):
-            result1 = myMembershipSigneeClass.nonmember_listing(
+            members = my_membership_signee_class.nonmember_listing(
                 0, 100, 'id', 'schmoo')
-        result1 = myMembershipSigneeClass.nonmember_listing(
+        members = my_membership_signee_class.nonmember_listing(
             0, 100, 'id')
-        self.failUnless(result1[0].firstname == u'SomeFirstnäme')
-        self.failUnless(result1[1].firstname == u'SomeFirstnäme')
-        self.failUnless(result1[2].firstname == u'SomeFirstname')
-        result2 = myMembershipSigneeClass.nonmember_listing(
+        self.failUnless(members[0].firstname == u'SomeFirstnäme')
+        self.failUnless(members[1].firstname == u'SomeFirstnäme')
+        self.failUnless(members[2].firstname == u'SomeFirstname')
+        result2 = my_membership_signee_class.nonmember_listing(
             0, 100, 'id', 'desc')
         self.failUnless(result2[0].firstname == u'SomeFirstname')
         self.failUnless(result2[1].firstname == u'SomeFirstnäme')
@@ -568,105 +534,99 @@ class C3sMembershipModelTests(C3sMembershipModelTestBase):
         """
         test: get the number of accepted member entries in the database
         """
-        instance = self._makeOne()
+        instance = self._make_one()
         self.session.add(instance)
-        myMembershipSigneeClass = self._getTargetClass()
-        number_from_DB = myMembershipSigneeClass.get_num_members_accepted()
-        self.assertEqual(number_from_DB, 0)
+        my_membership_signee_class = self._get_target_class()
+        self.assertEqual(
+            my_membership_signee_class.get_num_members_accepted(),
+            0)
         # go again
         instance.membership_accepted = True
-        number_from_DB = myMembershipSigneeClass.get_num_members_accepted()
-        self.assertEqual(number_from_DB, 1)
+        self.assertEqual(
+            my_membership_signee_class.get_num_members_accepted(),
+            1)
 
     def test_get_num_non_accepted(self):
         """
         test: get the number of non-accepted member entries in the database
         """
-        instance = self._makeOne()
+        instance = self._make_one()
         self.session.add(instance)
-        myMembershipSigneeClass = self._getTargetClass()
-        number_from_DB = myMembershipSigneeClass.get_num_non_accepted()
-        self.assertEqual(number_from_DB, 2)
+        my_membership_signee_class = self._get_target_class()
+        self.assertEqual(my_membership_signee_class.get_num_non_accepted(), 2)
         # go again
         instance.membership_accepted = True
-        number_from_DB = myMembershipSigneeClass.get_num_non_accepted()
-        self.assertEqual(number_from_DB, 1)
+        self.assertEqual(my_membership_signee_class.get_num_non_accepted(), 1)
 
     def test_get_num_mem_nat_acc(self):
         """
         test: get the number of accepted member entries being natural persons
         """
-        instance = self._makeOne()
+        instance = self._make_one()
         self.session.add(instance)
-        myMembershipSigneeClass = self._getTargetClass()
-        number_from_DB = myMembershipSigneeClass.get_num_mem_nat_acc()
-        self.assertEqual(number_from_DB, 0)
+        my_membership_signee_class = self._get_target_class()
+        self.assertEqual(my_membership_signee_class.get_num_mem_nat_acc(), 0)
         # go again
         instance.membership_accepted = True
-        number_from_DB = myMembershipSigneeClass.get_num_mem_nat_acc()
-        self.assertEqual(number_from_DB, 1)
+        self.assertEqual(my_membership_signee_class.get_num_mem_nat_acc(), 1)
 
     def test_get_num_mem_jur_acc(self):
         """
         test: get the number of accepted member entries being legal entities
         """
-        instance = self._makeOne()
+        instance = self._make_one()
         self.session.add(instance)
-        myMembershipSigneeClass = self._getTargetClass()
-        number_from_DB = myMembershipSigneeClass.get_num_mem_jur_acc()
-        self.assertEqual(number_from_DB, 0)
+        my_membership_signee_class = self._get_target_class()
+        self.assertEqual(my_membership_signee_class.get_num_mem_jur_acc(), 0)
         # go again
         instance.membership_accepted = True
         instance.is_legalentity = True
-        number_from_DB = myMembershipSigneeClass.get_num_mem_jur_acc()
-        self.assertEqual(number_from_DB, 1)
+        self.assertEqual(my_membership_signee_class.get_num_mem_jur_acc(), 1)
 
     def test_get_num_mem_norm(self):
         """
         test: get the number of accepted member entries being normal members.
         """
-        instance = self._makeOne()
+        instance = self._make_one()
         self.session.add(instance)
-        myMembershipSigneeClass = self._getTargetClass()
-        number_from_DB = myMembershipSigneeClass.get_num_mem_norm()
-        self.assertEqual(number_from_DB, 0)
+        my_membership_signee_class = self._get_target_class()
+        self.assertEqual(my_membership_signee_class.get_num_mem_norm(), 0)
         # go again
         instance.membership_accepted = True
         self.assertEqual(instance.membership_type, u'normal')
-        number_from_DB = myMembershipSigneeClass.get_num_mem_norm()
-        self.assertEqual(number_from_DB, 1)
+        self.assertEqual(my_membership_signee_class.get_num_mem_norm(), 1)
 
     def test_get_num_mem_invest(self):
         """
         test: get the number of accepted member entries being investing members
         """
-        instance = self._makeOne()
+        instance = self._make_one()
         self.session.add(instance)
-        myMembershipSigneeClass = self._getTargetClass()
-        number_from_DB = myMembershipSigneeClass.get_num_mem_invest()
-        self.assertEqual(number_from_DB, 0)
+        my_membership_signee_class = self._get_target_class()
+        number_from_db = my_membership_signee_class.get_num_mem_invest()
+        self.assertEqual(number_from_db, 0)
         # go again
         instance.membership_accepted = True
         instance.membership_type = u'investing'
         self.assertEqual(instance.membership_type, u'investing')
-        number_from_DB = myMembershipSigneeClass.get_num_mem_invest()
-        self.assertEqual(number_from_DB, 1)
+        number_from_db = my_membership_signee_class.get_num_mem_invest()
+        self.assertEqual(number_from_db, 1)
 
     def test_get_num_mem_other_features(self):
         """
         test: get number of accepted member entries with silly membership type
         """
-        instance = self._makeOne()
+        instance = self._make_one()
         self.session.add(instance)
-        myMembershipSigneeClass = self._getTargetClass()
-        number_from_DB = myMembershipSigneeClass.get_num_mem_other_features()
-        self.assertEqual(number_from_DB, 0)
+        my_membership_signee_class = self._get_target_class()
+        number_from_db = my_membership_signee_class.get_num_mem_other_features()
+        self.assertEqual(number_from_db, 0)
         # go again
         instance.membership_accepted = True
         instance.membership_type = u'pondering'
         self.assertEqual(instance.membership_type, u'pondering')
-        number_from_DB = myMembershipSigneeClass.get_num_mem_other_features()
-        self.assertEqual(number_from_DB, 1)
+        number_from_db = my_membership_signee_class.get_num_mem_other_features()
+        self.assertEqual(number_from_db, 1)
 
     def test_is_member(self):
         member = C3sMember(  # german
@@ -734,26 +694,32 @@ class TestMemberListing(C3sMembershipModelTestBase):
     """
     def setUp(self):
         super(TestMemberListing, self).setUp()
-        instance = self._makeOne(lastname=u"ABC", firstname=u'xyz',
-                                 email_confirm_code=u'0987654321')
+        instance = self._make_one(
+            lastname=u"ABC",
+            firstname=u'xyz',
+            email_confirm_code=u'0987654321')
         self.session.add(instance)
-        instance = self._makeAnotherOne(lastname=u"DEF", firstname=u'abc',
-                                        email_confirm_code=u'19876543210')
+        instance = self._make_another_one(
+            lastname=u"DEF",
+            firstname=u'abc',
+            email_confirm_code=u'19876543210')
         self.session.add(instance)
-        instance = self._makeAnotherOne(lastname=u"GHI", firstname=u'def',
-                                        email_confirm_code=u'098765432101')
+        instance = self._make_another_one(
+            lastname=u"GHI",
+            firstname=u'def',
+            email_confirm_code=u'098765432101')
         self.session.add(instance)
         self.session.flush()
-        self.class_under_test = self._getTargetClass()
+        self.class_under_test = self._get_target_class()
 
-    def test_orderByLastname_sortedByLastname(self):
+    def test_order_last_sort_last(self):
         result = self.class_under_test.member_listing(order_by='lastname')
         self.assertIsNotNone(result)
         self.assertIsNotNone(result[0])
         self.assertEqual("ABC", result[0].lastname)
         self.assertEqual("GHI", result[-1].lastname)
 
-    def test_orderByLastnameOrderAsc_sortedByLastname(self):
+    def test_order_last_asc_sort_last(self):
         result = self.class_under_test.member_listing(
             order_by='lastname', order="asc")
         self.assertIsNotNone(result)
@@ -761,7 +727,7 @@ class TestMemberListing(C3sMembershipModelTestBase):
         self.assertEqual("ABC", result[0].lastname)
         self.assertEqual("GHI", result[-1].lastname)
 
-    def test_orderByLastnameOrderDesc_sortedByLastname(self):
+    def test_order_last_desc_sort_last(self):
         result = self.class_under_test.member_listing(
             order_by='lastname', order="desc")
         self.assertIsNotNone(result)
@@ -769,24 +735,19 @@ class TestMemberListing(C3sMembershipModelTestBase):
         self.assertEqual("GHI", result[0].lastname)
         self.assertEqual("ABC", result[-1].lastname)
 
-    def test_orderByInvalidName_raisesException(self):
+    def test_order_invalid(self):
         self.assertRaises(self.class_under_test.member_listing,
                           order_by='unknown', order="desc")
         self.assertRaises(self.class_under_test.member_listing,
                           order_by=None, order="desc")
         self.assertRaises(self.class_under_test.member_listing,
                           order_by="", order="desc")
-
-    def test_orderInvalid_raisesException(self):
         self.assertRaises(self.class_under_test.member_listing,
                           order_by='lastname', order="unknown")
         self.assertRaises(self.class_under_test.member_listing,
                           order_by='lastname', order="")
         self.assertRaises(self.class_under_test.member_listing,
                           order_by='lastname', order=None)
-
-# class MembershipNumberModelTestBase(C3sMembershipModelTestBase):
-# XXX TODO
 
 
 class GroupTests(unittest.TestCase):
@@ -822,8 +783,8 @@ class GroupTests(unittest.TestCase):
         self.assertEquals(result.__str__(), 'group:staff')
 
     def test__str__(self):
-        g1 = Group.get_staffers_group()
-        res = g1.__str__()
+        staffers_group = Group.get_staffers_group()
+        res = staffers_group.__str__()
         self.assertEquals(res, 'group:staff')
 
 
@@ -876,10 +837,6 @@ class C3sStaffTests(unittest.TestCase):
 
         self.assertTrue(staffer2.password is not '')
 
-        # print('by id: %s' % C3sStaff.get_by_id(_staffer1_id))
-        # print('by id: %s' % C3sStaff.get_by_id(_cashier1_id))
-        # print('by login: %s' % C3sStaff.get_by_login(u'staffer1'))
-        # print('by login: %s' % C3sStaff.get_by_login(u'cashier1'))
         self.assertEqual(
             C3sStaff.get_by_id(_staffer1_id),
             C3sStaff.get_by_login(u'staffer1')
@@ -889,27 +846,23 @@ class C3sStaffTests(unittest.TestCase):
             C3sStaff.get_by_login(u'staffer2')
         )
 
-        '''test get_all'''
+        # test get_all
         res = C3sStaff.get_all()
         self.assertEqual(len(res), 2)
 
-        '''test delete_by_id'''
+        # test delete_by_id
         C3sStaff.delete_by_id(1)
         res = C3sStaff.get_all()
         self.assertEqual(len(res), 1)
 
-        '''test check_user_or_none'''
+        # test check_user_or_none
         res1 = C3sStaff.check_user_or_none(u'staffer2')
         res2 = C3sStaff.check_user_or_none(u'staffer1')
-        # print res1
-        # print res2
         self.assertTrue(res1 is not None)
         self.assertTrue(res2 is None)
 
-        '''test check_password'''
-        # print(C3sStaff.check_password(cashier1, 'cashierspassword'))
+        # test check_password
         C3sStaff.check_password(u'staffer2', u'staffer2spassword')
-        # self.assert
 
 
 class Dues15InvoiceModelTests(unittest.TestCase):
@@ -1109,7 +1062,7 @@ class Dues15InvoiceModelTests(unittest.TestCase):
         res = Dues15Invoice.get_max_invoice_no()
         self.assertEqual(res, 6)
 
-    def test_check_for_existing_dues15_token(self):
+    def test_existing_dues15_token(self):
         """
         test check_for_existing_dues15_token
         """
@@ -1143,7 +1096,7 @@ class Dues15InvoiceModelTests(unittest.TestCase):
         """
 
         # try to make another invoice with the same number
-        def trigger_IntegrityError1():
+        def trigger_integrity_error_1():
             dues2 = Dues15Invoice(
                 invoice_no=1,
                 invoice_no_string=u'C3S-dues15-0001',
@@ -1157,15 +1110,14 @@ class Dues15InvoiceModelTests(unittest.TestCase):
             DBSession.add(dues2)
             DBSession.flush()
 
-        self.assertTrue(True)
-        self.assertRaises(IntegrityError, trigger_IntegrityError1)
+        self.assertRaises(IntegrityError, trigger_integrity_error_1)
         self.session.rollback()
 
         res = Dues15Invoice.get_all()
         self.assertEqual(len(res), 6)
 
         # try to make another invoice with the same string
-        def trigger_IntegrityError2():
+        def trigger_integrity_error_2():
             dues2 = Dues15Invoice(
                 invoice_no=2,
                 invoice_no_string=u'C3S-dues15-0001',
@@ -1179,8 +1131,7 @@ class Dues15InvoiceModelTests(unittest.TestCase):
             DBSession.add(dues2)
             DBSession.flush()
 
-        self.assertTrue(True)
-        self.assertRaises(IntegrityError, trigger_IntegrityError2)
+        self.assertRaises(IntegrityError, trigger_integrity_error_2)
         self.session.rollback()
 
         res = Dues15Invoice.get_all()
@@ -1188,7 +1139,7 @@ class Dues15InvoiceModelTests(unittest.TestCase):
 
         # try to make another invoice with a non-decimal amount
         # InvalidOperation: Invalid literal for Decimal: '-37.50.20'
-        def trigger_InvalidOperation():
+        def trigger_invalid_operation():
             dues2 = Dues15Invoice(
                 invoice_no=5,
                 invoice_no_string=u'C3S-dues15-0002',
@@ -1202,9 +1153,8 @@ class Dues15InvoiceModelTests(unittest.TestCase):
             DBSession.add(dues2)
             DBSession.flush()
 
-        self.assertTrue(True)
-        self.assertRaises(InvalidOperation, trigger_InvalidOperation)
-        # trigger_InvalidOperation()
+        self.assertRaises(InvalidOperation, trigger_invalid_operation)
+        # trigger_invalid_operation()
         self.session.rollback()
 
         res = Dues15Invoice.get_all()
@@ -1228,7 +1178,6 @@ class Dues15InvoiceModelTests(unittest.TestCase):
         res = Dues15Invoice.get_all()
         self.assertEqual(len(res), 7)
         self.assertEqual(dues3.id, 7)
-        # print(type(dues3.invoice_amount))
 
 class Dues16InvoiceModelTests(unittest.TestCase):
     """
@@ -1427,7 +1376,7 @@ class Dues16InvoiceModelTests(unittest.TestCase):
         res = Dues16Invoice.get_max_invoice_no()
         self.assertEqual(res, 6)
 
-    def test_check_for_existing_dues16_token(self):
+    def test_existing_dues16_token(self):
         """
         test check_for_existing_dues16_token
         """
@@ -1461,7 +1410,7 @@ class Dues16InvoiceModelTests(unittest.TestCase):
         """
 
         # try to make another invoice with the same number
-        def trigger_IntegrityError1():
+        def trigger_integrity_error_1():
             dues2 = Dues16Invoice(
                 invoice_no=1,
                 invoice_no_string=u'C3S-dues16-0001',
@@ -1475,15 +1424,14 @@ class Dues16InvoiceModelTests(unittest.TestCase):
             DBSession.add(dues2)
             DBSession.flush()
 
-        self.assertTrue(True)
-        self.assertRaises(IntegrityError, trigger_IntegrityError1)
+        self.assertRaises(IntegrityError, trigger_integrity_error_1)
         self.session.rollback()
 
         res = Dues16Invoice.get_all()
         self.assertEqual(len(res), 6)
 
         # try to make another invoice with the same string
-        def trigger_IntegrityError2():
+        def trigger_integrity_error_2():
             dues2 = Dues16Invoice(
                 invoice_no=2,
                 invoice_no_string=u'C3S-dues16-0001',
@@ -1497,8 +1445,7 @@ class Dues16InvoiceModelTests(unittest.TestCase):
             DBSession.add(dues2)
             DBSession.flush()
 
-        self.assertTrue(True)
-        self.assertRaises(IntegrityError, trigger_IntegrityError2)
+        self.assertRaises(IntegrityError, trigger_integrity_error_2)
         self.session.rollback()
 
         res = Dues16Invoice.get_all()
@@ -1506,7 +1453,7 @@ class Dues16InvoiceModelTests(unittest.TestCase):
 
         # try to make another invoice with a non-decimal amount
         # InvalidOperation: Invalid literal for Decimal: '-37.50.20'
-        def trigger_InvalidOperation():
+        def trigger_invalid_operation():
             dues2 = Dues16Invoice(
                 invoice_no=5,
                 invoice_no_string=u'C3S-dues16-0002',
@@ -1520,9 +1467,8 @@ class Dues16InvoiceModelTests(unittest.TestCase):
             DBSession.add(dues2)
             DBSession.flush()
 
-        self.assertTrue(True)
-        self.assertRaises(InvalidOperation, trigger_InvalidOperation)
-        # trigger_InvalidOperation()
+        self.assertRaises(InvalidOperation, trigger_invalid_operation)
+        # trigger_invalid_operation()
         self.session.rollback()
 
         res = Dues16Invoice.get_all()
@@ -1546,7 +1492,6 @@ class Dues16InvoiceModelTests(unittest.TestCase):
         res = Dues16Invoice.get_all()
         self.assertEqual(len(res), 7)
         self.assertEqual(dues3.id, 7)
-        # print(type(dues3.invoice_amount))
 
 
 class Dues17InvoiceModelTests(unittest.TestCase):
@@ -1746,7 +1691,7 @@ class Dues17InvoiceModelTests(unittest.TestCase):
         res = Dues17Invoice.get_max_invoice_no()
         self.assertEqual(res, 6)
 
-    def test_check_for_existing_dues17_token(self):
+    def test_existing_dues17_token(self):
         """
         test check_for_existing_dues17_token
         """
@@ -1780,7 +1725,7 @@ class Dues17InvoiceModelTests(unittest.TestCase):
         """
 
         # try to make another invoice with the same number
-        def trigger_IntegrityError1():
+        def trigger_integrity_error_1():
             dues2 = Dues17Invoice(
                 invoice_no=1,
                 invoice_no_string=u'C3S-dues17-0001',
@@ -1794,15 +1739,14 @@ class Dues17InvoiceModelTests(unittest.TestCase):
             DBSession.add(dues2)
             DBSession.flush()
 
-        self.assertTrue(True)
-        self.assertRaises(IntegrityError, trigger_IntegrityError1)
+        self.assertRaises(IntegrityError, trigger_integrity_error_1)
         self.session.rollback()
 
         res = Dues17Invoice.get_all()
         self.assertEqual(len(res), 6)
 
         # try to make another invoice with the same string
-        def trigger_IntegrityError2():
+        def trigger_integrity_error_2():
             dues2 = Dues17Invoice(
                 invoice_no=2,
                 invoice_no_string=u'C3S-dues17-0001',
@@ -1816,8 +1760,7 @@ class Dues17InvoiceModelTests(unittest.TestCase):
             DBSession.add(dues2)
             DBSession.flush()
 
-        self.assertTrue(True)
-        self.assertRaises(IntegrityError, trigger_IntegrityError2)
+        self.assertRaises(IntegrityError, trigger_integrity_error_2)
         self.session.rollback()
 
         res = Dues17Invoice.get_all()
@@ -1825,7 +1768,7 @@ class Dues17InvoiceModelTests(unittest.TestCase):
 
         # try to make another invoice with a non-decimal amount
         # InvalidOperation: Invalid literal for Decimal: '-37.50.20'
-        def trigger_InvalidOperation():
+        def trigger_invalid_operation():
             dues2 = Dues17Invoice(
                 invoice_no=5,
                 invoice_no_string=u'C3S-dues17-0002',
@@ -1839,9 +1782,8 @@ class Dues17InvoiceModelTests(unittest.TestCase):
             DBSession.add(dues2)
             DBSession.flush()
 
-        self.assertTrue(True)
-        self.assertRaises(InvalidOperation, trigger_InvalidOperation)
-        # trigger_InvalidOperation()
+        self.assertRaises(InvalidOperation, trigger_invalid_operation)
+        # trigger_invalid_operation()
         self.session.rollback()
 
         res = Dues17Invoice.get_all()
@@ -1865,4 +1807,3 @@ class Dues17InvoiceModelTests(unittest.TestCase):
         res = Dues17Invoice.get_all()
         self.assertEqual(len(res), 7)
         self.assertEqual(dues3.id, 7)
-        # print(type(dues3.invoice_amount))
