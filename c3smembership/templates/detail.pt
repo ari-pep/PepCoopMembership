@@ -1873,7 +1873,7 @@
         </table>
         </div>
 
-        <div tal:omit-tag="" tal:condition="not member.membership_date > date(2018,11,31) and (member.membership_loss_date is None or member.membership_loss_date >= date(2018,11,1))">
+        <div tal:omit-tag="" tal:condition="not member.membership_date > date(2018,11,30) and (member.membership_loss_date is None or member.membership_loss_date >= date(2018,11,1))">
         <a name="dues18_11"></a>
         <h3 id="certificate">Membership Dues 2018_11</h3>
         <table class="table table-striped">
