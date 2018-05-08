@@ -88,3 +88,7 @@ div.deformReplaces {
 .deform p.error{
     font-size: 70%;
 }
+
+#item-membership_custom_fee{
+    display: none;
+}

@@ -224,13 +224,19 @@ def join_c3s(request):
         )
 
 
+    class toggleableMoneyInputWidget(deform.widget.MoneyInputWidget):
+        template='toggleable_moneyinput'
+
+    class togglingRadioChoiceWidget(deform.widget.RadioChoiceWidget):
+        template='toggling_radio_choice'
+
     class Fees(colander.Schema):
         member_type = colander.SchemaNode( colander.String(),
             title=_(u'Please tell us wether you\'re an individual, freelancer or company, '
             u'or want to support us generously as a supporting member.\n'
             u'Please be advised that freelancers/companies are suspect to an entry fee '
             u'of 90 €.' ),
-            widget=deform.widget.RadioChoiceWidget(values=[ (member_type, t_description) for fee, member_type, t_description,entry_fee in c.membership_fees]),
+            widget=togglingRadioChoiceWidget(values=[ (member_type, t_description) for fee, member_type, t_description,entry_fee in c.membership_fees]),
             oid='member_type',
             description=_(u'For corporations, tradespersons, freelancers, corporate'
                 u'bodies and companies with or without an own legal entity an entry fee'
@@ -241,7 +247,7 @@ def join_c3s(request):
         # http://deformdemo.repoze.org/require_one_or_another/
         member_custom_fee = colander.SchemaNode(colander.Decimal('1.00'),
             title=_(u'custom membership fee'),
-            widget=deform.widget.MoneyInputWidget(symbol=c.currency,showSymbol=True, defaultZero=True),
+            widget=toggleableMoneyInputWidget(symbol=c.currency,showSymbol=True, defaultZero=True),
             description=_(u'Sustaining members: You can set your fees (minimum 100 €)'),
             oid='membership_custom_fee',
             default=c.membership_fee_custom_min,
