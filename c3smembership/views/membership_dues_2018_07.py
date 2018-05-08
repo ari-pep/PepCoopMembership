@@ -118,8 +118,8 @@ def send_dues18_07_invoice_email(request, m_id=None):
             'message_to_staff')
         return HTTPFound(request.route_url('toolbox'))
 
-    if 'normal' not in member.membership_type and \
-            'investing' not in member.membership_type:
+    if 'normal' != member.membership_type and \
+            'investing' != member.membership_type:
         request.session.flash(
             'The membership type of member {0} is not specified! The '
             'membership type must either be "normal" or "investing" in order '
@@ -195,7 +195,7 @@ def send_dues18_07_invoice_email(request, m_id=None):
     # only normal (not investing) members *have to* pay the dues.
     # only the normal members get an invoice link and PDF produced for them.
     # only investing legalentities are asked for more support.
-    if 'investing' not in member.membership_type:
+    if 'investing' != member.membership_type:
         start_quarter = string_start_quarter_dues18_07(member)
         invoice_url = (
             request.route_url(
@@ -558,7 +558,7 @@ def dues18_07_reduction(request):
         member_id = request.matchdict['member_id']
         member = C3sMember.get_by_id(member_id)  # is in database
         assert member.membership_accepted  # is a member
-        assert 'investing' not in member.membership_type  # is normal member
+        assert 'investing' != member.membership_type  # is normal member
     except (KeyError, AssertionError):  # pragma: no cover
         request.session.flash(
             u"No member OR not accepted OR not normal member",
@@ -924,7 +924,7 @@ def dues18_07_notice(request):
         member_id = request.matchdict['member_id']
         member = C3sMember.get_by_id(member_id)  # is in database
         assert member.membership_accepted  # is a member
-        assert 'investing' not in member.membership_type  # is normal member
+        assert 'investing' != member.membership_type  # is normal member
     except (KeyError, AssertionError):  # pragma: no cover
         request.session.flash(
             u"No member OR not accepted OR not normal member",
