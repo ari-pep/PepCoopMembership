@@ -162,24 +162,13 @@
         <td>${member.firstname}</td>
         <td>${member.lastname}</td>
         <td><a href="mailto:${member.email}" title="${member.email}">mailto</a></td>
-        <td>
-          <div>
-            <a tal:condition="not member.email_is_confirmed and (isinstance(member.email_confirm_token, type(None)))"
-               href="${request.route_url('mail_mail_confirmation',
-                     memberid=member.id)}"
-               title="(click to send email confirmation email)"
-               class="btn btn-danger">No...</a>
-            <a tal:condition="(not member.email_is_confirmed) and (not isinstance(member.email_confirm_token, type(None)))"
-               href="${request.route_url('mail_mail_confirmation',
-                     memberid=member.id)}"
-               title="sent ${member.email_confirm_mail_date.strftime('%d.%m.%Y %H:%M')} (click to send email confirmation email again)"
-               class="btn btn-warning">Waiting...</a>
-            <a tal:condition="member.email_is_confirmed"
-               href="${request.route_url('mail_mail_confirmation',
-                     memberid=member.id)}"
-               title="${member.email_confirm_mail_date}"
-               class="btn btn-default">Yes.</a>
-          </div>
+        <td tal:condition="not member.email_is_confirmed">
+          <img src="${request.static_url('c3smembership:static/flash_red.gif')}"
+                   width="20px" height="20px" alt="No" />
+        </td>
+        <td tal:condition="member.email_is_confirmed">
+          <img src="${request.static_url('c3smembership:static/green.png')}"
+                   width="20px" height="20px" alt="green" />
         </td>
         <td>
           <div tal:condition="not member.signature_received"><!--! signature not yet received-->
@@ -282,7 +271,7 @@
         <td>
           <div tal:condition="not member.membership_accepted">
             ${member.num_shares}
-          </div>          
+          </div>
           <div tal:condition="member.membership_accepted">
             <table>
               <tr tal:repeat="s member.shares">
@@ -292,7 +281,7 @@
                 </td>
               </tr>
             </table>
-          </div>          
+          </div>
         </td><!--! how many shares? -->
         <td><!--! edit application -->
           <a href="${request.route_url('edit', _id=member.id)}"
