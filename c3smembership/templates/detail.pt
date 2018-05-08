@@ -108,7 +108,7 @@
       <a href="${request.route_url('delete_entry', memberid=member.id)}" class="btn btn-danger">delete</a>
       <table class="table table-striped">
         <tr>
-          <td>code</td>
+          <td>email_confirm_code</td>
           <td>${member.email_confirm_code}</td>
         </tr>
         <tr>
@@ -417,7 +417,7 @@
                  class="btn btn-success">gesendet ${member.dues18_05_invoice_date.strftime('am %d.%m.%Y um %H:%M')}. Klicken zum wiederholten versenden.</a>
             </td>
           </tr>
-          <tr tal:condition="'investing' not in member.membership_type and member.dues18_05_invoice">
+          <tr tal:condition="'investing' != member.membership_type and member.dues18_05_invoice">
             <td>PDF generieren (download)</td>
             <td>
               <a href="${request.route_url('make_dues18_05_invoice_no_pdf',
@@ -429,7 +429,7 @@
             </td>
           </tr>
           <!--! reduction / exemption -->
-          <tr tal:condition="'investing' not in member.membership_type and member.dues18_05_invoice">
+          <tr tal:condition="'investing' != member.membership_type and member.dues18_05_invoice">
             <td>Ermäßigung/Erlass<br/>
               <small>
                 Hier siehst Du den errechneten Mitgliedsbeitrag.<br/>
@@ -497,7 +497,7 @@
           </tr>
           <!--! payments for dues -->
           <!--! case one: not paid yet -->
-          <tr tal:condition="'investing' not in member.membership_type
+          <tr tal:condition="'investing' !=  member.membership_type
                              and member.dues18_05_invoice
                              and not member.dues18_05_paid
                              and not member.dues18_05_balanced">
@@ -540,7 +540,7 @@
             </td>
           </tr>
           <!-- case two: already paid OR dues exempted-->
-          <tr tal:condition="'investing' not in member.membership_type
+          <tr tal:condition="'investing' !=  member.membership_type
                              and member.dues18_05_invoice
                              and member.dues18_05_paid
                              or member.dues18_05_balanced">
@@ -559,7 +559,7 @@
               </table>
             </td>
           </tr>
-          <tr tal:condition="'investing' not in member.membership_type and member.dues18_05_invoice">
+          <tr tal:condition="'investing' != member.membership_type and member.dues18_05_invoice">
             <td>Rechnungen<br/>
               <small>
                 Hier siehst Du die erstellten Rechnungen für dieses Mitglied.<br/>
@@ -665,7 +665,7 @@
                  class="btn btn-success">gesendet ${member.dues18_06_invoice_date.strftime('am %d.%m.%Y um %H:%M')}. Klicken zum wiederholten versenden.</a>
             </td>
           </tr>
-          <tr tal:condition="'investing' not in member.membership_type and member.dues18_06_invoice">
+          <tr tal:condition="'investing' != member.membership_type and member.dues18_06_invoice">
             <td>PDF generieren (download)</td>
             <td>
               <a href="${request.route_url('make_dues18_06_invoice_no_pdf',
@@ -677,7 +677,7 @@
             </td>
           </tr>
           <!--! reduction / exemption -->
-          <tr tal:condition="'investing' not in member.membership_type and member.dues18_06_invoice">
+          <tr tal:condition="'investing' != member.membership_type and member.dues18_06_invoice">
             <td>Ermäßigung/Erlass<br/>
               <small>
                 Hier siehst Du den errechneten Mitgliedsbeitrag.<br/>
@@ -745,7 +745,7 @@
           </tr>
           <!--! payments for dues -->
           <!--! case one: not paid yet -->
-          <tr tal:condition="'investing' not in member.membership_type
+          <tr tal:condition="'investing' !=  member.membership_type
                              and member.dues18_06_invoice
                              and not member.dues18_06_paid
                              and not member.dues18_06_balanced">
@@ -788,7 +788,7 @@
             </td>
           </tr>
           <!-- case two: already paid OR dues exempted-->
-          <tr tal:condition="'investing' not in member.membership_type
+          <tr tal:condition="'investing' !=  member.membership_type
                              and member.dues18_06_invoice
                              and member.dues18_06_paid
                              or member.dues18_06_balanced">
@@ -807,7 +807,7 @@
               </table>
             </td>
           </tr>
-          <tr tal:condition="'investing' not in member.membership_type and member.dues18_06_invoice">
+          <tr tal:condition="'investing' != member.membership_type and member.dues18_06_invoice">
             <td>Rechnungen<br/>
               <small>
                 Hier siehst Du die erstellten Rechnungen für dieses Mitglied.<br/>
@@ -913,7 +913,7 @@
                  class="btn btn-success">gesendet ${member.dues18_07_invoice_date.strftime('am %d.%m.%Y um %H:%M')}. Klicken zum wiederholten versenden.</a>
             </td>
           </tr>
-          <tr tal:condition="'investing' not in member.membership_type and member.dues18_07_invoice">
+          <tr tal:condition="'investing' != member.membership_type and member.dues18_07_invoice">
             <td>PDF generieren (download)</td>
             <td>
               <a href="${request.route_url('make_dues18_07_invoice_no_pdf',
@@ -925,7 +925,7 @@
             </td>
           </tr>
           <!--! reduction / exemption -->
-          <tr tal:condition="'investing' not in member.membership_type and member.dues18_07_invoice">
+          <tr tal:condition="'investing' != member.membership_type and member.dues18_07_invoice">
             <td>Ermäßigung/Erlass<br/>
               <small>
                 Hier siehst Du den errechneten Mitgliedsbeitrag.<br/>
@@ -993,7 +993,7 @@
           </tr>
           <!--! payments for dues -->
           <!--! case one: not paid yet -->
-          <tr tal:condition="'investing' not in member.membership_type
+          <tr tal:condition="'investing' !=  member.membership_type
                              and member.dues18_07_invoice
                              and not member.dues18_07_paid
                              and not member.dues18_07_balanced">
@@ -1036,7 +1036,7 @@
             </td>
           </tr>
           <!-- case two: already paid OR dues exempted-->
-          <tr tal:condition="'investing' not in member.membership_type
+          <tr tal:condition="'investing' !=  member.membership_type
                              and member.dues18_07_invoice
                              and member.dues18_07_paid
                              or member.dues18_07_balanced">
@@ -1055,7 +1055,7 @@
               </table>
             </td>
           </tr>
-          <tr tal:condition="'investing' not in member.membership_type and member.dues18_07_invoice">
+          <tr tal:condition="'investing' != member.membership_type and member.dues18_07_invoice">
             <td>Rechnungen<br/>
               <small>
                 Hier siehst Du die erstellten Rechnungen für dieses Mitglied.<br/>
@@ -1160,7 +1160,7 @@
                  class="btn btn-success">gesendet ${member.dues18_09_invoice_date.strftime('am %d.%m.%Y um %H:%M')}. Klicken zum wiederholten versenden.</a>
             </td>
           </tr>
-          <tr tal:condition="'investing' not in member.membership_type and member.dues18_09_invoice">
+          <tr tal:condition="'investing' != member.membership_type and member.dues18_09_invoice">
             <td>PDF generieren (download)</td>
             <td>
               <a href="${request.route_url('make_dues18_09_invoice_no_pdf',
@@ -1172,7 +1172,7 @@
             </td>
           </tr>
           <!--! reduction / exemption -->
-          <tr tal:condition="'investing' not in member.membership_type and member.dues18_09_invoice">
+          <tr tal:condition="'investing' != member.membership_type and member.dues18_09_invoice">
             <td>Ermäßigung/Erlass<br/>
               <small>
                 Hier siehst Du den errechneten Mitgliedsbeitrag.<br/>
@@ -1240,7 +1240,7 @@
           </tr>
           <!--! payments for dues -->
           <!--! case one: not paid yet -->
-          <tr tal:condition="'investing' not in member.membership_type
+          <tr tal:condition="'investing' !=  member.membership_type
                              and member.dues18_09_invoice
                              and not member.dues18_09_paid
                              and not member.dues18_09_balanced">
@@ -1283,7 +1283,7 @@
             </td>
           </tr>
           <!-- case two: already paid OR dues exempted-->
-          <tr tal:condition="'investing' not in member.membership_type
+          <tr tal:condition="'investing' !=  member.membership_type
                              and member.dues18_09_invoice
                              and member.dues18_09_paid
                              or member.dues18_09_balanced">
@@ -1302,7 +1302,7 @@
               </table>
             </td>
           </tr>
-          <tr tal:condition="'investing' not in member.membership_type and member.dues18_09_invoice">
+          <tr tal:condition="'investing' != member.membership_type and member.dues18_09_invoice">
             <td>Rechnungen<br/>
               <small>
                 Hier siehst Du die erstellten Rechnungen für dieses Mitglied.<br/>
@@ -1407,7 +1407,7 @@
                  class="btn btn-success">gesendet ${member.dues18_09_invoice_date.strftime('am %d.%m.%Y um %H:%M')}. Klicken zum wiederholten versenden.</a>
             </td>
           </tr>
-          <tr tal:condition="'investing' not in member.membership_type and member.dues18_09_invoice">
+          <tr tal:condition="'investing' != member.membership_type and member.dues18_09_invoice">
             <td>PDF generieren (download)</td>
             <td>
               <a href="${request.route_url('make_dues18_09_invoice_no_pdf',
@@ -1419,7 +1419,7 @@
             </td>
           </tr>
           <!--! reduction / exemption -->
-          <tr tal:condition="'investing' not in member.membership_type and member.dues18_09_invoice">
+          <tr tal:condition="'investing' != member.membership_type and member.dues18_09_invoice">
             <td>Ermäßigung/Erlass<br/>
               <small>
                 Hier siehst Du den errechneten Mitgliedsbeitrag.<br/>
@@ -1487,7 +1487,7 @@
           </tr>
           <!--! payments for dues -->
           <!--! case one: not paid yet -->
-          <tr tal:condition="'investing' not in member.membership_type
+          <tr tal:condition="'investing' !=  member.membership_type
                              and member.dues18_09_invoice
                              and not member.dues18_09_paid
                              and not member.dues18_09_balanced">
@@ -1530,7 +1530,7 @@
             </td>
           </tr>
           <!-- case two: already paid OR dues exempted-->
-          <tr tal:condition="'investing' not in member.membership_type
+          <tr tal:condition="'investing' !=  member.membership_type
                              and member.dues18_09_invoice
                              and member.dues18_09_paid
                              or member.dues18_09_balanced">
@@ -1549,7 +1549,7 @@
               </table>
             </td>
           </tr>
-          <tr tal:condition="'investing' not in member.membership_type and member.dues18_09_invoice">
+          <tr tal:condition="'investing' != member.membership_type and member.dues18_09_invoice">
             <td>Rechnungen<br/>
               <small>
                 Hier siehst Du die erstellten Rechnungen für dieses Mitglied.<br/>
@@ -1654,7 +1654,7 @@
                  class="btn btn-success">gesendet ${member.dues18_10_invoice_date.strftime('am %d.%m.%Y um %H:%M')}. Klicken zum wiederholten versenden.</a>
             </td>
           </tr>
-          <tr tal:condition="'investing' not in member.membership_type and member.dues18_10_invoice">
+          <tr tal:condition="'investing' != member.membership_type and member.dues18_10_invoice">
             <td>PDF generieren (download)</td>
             <td>
               <a href="${request.route_url('make_dues18_10_invoice_no_pdf',
@@ -1666,7 +1666,7 @@
             </td>
           </tr>
           <!--! reduction / exemption -->
-          <tr tal:condition="'investing' not in member.membership_type and member.dues18_10_invoice">
+          <tr tal:condition="'investing' != member.membership_type and member.dues18_10_invoice">
             <td>Ermäßigung/Erlass<br/>
               <small>
                 Hier siehst Du den errechneten Mitgliedsbeitrag.<br/>
@@ -1734,7 +1734,7 @@
           </tr>
           <!--! payments for dues -->
           <!--! case one: not paid yet -->
-          <tr tal:condition="'investing' not in member.membership_type
+          <tr tal:condition="'investing' !=  member.membership_type
                              and member.dues18_10_invoice
                              and not member.dues18_10_paid
                              and not member.dues18_10_balanced">
@@ -1777,7 +1777,7 @@
             </td>
           </tr>
           <!-- case two: already paid OR dues exempted-->
-          <tr tal:condition="'investing' not in member.membership_type
+          <tr tal:condition="'investing' !=  member.membership_type
                              and member.dues18_10_invoice
                              and member.dues18_10_paid
                              or member.dues18_10_balanced">
@@ -1796,7 +1796,7 @@
               </table>
             </td>
           </tr>
-          <tr tal:condition="'investing' not in member.membership_type and member.dues18_10_invoice">
+          <tr tal:condition="'investing' != member.membership_type and member.dues18_10_invoice">
             <td>Rechnungen<br/>
               <small>
                 Hier siehst Du die erstellten Rechnungen für dieses Mitglied.<br/>
@@ -1901,7 +1901,7 @@
                  class="btn btn-success">gesendet ${member.dues18_11_invoice_date.strftime('am %d.%m.%Y um %H:%M')}. Klicken zum wiederholten versenden.</a>
             </td>
           </tr>
-          <tr tal:condition="'investing' not in member.membership_type and member.dues18_11_invoice">
+          <tr tal:condition="'investing' != member.membership_type and member.dues18_11_invoice">
             <td>PDF generieren (download)</td>
             <td>
               <a href="${request.route_url('make_dues18_11_invoice_no_pdf',
@@ -1913,7 +1913,7 @@
             </td>
           </tr>
           <!--! reduction / exemption -->
-          <tr tal:condition="'investing' not in member.membership_type and member.dues18_11_invoice">
+          <tr tal:condition="'investing' != member.membership_type and member.dues18_11_invoice">
             <td>Ermäßigung/Erlass<br/>
               <small>
                 Hier siehst Du den errechneten Mitgliedsbeitrag.<br/>
@@ -1981,7 +1981,7 @@
           </tr>
           <!--! payments for dues -->
           <!--! case one: not paid yet -->
-          <tr tal:condition="'investing' not in member.membership_type
+          <tr tal:condition="'investing' !=  member.membership_type
                              and member.dues18_11_invoice
                              and not member.dues18_11_paid
                              and not member.dues18_11_balanced">
@@ -2024,7 +2024,7 @@
             </td>
           </tr>
           <!-- case two: already paid OR dues exempted-->
-          <tr tal:condition="'investing' not in member.membership_type
+          <tr tal:condition="'investing' !=  member.membership_type
                              and member.dues18_11_invoice
                              and member.dues18_11_paid
                              or member.dues18_11_balanced">
@@ -2043,7 +2043,7 @@
               </table>
             </td>
           </tr>
-          <tr tal:condition="'investing' not in member.membership_type and member.dues18_11_invoice">
+          <tr tal:condition="'investing' != member.membership_type and member.dues18_11_invoice">
             <td>Rechnungen<br/>
               <small>
                 Hier siehst Du die erstellten Rechnungen für dieses Mitglied.<br/>
@@ -2148,7 +2148,7 @@
                  class="btn btn-success">gesendet ${member.dues18_12_invoice_date.strftime('am %d.%m.%Y um %H:%M')}. Klicken zum wiederholten versenden.</a>
             </td>
           </tr>
-          <tr tal:condition="'investing' not in member.membership_type and member.dues18_12_invoice">
+          <tr tal:condition="'investing' != member.membership_type and member.dues18_12_invoice">
             <td>PDF generieren (download)</td>
             <td>
               <a href="${request.route_url('make_dues18_12_invoice_no_pdf',
@@ -2160,7 +2160,7 @@
             </td>
           </tr>
           <!--! reduction / exemption -->
-          <tr tal:condition="'investing' not in member.membership_type and member.dues18_12_invoice">
+          <tr tal:condition="'investing' != member.membership_type and member.dues18_12_invoice">
             <td>Ermäßigung/Erlass<br/>
               <small>
                 Hier siehst Du den errechneten Mitgliedsbeitrag.<br/>
@@ -2228,7 +2228,7 @@
           </tr>
           <!--! payments for dues -->
           <!--! case one: not paid yet -->
-          <tr tal:condition="'investing' not in member.membership_type
+          <tr tal:condition="'investing' !=  member.membership_type
                              and member.dues18_12_invoice
                              and not member.dues18_12_paid
                              and not member.dues18_12_balanced">
@@ -2271,7 +2271,7 @@
             </td>
           </tr>
           <!-- case two: already paid OR dues exempted-->
-          <tr tal:condition="'investing' not in member.membership_type
+          <tr tal:condition="'investing' !=  member.membership_type
                              and member.dues18_12_invoice
                              and member.dues18_12_paid
                              or member.dues18_12_balanced">
@@ -2290,7 +2290,7 @@
               </table>
             </td>
           </tr>
-          <tr tal:condition="'investing' not in member.membership_type and member.dues18_12_invoice">
+          <tr tal:condition="'investing' != member.membership_type and member.dues18_12_invoice">
             <td>Rechnungen<br/>
               <small>
                 Hier siehst Du die erstellten Rechnungen für dieses Mitglied.<br/>
