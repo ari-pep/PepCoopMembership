@@ -2385,37 +2385,37 @@
           </tr>
           <tr>
             <?python balance += member.dues18_06_balance ?>
-            <td>Membership dues 2018-05</td>
+            <td>Membership dues 2018-06</td>
             <td>${-member.dues18_06_balance}</td>
           </tr>
           <tr>
             <?python balance += member.dues18_07_balance ?>
-            <td>Membership dues 2018-05</td>
+            <td>Membership dues 2018-07</td>
             <td>${-member.dues18_07_balance}</td>
           </tr>
           <tr>
             <?python balance += member.dues18_08_balance ?>
-            <td>Membership dues 2018-05</td>
+            <td>Membership dues 2018-08</td>
             <td>${-member.dues18_08_balance}</td>
           </tr>
           <tr>
             <?python balance += member.dues18_09_balance ?>
-            <td>Membership dues 2018-05</td>
+            <td>Membership dues 2018-09</td>
             <td>${-member.dues18_09_balance}</td>
           </tr>
           <tr>
             <?python balance += member.dues18_10_balance ?>
-            <td>Membership dues 2018-05</td>
+            <td>Membership dues 2018-10</td>
             <td>${-member.dues18_10_balance}</td>
           </tr>
           <tr>
             <?python balance += member.dues18_11_balance ?>
-            <td>Membership dues 2018-05</td>
+            <td>Membership dues 2018-11</td>
             <td>${-member.dues18_11_balance}</td>
           </tr>
           <tr>
             <?python balance += member.dues18_12_balance ?>
-            <td>Membership dues 2018-05</td>
+            <td>Membership dues 2018-12</td>
             <td>${-member.dues18_12_balance}</td>
           </tr>
           <tr>
