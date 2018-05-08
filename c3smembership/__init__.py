@@ -138,7 +138,8 @@ def main(global_config, **settings):
     config.add_route('mail_sig_confirmation', '/mail_sig_conf/{memberid}')
     config.add_route('regenerate_pdf', '/re_pEp_coop_SCE_AFM_{code}.pdf')
     config.add_route('mail_pay_confirmation', '/mail_pay_conf/{member_id}')
-    config.add_route('mail_mail_confirmation', '/mail_mail_conf/{memberid}')
+    # verboten (useless for pep
+    # config.add_route('mail_mail_confirmation', '/mail_mail_conf/{memberid}')
     config.add_route('mail_sig_reminder', '/mail_sig_reminder/{memberid}')
     config.add_route('mail_pay_reminder', '/mail_pay_reminder/{memberid}')
     config.add_route('delete_entry', '/delete/{memberid}')
