@@ -215,8 +215,8 @@ def delete_afms(request):
     }
 
 
-@view_config(permission='manage',
-             route_name='mail_mail_confirmation')
+#@view_config(permission='manage',
+#             route_name='mail_mail_confirmation')
 def mail_mail_conf(request):
     '''
     Send email to member to confirm her email address by clicking a link.
