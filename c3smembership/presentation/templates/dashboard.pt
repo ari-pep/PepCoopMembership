@@ -85,7 +85,7 @@
              title="Sort by id: descending"
              class="glyphicon glyphicon-chevron-down"></a>
         </th>
-        <th>
+        <th tal:condition="'membership_types' in show_opt_cols">
           mtype<br />
           status
         </th>
@@ -123,6 +123,7 @@
         <th>paym.<br />rec'd?</th>
         <th>send paym.<br />conf. email</th>
         <th># shares</th>
+        <th tal:condition="'member_types' in show_opt_cols">member_<br/>_type</th>
         <th>edit</th>
         <th>delete</th>
         <th>make<br />member</th>
@@ -137,7 +138,7 @@
           <div tal:condition="member.is_duplicate">
             <a href="${request.route_url('detail', memberid=member.is_duplicate_of)}">dup:${member.is_duplicate_of}</a></div>
         </td>
-        <td>
+        <td  tal:condition="'membership_types' in show_opt_cols">
           <a tal:condition="(member.membership_type == 'startnext') or
                             (member.membership_type == 'unknown') or
                             (member.membership_type == '')"
@@ -283,6 +284,7 @@
             </table>
           </div>
         </td><!--! how many shares? -->
+        <td tal:condition="'member_types' in show_opt_cols">${member.member_type}</td>
         <td><!--! edit application -->
           <a href="${request.route_url('edit', _id=member.id)}"
              class="btn btn-warning">edit</a>
