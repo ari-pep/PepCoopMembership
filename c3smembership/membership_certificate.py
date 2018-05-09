@@ -336,10 +336,10 @@ def gen_cert(member):
 
     # pdflatex latex_file to pdf_file
     # pdflatex_output =
-    subprocess.call(
+    subprocess.check_call(
         [
             'pdflatex',
-            '-interaction=nonstopmode',
+            '-interaction=nonstopmode', '-halt-on-error',
             '-output-directory=%s' % tempdir,
             latex_file.name
         ],

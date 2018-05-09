@@ -189,7 +189,7 @@ def generate_pdf(appstruct):
         print("== PDFTK: fill_form & flatten")
 
         print("running pdftk...")
-    pdftk_output = subprocess.call(
+    pdftk_output = subprocess.check_call(
         [
             'pdftk',
             pdf_to_be_used,  # input pdf with form fields

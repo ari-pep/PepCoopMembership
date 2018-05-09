@@ -38,6 +38,7 @@ from c3smembership.models import (
     C3sMember,
 )
 from c3smembership.tex_tools import TexTools
+import customization as c
 
 DEBUG = False
 
@@ -91,9 +92,9 @@ def member_list_date_pdf_view(request):
     """
     here = os.path.dirname(__file__)
     latex_header_tex = os.path.abspath(
-        os.path.join(here, '../membership_list_pdflatex/header'))
+        os.path.join(here, '../customization/membership_list_pdflatex/header'))
     latex_footer_tex = os.path.abspath(
-        os.path.join(here, '../membership_list_pdflatex/footer'))
+        os.path.join(here, '../customization/membership_list_pdflatex/footer'))
 
     # a temporary directory for the latex run
     tempdir = tempfile.mkdtemp()
@@ -191,10 +192,10 @@ def member_list_date_pdf_view(request):
 
     # pdflatex latex_file to pdf_file
     fnull = open(os.devnull, 'w')  # hide output
-    pdflatex_output = subprocess.call(
+    pdflatex_output = subprocess.check_call(
         [
             'pdflatex',
-            '-interaction=nonstopmode',
+            '-interaction=nonstopmode', '-halt-on-error',
             '-output-directory=%s' % tempdir,
             latex_file.name
         ],
@@ -206,7 +207,7 @@ def member_list_date_pdf_view(request):
     # if run was a success, run X times more...
     if pdflatex_output == 0:
         for i in range(2):
-            pdflatex_output = subprocess.call(
+            pdflatex_output = subprocess.check_call(
                 [
                     'pdflatex',
                     '-output-directory=%s' % tempdir,
