@@ -85,7 +85,7 @@
              title="Sort by id: descending"
              class="glyphicon glyphicon-chevron-down"></a>
         </th>
-        <th tal:condition="'membership_types' in show_opt_cols">
+        <th tal:condition="len(c.membership_types)>1">
           mtype<br />
           status
         </th>
@@ -120,10 +120,11 @@
         <th>email<br />conf'd?</th>
         <th>sig.<br />rec'd?</th>
         <th>send sig.<br />conf. email</th>
+        <th tal:condition="len(c.payment_methods)>1">paym. meth.</th>
         <th>paym.<br />rec'd?</th>
         <th>send paym.<br />conf. email</th>
         <th># shares</th>
-        <th tal:condition="'member_types' in show_opt_cols">member_<br/>_type</th>
+        <th tal:condition="len(c.member_types)>1">member_<br/>_type</th>
         <th>edit</th>
         <th>delete</th>
         <th>make<br />member</th>
@@ -138,7 +139,7 @@
           <div tal:condition="member.is_duplicate">
             <a href="${request.route_url('detail', memberid=member.is_duplicate_of)}">dup:${member.is_duplicate_of}</a></div>
         </td>
-        <td  tal:condition="'membership_types' in show_opt_cols">
+        <td  tal:condition="len(c.membership_types)>1">
           <a tal:condition="(member.membership_type == 'startnext') or
                             (member.membership_type == 'unknown') or
                             (member.membership_type == '')"
@@ -220,6 +221,7 @@
                class="btn btn-default">ok</a>
           </div>
         </td>
+        <td tal:condition="len(c.payment_methods)>1">${member.payment_method}</td>
         <td>
           <div tal:condition="not member.payment_received"><!--! payment not yet received-->
             <a href="${request.route_url('switch_pay', memberid=member.id)}"
@@ -284,7 +286,7 @@
             </table>
           </div>
         </td><!--! how many shares? -->
-        <td tal:condition="'member_types' in show_opt_cols">${member.member_type}</td>
+        <td tal:condition="len(c.member_types)>1">${member.member_type}</td>
         <td><!--! edit application -->
           <a href="${request.route_url('edit', _id=member.id)}"
              class="btn btn-warning">edit</a>

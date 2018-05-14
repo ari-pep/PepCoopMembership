@@ -52,15 +52,9 @@ def dashboard(request):
         raise ParameterValidationException(
             'Page does not exist.',
             request.route_url(request.matched_route.name))
-    show_opt_cols = []
-    if len(c.membership_types)>1:
-        show_opt_cols.append('membership_types')
-    if len(c.member_types)>1:
-
-        show_opt_cols.append('member_types')
     return {
         'members': members,
-        'show_opt_cols': { i:True for i in show_opt_cols }
+        'c': c
     }
 
 
