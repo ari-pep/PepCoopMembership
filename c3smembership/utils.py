@@ -367,3 +367,13 @@ def accountant_mail(appstruct):
     message.attach(attachment)
 
     return message
+
+def prepare_template_env(*objects, **kwargs):
+    '''prepare environment for template rendering from the named objects'''
+    fromObject=kwargs['fromObject']
+    if isinstance(fromObject,dict):
+        return { obj: fromObject[obj] for obj in objects }
+    elif fromObject is not None:
+        return { obj: fromObject.__getattribute__(obj) for obj in objects }
+    else:
+        return { obj: locals()[obj] for obj in objects }
