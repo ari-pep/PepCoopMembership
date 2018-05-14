@@ -343,6 +343,38 @@
 
           </td>
         </tr>
+        <tr tal:condition="len(c.member_types)>1">
+          <td>Member type</td>
+          <td>${member.member_type} (${member.fee} ${c.currency})</td>
+        </tr>
+        <span  tal:condition="c.entry_fee">
+          <tr>
+            <td>Entry fee</td>
+            <td>${member.entry_fee} ${c.currency}: <span tal:condition="member.entry_fee_paid_amount >= member.entry_fee">paid</span><span tal:condition="member.entry_fee_paid_amount < member.entry_fee">not paid</span></td>
+          </tr><tr>
+            <td>Entry fee payment date</td>
+            <td>${member.entry_fee_paid_date}</td>
+          </tr><tr>
+            <td>Entry fee payment amount</td>
+            <td>${member.entry_fee_paid_amount}</td>
+          </tr>
+        </span>
+        <tr tal:condition="len(c.payment_methods)>1">
+          <td>Payment Method</td>
+          <td>${member.payment_method}</td>
+        </tr>
+        <span tal:condition="'sdd' == member.payment_method">
+          <tr>
+            <td>Bankname for SDD</td>
+            <td>${member.payment_sdd_bankname}</td>
+          </tr><tr>
+            <td>IBAN for SDD</td>
+            <td>${member.payment_sdd_iban}</td>
+          </tr><tr>
+            <td>BIC for SDD</td>
+            <td>${member.payment_sdd_bic}</td>
+          </tr>
+        </span>
       </table>
 
       <div tal:condition="member.is_member()">

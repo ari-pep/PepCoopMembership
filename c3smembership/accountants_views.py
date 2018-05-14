@@ -56,8 +56,9 @@ from c3smembership.presentation.schemas.accountant_login import (
     AccountantLogin
 )
 from c3smembership.presentation.views.dashboard import get_dashboard_redirect
-from c3smembership.utils import generate_pdf
+from c3smembership.utils import (generate_pdf, prepare_template_env)
 
+import customization as c
 
 DEBUG = False
 LOG = logging.getLogger(__name__)
@@ -285,22 +286,13 @@ def member_detail(request):
 
     shares = request.registry.share_information.get_member_shares(
         member.membership_number)
-
-    return {
-        'today': date.today().strftime('%Y-%m-%d'),
-        'D': D,
-        'member': member,
-        'shares': shares,
-        'invoices18_05': invoices18_05,
-        'invoices18_06': invoices18_06,
-        'invoices18_07': invoices18_07,
-        'invoices18_08': invoices18_08,
-        'invoices18_09': invoices18_09,
-        'invoices18_10': invoices18_10,
-        'invoices18_11': invoices18_11,
-        'invoices18_12': invoices18_12,
-        # 'form': html
-    }
+    #fee, mtype, entry_fee = \
+    #    [ (v,t,f) for (v,t,d,f) in c.member_types if t==member.member_type ][0]
+    template_env=prepare_template_env('D','member','shares', fromObject=vars())
+    template_env.update({'c':c})
+    template_env.update(
+        prepare_template_env(*('invoices18_{:02d}'.format(i) for i in range(5,13)), fromObject=vars()))
+    return template_env
 
 
 @view_config(permission='view',
@@ -332,26 +324,16 @@ def regenerate_pdf(request):
     membership_application = request.registry.membership_application.get(
         member.id)
 
-    appstruct = {
-        'firstname': member.firstname,
-        'lastname': member.lastname,
-        'address1': member.address1,
-        'address2': member.address2,
-        'postcode': member.postcode,
-        'city': member.city,
-        'email': member.email,
+    appstruct = prepare_template_env( 'firstname', 'lastname', 'address1', 'address2',
+        'postcode', 'city', 'country', 'locale', 'email', 'date_of_birth', 'member_type',
+        'fee', 'payment_method', 'payment_sdd_iban', 'payment_sdd_bic',
+        'payment_sdd_bankname', 'entry_fee', fromObject=member )
+    appstruct.update({
         'email_confirm_code': membership_application['payment_token'],
-        'country': member.country,
-        'locale': member.locale,
         'membership_type': membership_application['membership_type'],
         'num_shares': membership_application['shares_quantity'],
-        'date_of_birth': member.date_of_birth,
         'date_of_submission': membership_application['date_of_submission'],
-        'member_type': member.member_type,
-        'fee': member.fee,
-        'payment_method': member.payment_method,
-        'entry_fee': member.entry_fee
-    }
+        })
     LOG.info(
         "%s regenerated the PDF for code %s",
         authenticated_userid(request),
