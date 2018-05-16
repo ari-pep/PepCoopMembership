@@ -24,7 +24,7 @@ from c3smembership.presentation.views.membership_listing import (
     membership_content_size_provider
 )
 from c3smembership.i18n import enforcing_locale_negotiator
-
+import customization as c
 
 __version__ = open(os.path.join(os.path.abspath(
     os.path.dirname(__file__)), '../VERSION')).read()
@@ -189,11 +189,11 @@ def main(global_config, **settings):
                      '/dues18_05_invoice/{member_id}')
     config.add_route('send_dues18_05_invoice_batch', '/dues18_05_invoice_batch')
     config.add_route('make_dues18_05_invoice_no_pdf',
-                     '/dues18_05_invoice_no/{code}/C3S-dues18_05-{i}.pdf')
+                     '/dues18_05_invoice_no/{code}/%s-dues18_05-{i}.pdf'%c.fn_prefix)
     config.add_route('dues18_05_reduction',
                      '/dues18_05_reduction/{member_id}')
     config.add_route('make_dues18_05_reversal_invoice_pdf',
-                     '/dues18_05_reversal/{code}/C3S-dues18_05-{no}-S.pdf')
+                     '/dues18_05_reversal/{code}/%s-dues18_05-{no}-S.pdf'%c.fn_prefix)
     config.add_route('dues18_05_notice', '/dues18_05_notice/{member_id}')
     config.add_route('dues18_05_listing', '/dues18_05_listing')
 
@@ -202,11 +202,11 @@ def main(global_config, **settings):
                      '/dues18_06_invoice/{member_id}')
     config.add_route('send_dues18_06_invoice_batch', '/dues18_06_invoice_batch')
     config.add_route('make_dues18_06_invoice_no_pdf',
-                     '/dues18_06_invoice_no/{code}/C3S-dues18_06-{i}.pdf')
+                     '/dues18_06_invoice_no/{code}/%s-dues18_06-{i}.pdf'%c.fn_prefix)
     config.add_route('dues18_06_reduction',
                      '/dues18_06_reduction/{member_id}')
     config.add_route('make_dues18_06_reversal_invoice_pdf',
-                     '/dues18_06_reversal/{code}/C3S-dues18_06-{no}-S.pdf')
+                     '/dues18_06_reversal/{code}/%s-dues18_06-{no}-S.pdf'%c.fn_prefix)
     config.add_route('dues18_06_notice', '/dues18_06_notice/{member_id}')
     config.add_route('dues18_06_listing', '/dues18_06_listing')
 
@@ -215,11 +215,11 @@ def main(global_config, **settings):
                      '/dues18_07_invoice/{member_id}')
     config.add_route('send_dues18_07_invoice_batch', '/dues18_07_invoice_batch')
     config.add_route('make_dues18_07_invoice_no_pdf',
-                     '/dues18_07_invoice_no/{code}/C3S-dues18_07-{i}.pdf')
+                     '/dues18_07_invoice_no/{code}/%s-dues18_07-{i}.pdf'%c.fn_prefix)
     config.add_route('dues18_07_reduction',
                      '/dues18_07_reduction/{member_id}')
     config.add_route('make_dues18_07_reversal_invoice_pdf',
-                     '/dues18_07_reversal/{code}/C3S-dues18_07-{no}-S.pdf')
+                     '/dues18_07_reversal/{code}/%s-dues18_07-{no}-S.pdf'%c.fn_prefix)
     config.add_route('dues18_07_notice', '/dues18_07_notice/{member_id}')
     config.add_route('dues18_07_listing', '/dues18_07_listing')
 
@@ -228,11 +228,11 @@ def main(global_config, **settings):
                      '/dues18_08_invoice/{member_id}')
     config.add_route('send_dues18_08_invoice_batch', '/dues18_08_invoice_batch')
     config.add_route('make_dues18_08_invoice_no_pdf',
-                     '/dues18_08_invoice_no/{code}/C3S-dues18_08-{i}.pdf')
+                     '/dues18_08_invoice_no/{code}/%s-dues18_08-{i}.pdf'%c.fn_prefix)
     config.add_route('dues18_08_reduction',
                      '/dues18_08_reduction/{member_id}')
     config.add_route('make_dues18_08_reversal_invoice_pdf',
-                     '/dues18_08_reversal/{code}/C3S-dues18_08-{no}-S.pdf')
+                     '/dues18_08_reversal/{code}/%s-dues18_08-{no}-S.pdf'%c.fn_prefix)
     config.add_route('dues18_08_notice', '/dues18_08_notice/{member_id}')
     config.add_route('dues18_08_listing', '/dues18_08_listing')
 
@@ -241,11 +241,11 @@ def main(global_config, **settings):
                      '/dues18_09_invoice/{member_id}')
     config.add_route('send_dues18_09_invoice_batch', '/dues18_09_invoice_batch')
     config.add_route('make_dues18_09_invoice_no_pdf',
-                     '/dues18_09_invoice_no/{code}/C3S-dues18_09-{i}.pdf')
+                     '/dues18_09_invoice_no/{code}/%s-dues18_09-{i}.pdf'%c.fn_prefix)
     config.add_route('dues18_09_reduction',
                      '/dues18_09_reduction/{member_id}')
     config.add_route('make_dues18_09_reversal_invoice_pdf',
-                     '/dues18_09_reversal/{code}/C3S-dues18_09-{no}-S.pdf')
+                     '/dues18_09_reversal/{code}/%s-dues18_09-{no}-S.pdf'%c.fn_prefix)
     config.add_route('dues18_09_notice', '/dues18_09_notice/{member_id}')
     config.add_route('dues18_09_listing', '/dues18_09_listing')
 
@@ -254,11 +254,11 @@ def main(global_config, **settings):
                      '/dues18_10_invoice/{member_id}')
     config.add_route('send_dues18_10_invoice_batch', '/dues18_10_invoice_batch')
     config.add_route('make_dues18_10_invoice_no_pdf',
-                     '/dues18_10_invoice_no/{code}/C3S-dues18_10-{i}.pdf')
+                     '/dues18_10_invoice_no/{code}/%s-dues18_10-{i}.pdf'%c.fn_prefix)
     config.add_route('dues18_10_reduction',
                      '/dues18_10_reduction/{member_id}')
     config.add_route('make_dues18_10_reversal_invoice_pdf',
-                     '/dues18_10_reversal/{code}/C3S-dues18_10-{no}-S.pdf')
+                     '/dues18_10_reversal/{code}/%s-dues18_10-{no}-S.pdf'%c.fn_prefix)
     config.add_route('dues18_10_notice', '/dues18_10_notice/{member_id}')
     config.add_route('dues18_10_listing', '/dues18_10_listing')
 
@@ -267,11 +267,11 @@ def main(global_config, **settings):
                      '/dues18_11_invoice/{member_id}')
     config.add_route('send_dues18_11_invoice_batch', '/dues18_11_invoice_batch')
     config.add_route('make_dues18_11_invoice_no_pdf',
-                     '/dues18_11_invoice_no/{code}/C3S-dues18_11-{i}.pdf')
+                     '/dues18_11_invoice_no/{code}/%s-dues18_11-{i}.pdf'%c.fn_prefix)
     config.add_route('dues18_11_reduction',
                      '/dues18_11_reduction/{member_id}')
     config.add_route('make_dues18_11_reversal_invoice_pdf',
-                     '/dues18_11_reversal/{code}/C3S-dues18_11-{no}-S.pdf')
+                     '/dues18_11_reversal/{code}/%s-dues18_11-{no}-S.pdf'%c.fn_prefix)
     config.add_route('dues18_11_notice', '/dues18_11_notice/{member_id}')
     config.add_route('dues18_11_listing', '/dues18_11_listing')
 
@@ -280,11 +280,11 @@ def main(global_config, **settings):
                      '/dues18_12_invoice/{member_id}')
     config.add_route('send_dues18_12_invoice_batch', '/dues18_12_invoice_batch')
     config.add_route('make_dues18_12_invoice_no_pdf',
-                     '/dues18_12_invoice_no/{code}/C3S-dues18_12-{i}.pdf')
+                     '/dues18_12_invoice_no/{code}/%s-dues18_12-{i}.pdf'%c.fn_prefix)
     config.add_route('dues18_12_reduction',
                      '/dues18_12_reduction/{member_id}')
     config.add_route('make_dues18_12_reversal_invoice_pdf',
-                     '/dues18_12_reversal/{code}/C3S-dues18_12-{no}-S.pdf')
+                     '/dues18_12_reversal/{code}/%s-dues18_12-{no}-S.pdf'%c.fn_prefix)
     config.add_route('dues18_12_notice', '/dues18_12_notice/{member_id}')
     config.add_route('dues18_12_listing', '/dues18_12_listing')
 
@@ -326,8 +326,8 @@ def main(global_config, **settings):
 
     # membership_certificate
     config.add_route('certificate_mail', '/cert_mail/{id}')
-    config.add_route('certificate_pdf', '/cert/{id}/C3S_{name}_{token}.pdf')
-    config.add_route('certificate_pdf_staff', '/cert/{id}/C3S_{name}.pdf')
+    config.add_route('certificate_pdf', '/cert/{id}/%s_{name}_{token}.pdf'%c.fn_prefix)
+    config.add_route('certificate_pdf_staff', '/cert/{id}/%s_{name}.pdf'%c.fn_prefix)
 
     # annual reports
     from c3smembership.data.repository.share_repository import ShareRepository
