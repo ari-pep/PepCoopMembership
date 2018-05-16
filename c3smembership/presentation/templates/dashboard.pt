@@ -125,6 +125,7 @@
         <th>send paym.<br />conf. email</th>
         <th># shares</th>
         <th tal:condition="len(c.member_types)>1">member_<br/>_type</th>
+        <th>banktransfer token</th>
         <th>edit</th>
         <th>delete</th>
         <th>make<br />member</th>
@@ -287,6 +288,7 @@
           </div>
         </td><!--! how many shares? -->
         <td tal:condition="len(c.member_types)>1">${member.member_type}</td>
+        <td>${member.email_confirm_code}</td>
         <td><!--! edit application -->
           <a href="${request.route_url('edit', _id=member.id)}"
              class="btn btn-warning">edit</a>

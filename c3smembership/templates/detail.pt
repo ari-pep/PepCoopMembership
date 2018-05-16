@@ -363,6 +363,10 @@
           <td>Payment Method</td>
           <td>${member.payment_method}</td>
         </tr>
+        <tr>
+          <td>bank transfer code</td>
+          <td>${member.email_confirm_code}</td>
+        </tr>
         <span tal:condition="'sdd' == member.payment_method">
           <tr>
             <td>Bankname for SDD</td>
