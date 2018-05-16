@@ -66,6 +66,85 @@ if LOGGING:
     import logging
     log = logging.getLogger(__name__)
 
+class toggleableMoneyInputWidget(deform.widget.MoneyInputWidget):
+    template='toggleable_moneyinput'
+
+class togglingRadioChoiceWidget(deform.widget.RadioChoiceWidget):
+        template='toggling_radio_choice'
+class PaymentMethod(colander.Schema):
+    '''choose between classical bank transfer and SEPA direct debit'''
+    payment_method = colander.SchemaNode( colander.String(),
+        title=_(u'Please tell us how you want to pay'),
+        widget=deform.widget.RadioChoiceWidget(
+            values=[ (k,v) for k,v in c.payment_methods.items() ]),
+        required=True,
+        default='sdd',
+        oid='payment_method')
+
+    def IBAN_validator(node,value):
+        '''validate data to be IBAN or empty'''
+        try:
+            schwifty.IBAN(value)
+        except ValueError as e:
+            if not value:
+                return
+            print('try: DE89 3704 0044 0532 0130 00')
+            raise Invalid(node,str(e))
+
+    def BIC_validator(node,value):
+        '''validate data to be BIC or empty'''
+        try:
+            schwifty.BIC(value)
+        except ValueError as e:
+            if not value:
+                return
+            print('try: DEUTPTPL')
+            raise Invalid(node,str(e))
+
+    payment_sdd_iban = colander.SchemaNode( colander.String(),
+        title=_(u'member\'s bank account (IBAN)'),
+        validator=IBAN_validator,
+        missing=unicode(''),
+        oid='payment_sdd_iban')
+
+    payment_sdd_bic = colander.SchemaNode( colander.String(),
+        title=_(u'member\'s bank (BIC)'),
+        validator=BIC_validator,
+        missing=unicode(''),
+        oid='payment_sdd_iban')
+
+    payment_sdd_bankname = colander.SchemaNode(
+        colander.String(),
+        title=_(u'member\'s bank\'s name'),
+        missing=unicode(''),
+        oid='payment_sdd_bankname')
+
+class Fees(colander.Schema):
+    member_type = colander.SchemaNode( colander.String(),
+        title=_(u'Please tell us wether you\'re an individual, freelancer or company, '
+        u'or want to support us generously as a supporting member.\n'
+        u'Please be advised that freelancers/companies are suspect to an entry fee '
+        u'of 90 €.' ),
+        widget=togglingRadioChoiceWidget(values=[ (member_type, t_description) for fee, member_type, t_description,entry_fee in c.membership_fees]),
+        oid='member_type',
+        description=_(u'For corporations, tradespersons, freelancers, corporate'
+            u'bodies and companies with or without an own legal entity an entry fee'
+            u' of 90,- € is charged (sec. 6).')
+    )
+
+    # not validating here: depends on ^
+    # http://deformdemo.repoze.org/require_one_or_another/
+    member_custom_fee = colander.SchemaNode(colander.Decimal('1.00'),
+        title = _(u'custom membership fee'),
+        widget = toggleableMoneyInputWidget(symbol=c.currency,showSymbol=True, defaultZero=True),
+        description= _ (u'Sustaining members: You can set your fees (minimum 100 €)'),
+        oid = 'membership_custom_fee',
+        default = c.membership_fee_custom_min,
+        validator = Range(
+            min=c.membership_fee_custom_min,max=None,
+            min_err=_(u'please enter at least the minimum fee for sustaining members')
+        )
+    )
 
 @view_config(renderer='c3smembership:templates/join.pt',
              route_name='join')
@@ -223,39 +302,6 @@ def join_c3s(request):
                 oid="colsoc_name",
         )
 
-
-    class toggleableMoneyInputWidget(deform.widget.MoneyInputWidget):
-        template='toggleable_moneyinput'
-
-    class togglingRadioChoiceWidget(deform.widget.RadioChoiceWidget):
-        template='toggling_radio_choice'
-
-    class Fees(colander.Schema):
-        member_type = colander.SchemaNode( colander.String(),
-            title=_(u'Please tell us wether you\'re an individual, freelancer or company, '
-            u'or want to support us generously as a supporting member.\n'
-            u'Please be advised that freelancers/companies are suspect to an entry fee '
-            u'of 90 €.' ),
-            widget=togglingRadioChoiceWidget(values=[ (member_type, t_description) for fee, member_type, t_description,entry_fee in c.membership_fees]),
-            oid='member_type',
-            description=_(u'For corporations, tradespersons, freelancers, corporate'
-                u'bodies and companies with or without an own legal entity an entry fee'
-                u' of 90,- € is charged (sec. 6).')
-        )
-
-        # not validating here: depends on ^
-        # http://deformdemo.repoze.org/require_one_or_another/
-        member_custom_fee = colander.SchemaNode(colander.Decimal('1.00'),
-            title=_(u'custom membership fee'),
-            widget=toggleableMoneyInputWidget(symbol=c.currency,showSymbol=True, defaultZero=True),
-            description=_(u'Sustaining members: You can set your fees (minimum 100 €)'),
-            oid='membership_custom_fee',
-            default=c.membership_fee_custom_min,
-            validator=Range(min=c.membership_fee_custom_min,max=None,min_err=_(u'please enter at least the minimum fee for sustaining members'))
-
-        )
-
-
     class Shares(colander.Schema):
         """
         the number of shares a member wants to hold
@@ -281,55 +327,6 @@ def join_c3s(request):
                 max_err=_(u'You may choose 3001 shares at most (30010 €).')
             ),
             oid="num_shares")
-
-    class PaymentMethod(colander.Schema):
-        '''choose between classical bank transfer and SEPA direct debit'''
-        payment_method = colander.SchemaNode( colander.String(),
-            title=_(u'Please tell us how you want to pay'),
-            widget=deform.widget.RadioChoiceWidget(
-                values=[ (k,v) for k,v in c.payment_methods.items() ]),
-            required=True,
-            default='sdd',
-            oid='payment_method')
-
-        def IBAN_validator(node,value):
-            '''validate data to be IBAN or empty'''
-            try:
-                schwifty.IBAN(value)
-            except ValueError as e:
-                if not value:
-                    return
-                print('try: DE89 3704 0044 0532 0130 00')
-                raise Invalid(node,str(e))
-
-        def BIC_validator(node,value):
-            '''validate data to be BIC or empty'''
-            try:
-                schwifty.BIC(value)
-            except ValueError as e:
-                if not value:
-                    return
-                print('try: DEUTPTPL')
-                raise Invalid(node,str(e))
-
-        sdd_iban = colander.SchemaNode( colander.String(),
-            title=_(u'member\'s bank account (IBAN)'),
-            validator=IBAN_validator,
-            missing=unicode(''),
-            oid='payment_sdd_iban')
-
-        sdd_bic = colander.SchemaNode( colander.String(),
-            title=_(u'member\'s bank (BIC)'),
-            validator=BIC_validator,
-            missing=unicode(''),
-            oid='payment_sdd_iban')
-
-        sdd_bankname = colander.SchemaNode(
-            colander.String(),
-            title=_(u'member\'s bank\'s name'),
-            missing=unicode(''),
-            oid='payment_sdd_bankname')
-
 
     class TermsInfo(colander.Schema):
         """
