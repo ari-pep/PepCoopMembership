@@ -445,14 +445,14 @@ def join_c3s(request):
             appstruct = form.validate(controls)
             if appstruct['payment_method']['payment_method'] == 'sdd':
                 # error when IBAN or BIC are empty
-                if not appstruct['payment_method']['sdd_iban']:
-                    form['payment_method']['sdd_iban'].error = Invalid(None,_(u'please enter IBAN'))
+                if not appstruct['payment_method']['payment_sdd_iban']:
+                    form['payment_method']['payment_sdd_iban'].error = Invalid(None,_(u'please enter IBAN'))
                     error_out=True
-                if not appstruct['payment_method']['sdd_bic']:
-                    form['payment_method']['sdd_bic'].error = Invalid(None,_(u'please enter BIC'))
+                if not appstruct['payment_method']['payment_sdd_bic']:
+                    form['payment_method']['payment_sdd_bic'].error = Invalid(None,_(u'please enter BIC'))
                     error_out=True
-                if not appstruct['payment_method']['sdd_bankname']:
-                    form['payment_method']['sdd_bankname'].error = Invalid(None,_(u'please enter bank\'s name'))
+                if not appstruct['payment_method']['payment_sdd_bankname']:
+                    form['payment_method']['payment_sdd_bankname'].error = Invalid(None,_(u'please enter bank\'s name'))
                     error_out=True
 
                 try:
@@ -523,9 +523,9 @@ def join_c3s(request):
             date_of_submission=datetime.now(),
             num_shares=appstruct['shares']['num_shares'],
             payment_method=appstruct['payment_method']['payment_method'],
-            payment_sdd_iban=appstruct['payment_method']['sdd_iban'],
-            payment_sdd_bic=appstruct['payment_method']['sdd_bic'],
-            payment_sdd_bankname=appstruct['payment_method']['sdd_bankname']
+            payment_sdd_iban=appstruct['payment_method']['payment_sdd_iban'],
+            payment_sdd_bic=appstruct['payment_method']['payment_sdd_bic'],
+            payment_sdd_bankname=appstruct['payment_method']['payment_sdd_bankname']
         )
 
         if c.enable_colsoc_association:
