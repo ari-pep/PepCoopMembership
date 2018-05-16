@@ -8,8 +8,10 @@ from c3smembership.models import (
 )
 from c3smembership.utils import (
     country_codes,
-    locale_codes
+    locale_codes,
+    prepare_template_env
 )
+from c3smembership.views import afm
 
 import colander
 from colander import (
@@ -21,7 +23,6 @@ from datetime import (
 )
 import deform
 from deform import ValidationFailure
-
 import logging
 
 from pyramid.httpexceptions import HTTPFound
@@ -118,6 +119,12 @@ def edit_member(request):
         'member_of_colsoc': 'yes' if member.member_of_colsoc else 'no',
         'name_of_colsoc': member.name_of_colsoc,
     }
+    appstruct['payment_info'] = prepare_template_env(
+        'payment_method', 'payment_sdd_iban', 'payment_sdd_bic', 'payment_sdd_bankname',
+        fromObject=member)
+    appstruct['type_info'] = prepare_template_env(
+        'member_type', 'fee', 'entry_fee', 'entry_fee_paid_amount', 'entry_fee_paid_date',
+        fromObject=member)
     membership_loss_types = (
         ('', _(u'(Select)')),
         ('resignation', _(u'Resignation')),
@@ -341,12 +348,16 @@ def edit_member(request):
             colander.String(),
             title=_(u'Type of Membership (C3S Statute § 4)'),
             description=_(u'Please choose the type of membership.'),
-            widget=deform.widget.RadioChoiceWidget(
-                values=(
-                    (u'normal', _(u'Member')),
-                    (u'investing', _(u'Investing (non-user) member')),
-                    (u'unknown', _(u'Unknown')),
-                ),
+            widget=(
+                deform.widget.RadioChoiceWidget
+                if len(c.membership_types)>1 else
+                deform.widget.HiddenWidget)
+                    (
+                    values=(
+                        (u'normal', _(u'Member')),
+                        (u'investing', _(u'Investing (non-user) member')),
+                        (u'unknown', _(u'Unknown')),
+                    ),
             ),
             missing=u'',
             oid='membership_type',
@@ -354,13 +365,20 @@ def edit_member(request):
         member_of_colsoc = colander.SchemaNode(
             colander.String(),
             title=_('Member of a Collecting Society'),
-            widget=deform.widget.RadioChoiceWidget(values=yes_no),
+            widget=(
+                deform.widget.RadioChoiceWidget(values=yes_no)
+                if bool(c.enable_colsoc_association) else
+                deform.widget.HiddenWidget(default=u'')),
             oid='other_colsoc',
             default=u'',
             missing=u'',
         )
         name_of_colsoc = colander.SchemaNode(
             colander.String(),
+            widget=(
+                deform.widget.TextInputWidget
+                if bool(c.enable_colsoc_association) else
+                deform.widget.HiddenWidget)(),
             title=_(u'Names of Collecting Societies'),
             description=_(u'Please separate multiple collecting societies by '
                           u'comma.'),
@@ -419,6 +437,59 @@ def edit_member(request):
                   u'of a year.')
             raise exc
 
+    class PaymentMethodForm(afm.PaymentMethod):
+        '''
+        edit payment_method info
+        '''
+        def __init__(self, *args, **kwargs):
+            # colander.Schema classes are unusual wrt "attributes" in that SchemaNodes are
+            # not class attributes but part of children _list_
+            # list -> need to figure out i.name for i in self.children...
+            for i in self.children:
+                i.default = member.__dict__[i.name]
+                #  'payment_{}'.format(i.name if i.name != 'payment_method' else 'method')
+                #]
+            afm.PaymentMethod.__init__(self, *args, **kwargs)
+
+    class EditFees(afm.Fees):
+        '''
+        edit fees, entry_fee and related
+        '''
+        def __init__(self, *args, **kwargs):
+            for i,v in enumerate(self.children):
+                if v.name == 'member_custom_fee':
+                    del(self.children[i])
+                else:
+                    v.default = member.__dict__[v.name]
+            self.add(
+                # In contrast to every other SchemaNode we need to set a name here,
+                # because everywhere else deform (ab)uses the python identifier of
+                # class attributes as the name
+                colander.SchemaNode(
+                    name = 'fee',
+                    typ = colander.Decimal('1.00'),
+                    title = _(u'membership fee'),
+                    widget = deform.widget.MoneyInputWidget(
+                        symbol=c.currency,showSymbol=True, allowZero=True),
+                    description= _ (u'set member_fee (not validated against member_type fee, so you can override the fee)'),
+                    oid = 'membership_fee',
+                    default = member.fee,
+                    validator = Range(min=0, max=None),
+                )
+            )
+            self.add( colander.SchemaNode(
+                name='entry_fee',
+                typ = colander.Decimal('1.00'),
+                title = _(u'entry fee'),
+                widget = deform.widget.MoneyInputWidget(
+                    symbol=c.currency,showSymbol=True, allowZero=True),
+                description= _ (u'set entry_fee (not validated against entry_type fee, so you can override the fee)'),
+                oid = 'entry_fee',
+                default = member.entry_fee,
+                validator = Range(min=0, max=None),
+            ))
+            afm.Fees.__init__(self, *args, **kwargs)
+
     class MembershipForm(colander.Schema):
         """
         The form for editing membership information combining all forms for
@@ -439,6 +510,9 @@ def edit_member(request):
         membership_info = MembershipInfo(
             title=_(u'Membership Requirements')
         )
+        payment_method_info = PaymentMethodForm(title=_(u'Payment Method'))
+
+        edit_fees_form = EditFees(title=_(u'Membership fees'))
 
     def membership_loss_type_entity_type_validator(form, value):
         """
@@ -601,6 +675,8 @@ def edit_member(request):
                 appstruct['membership_meta'].get('membership_loss_date', None)
             ),
         ]
+        listing.extend(appstruct['edit_fees_form'].items())
+        listing.extend(appstruct['payment_method_info'].items())
 
         for thing in listing:
             attribute_name = thing[0]
