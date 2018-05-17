@@ -53,7 +53,7 @@ https://www.google.com/fonts/specimen/Signika
 LaTeX pdf compilation:
 ::
 
-   $ sudo apt-get install texlive-latex-base texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended texlive-fonts-extra pgf texlive-lang-german texlive-luatex
+   $ sudo apt-get install texlive-latex-base texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended texlive-fonts-extra pgf texlive-lang-german texlive-xetex
 
 Setup:
 ::
@@ -82,7 +82,7 @@ Creating an initial database:
 
    $ env/bin/initialize_c3sMembership_db development.ini
 
-   
+
 
 Run (in development mode)
 -------------------------

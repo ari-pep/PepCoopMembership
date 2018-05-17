@@ -338,7 +338,7 @@ def gen_cert(member):
     # pdflatex_output =
     subprocess.check_call(
         [
-            'pdflatex',
+            'xelatex',
             '-interaction=nonstopmode', '-halt-on-error',
             '-output-directory=%s' % tempdir,
             latex_file.name

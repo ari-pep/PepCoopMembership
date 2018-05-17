@@ -24,7 +24,7 @@ then install c3sMembership for development and fetch the dependencies.
 
    # and if you want to generate pdfs with pdflatex (very useful :-)) :
    aptitude install texlive-latex-base texlive-latex-recommended texlive-lang-german \
-       texlive-latex-extra texlive-fonts-recommended texlive-fonts-extra
+       texlive-latex-extra texlive-fonts-recommended texlive-fonts-extra texlive-xetex
    # oh my god... 235 MB of archives will be downloaded, setup 'costs' 693 MB
    # NOTE: you have to set paper size during configuration: we use A4
 
