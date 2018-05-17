@@ -33,6 +33,7 @@ from c3smembership.presentation.i18n import (
     _,
     ZPT_RENDERER,
 )
+import customization as c
 
 COUNTRY_DEFAULT = u'DE'
 LOCALE_DEFAULT = u'de'
