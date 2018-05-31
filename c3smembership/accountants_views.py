@@ -30,6 +30,11 @@ from pyramid.security import (
 )
 from pyramid.url import route_url
 from pyramid.view import view_config
+from pyramid.response import Response
+
+import csv
+import tempfile
+import pytz
 
 from c3smembership.mail_utils import (
     make_payment_confirmation_email,
@@ -476,3 +481,79 @@ def mail_payment_reminder(request):
             memberid=request.matchdict['memberid']))
     else:
         return get_dashboard_redirect(request, member.id)
+
+@view_config(permission='manage', route_name='admin_csv')
+def admin_csv(request):
+    csv_cols = [
+        _(u'id'),
+        _(u'membership_number'),
+		_(u'firstname'),
+		_(u'lastname'),
+		_(u'address1'),
+		_(u'address2'),
+		_(u'postcode'),
+		_(u'city'),
+		_(u'country'),
+		_(u'email'),
+		_(u'num_shares'),
+		_(u'member_type'),
+		_(u'fee'),
+		_(u'entry_fee'),
+		_(u'payment_method'),
+		_(u'payment_sdd_iban'),
+		_(u'payment_sdd_bic'),
+		_(u'payment_sdd_bankname'),
+		_(u'date_of_submission'),
+		_(u'email_is_confirmed'),
+		_(u'signature_received'),
+		_(u'payment_received'),
+		# _(u'payment_received_date'),
+		_(u'accountant_comment'),
+		# _(u'membership_date'),
+		# _(u'email_confirm_mail_date'),
+		_(u'date_of_birth'),
+		# _(u'membership_loss_date'),
+		_(u'membership_loss_type')
+    ]
+
+    string_NULL = u''
+    date_NULL = u'00.00.0000'
+    money_NULL = u''
+    date_NULL_objs = (date(1970,1,1), datetime(1970,1,1,0,0))
+
+    money_cols = ['fee', 'entry_fee']
+
+    response = Response(content_type='text/csv')
+    csv_fd = tempfile.NamedTemporaryFile()
+    csv_file = csv.writer(csv_fd,csv.QUOTE_MINIMAL)
+
+    def writerow(vals):
+        csv_file.writerow([ unicode(i).encode('utf-8') for i in vals ])
+
+    # Header
+    writerow(csv_cols)
+    for person in C3sMember.get_all():
+        row = []
+        for k in csv_cols:
+            v = person.__dict__[k.default]
+
+            if isinstance(v, (date, datetime)):
+                if v in  date_NULL_objs:
+                    row.append(date_NULL)
+                else:
+                    row.append(v.strftime(c.csv_date_format))
+
+            elif v is None:
+                if k.default in money_cols:
+                    row.append(money_NULL)
+                else:
+                    row.append(string_NULL)
+            else:
+                row.append(v)
+
+        writerow(row)
+
+    csv_fd.flush()
+    response.app_iter = open(csv_fd.name)
+
+    return response

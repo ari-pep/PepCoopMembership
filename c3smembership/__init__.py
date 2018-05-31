@@ -122,6 +122,7 @@ def main(global_config, **settings):
     # config.add_route('new_member', '/new_member')
     config.add_route('detail', '/detail/{memberid}')
     config.add_route('edit', '/edit/{_id}')
+    config.add_route('admin_csv', '/admin/admin.csv')
 
     # TODO: move application layer setup to separate module
     from c3smembership.data.repository.member_repository import (
