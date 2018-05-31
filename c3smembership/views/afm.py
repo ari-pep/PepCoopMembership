@@ -590,10 +590,6 @@ def success_check_email(request):
             # create a new one, if the new one already exists in the database
             email_confirm_code = make_random_string()  # pragma: no cover
 
-        import pdb; pdb.set_trace()
-        # to store the data in the DB, an objet is created
-
-        print(email_confirm_code)
         coopMemberArgs = dict(
             firstname=appstruct['person']['firstname'],
             lastname=appstruct['person']['lastname'],

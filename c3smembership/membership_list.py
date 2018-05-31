@@ -418,8 +418,6 @@ def make_member_view(request):
             member.is_legalentity = False
         member.membership_number = C3sMember.get_next_free_membership_number()
 
-        # import pdb; pdb.set_trace()
-
         share_id = request.registry.share_acquisition.create(
             member.membership_number,
             member.num_shares,
