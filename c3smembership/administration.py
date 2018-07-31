@@ -142,21 +142,6 @@ your membership tool''' % (existing.login,
             DBSession.add(staffer)
             DBSession.flush()
             print "added staffer"
-            encrypted = encrypt_with_gnupg('''hi,
-%s was added to the backend by %s.
-
-best,
-your membership tool''' % (staffer.login,
-                           authenticated_userid(request)))
-            message = Message(
-                subject='[p≡p coop Yes] staff was added.',
-                sender='members-admin@pep.coop',
-                recipients=[
-                    request.registry.settings['c3smembership.mailaddr']],
-                body=encrypted
-            )
-            mailer = get_mailer(request)
-            mailer.send(message)
 
         return HTTPFound(
             request.route_url('staff')
